@@ -64,7 +64,7 @@ Eventi Blocco =
     # NFT is LIST           - input type checkbox       - Key: LIST on system.remerk
     # NFT is BUY            - input type checkbox       - Key: BUY on system.remerk
 
-2_ FILTRI SECONDARI - LIST
+2_ FILTRI SECONDARI
     # NFT TYPE 
         # Kanaria           - input type checkbox       - Key: KANBIRD on system.remerk and URL
         # Items             - input type checkbox       - Non specificato, vedere singolo oggetto
