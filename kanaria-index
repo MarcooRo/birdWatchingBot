@@ -1,0 +1,136 @@
+########## REMARK ############
+
+Esempio:
+
+RMRK::LIST::1.0.0::9551331-541e0539e46ada255b-DSK-DSK_005-0000000000000005::98000000000
+
+    RMRK -> Remark di Kanaria
+    LIST -> Tipo di remerk, messa in vendita 
+    1.0.0 -> Versione del protocollo RMRK (1.0.0 oppure 2.0.0, Kanaria è 2.0.0, singular 1.0.0)
+    9551331-541e0539e46ada255b-DSK-DSK_005-0000000000000005 --> NFT
+    98000000000 -> non lo so ancora
+
+https://kanaria.rmrk.app/catalogue/8949162-e0b9bdcc456a36497a-KANBIRD-KANS-00000007
+
+    {NFT TYPE}-{NFT GRADE}-00000007 -> ID dell'oggetto
+
+
+########## URL ############
+
+URL NFT 
+https://kanaria.rmrk.app/catalogue/ --> segue codice NFT (https://kanaria.rmrk.app/catalogue/8788586-e0b9bdcc456a36497a-KANCHEST-1f6d0_necklace-00000020)
+
+URL file ipfs
+https://rmrk.mypinata.cloud/ipfs/bafkreihprvabgicjbgwuqkzfda6vm7ubre3e7wve2i4ug5tbtjqi673yim
+
+{   
+"image":"ipfs://ipfs/QmQMLMjx55DqbsLRF48kt8c1XTqCJWxvLhF4jQBhnaaz1e/1F6D0/1F6D0_Necklace_thumb.png", --> Immagine PNG, può anche essere SVG
+"description":"How does a Kanaria ... .",
+"name":"Prayer Pendant",
+"properties":{
+    "rarity":{
+        "type":"string",
+        "value":"legendary"
+    },
+    "rarity_percentage":{
+        "type":"float",
+        "value":0.023092021706500404},
+        "total_count":{
+            "type":"int",
+            "value":2
+        },
+        "context":{
+            "type":"string",
+            "value":"mystical"
+        },
+        "type":{
+            "type":"string",
+            "value":"amulet"
+        }
+    }
+}
+
+
+########### DATI DAL BLOCCO ############
+
+Extrinsics = system.remark
+Eventi Blocco = 
+
+
+########### FILTRI ############
+
+
+1_ FILTRI PRINCIPALE
+    # NFT is LIST           - input type checkbox       - Key: LIST on system.remerk
+    # NFT is BUY            - input type checkbox       - Key: BUY on system.remerk
+
+2_ FILTRI SECONDARI - LIST
+    # NFT TYPE 
+        # Kanaria           - input type checkbox       - Key: KANBIRD on system.remerk and URL
+        # Items             - input type checkbox       - Non specificato, vedere singolo oggetto
+        # Gams              - input type checkbox
+
+    # NFT COST
+        # Numero of KSM     - input type number
+
+    # NFT GRADE KANARIA
+        # Super Founder     - input type checkbox       - Key: {nft-type}-KANS on system.remerk and URL
+        # Founder           - input type checkbox       - Key: {nft-type}-KANF on system.remerk and URL
+        # Rare              - input type checkbox       - Key: {nft-type}-KANR on system.remerk and URL
+        # Limited E.        - input type checkbox       - Key: {nft-type}-KANL on system.remerk and URL
+
+    # NFT GRADE ITEMS
+        # Super Founder     
+        # Founder           
+        # Rare              
+        # Limited E.        
+
+    # NFT ITEMS TYPE
+        # Back              - input type checkbox       - Key: KANBACK or typeGroup=backpack on system.remerk and URL
+        # Backgournd        - input type checkbox       - Key: KANBG or typeGroup=background on system.remerk and URL
+        # Foreground        - input type checkbox       - Key: KANFRNT or typeGroup=foreground on system.remerk and URL
+        # Headwear          - input type checkbox       - Key: KANHEAD or typeGroup=headwear on system.remerk and URL
+        # Handheld          - input type checkbox       - Key: KANHAND or typeGroup=handheld or  on system.remerk and URL
+        # Chast             - input type checkbox       - Key: KANCHEST or typeGroup=necklace on system.remerk and URL
+
+3_ FILTRO SINGOLO NFT BY ID
+    # NFT SINGOLO
+        # String            - input type text
+    # NFT COLLEZZIONE
+        # String            - input type text
+
+
+
+
+########### RISPOSTA LIST ############
+{IMAGE}
+{NFT TYPE}-{NFT GRADE}-{IDoggetto} is just put on sale!
+Price: {Prezzo} KSM
+{LINK} Watch here
+
+{IMAGE}
+Kanaria-SuperFounder-00000007 is just put on sale!
+Price: 1000 KSM
+Watch here
+
+
+########### RISPOSTA BUY ############
+{IMAGE}
+{NFT TYPE}-{NFT GRADE}-{IDoggetto} is just sale!
+Price: {Prezzo} KSM
+{LINK} Watch here
+
+{IMAGE}
+Kanaria-SuperFounder-00000007 is just sale!
+Price: 1000 KSM
+Watch here
+
+
+
+########### DOVE LEGGERE I DATI ############
+{IMAGE}             Json di mypinata 
+{NFT TYPE}          RMRK path
+{NFT GRADE}         RMRK path (Per Kanaria)
+{IDoggetto}         RMRK path 
+{Prezzo}            ? (forse nell'evento del blocco)
+{LINK}              Composizione tra URL + Remark
