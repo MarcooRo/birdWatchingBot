@@ -8,7 +8,7 @@ RMRK::LIST::1.0.0::9551331-541e0539e46ada255b-DSK-DSK_005-0000000000000005::9800
     LIST -> Tipo di remerk, messa in vendita 
     1.0.0 -> Versione del protocollo RMRK (1.0.0 oppure 2.0.0, Kanaria è 2.0.0, singular 1.0.0)
     9551331-541e0539e46ada255b-DSK-DSK_005-0000000000000005 --> NFT
-    98000000000 -> non lo so ancora
+    98000000000 -> Costo dell'items in vendità o costo della transazione, expressed in plancks
 
 https://kanaria.rmrk.app/catalogue/8949162-e0b9bdcc456a36497a-KANBIRD-KANS-00000007
 
