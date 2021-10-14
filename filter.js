@@ -16,8 +16,8 @@ var remarkObj = new Map([
 var rmrkJson = Object.fromEntries(remarkObj);
 console.log(rmrkJson);
 var remarkRmrk = rmrkJson.rmrk;
-var remarkInteraction = rmrkJson.remarkInteraction;
-var remarkVersion = rmrkJson.remarkVersion;
+var remarkInteraction = rmrkJson.interaction;
+var remarkVersion = rmrkJson.version;
 var remarkNft = rmrkJson.nft;
 var remarkPrice = rmrkJson.price;
 
@@ -70,33 +70,50 @@ const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
 
 /***************************
  * MESSAGE LIST TO PRINT
- **************************
+ ***************************/
 
- const message = {
-    nftType: "John",
-    nftGrade: "Doe",
-    id: 5566,
-    price: ,
+const message = {
+    nftType: nftTypeOf,
+    nftGrade: nftRarity,
+    id: nftNid,
+    price: remarkPrice,
     link: linkCatalogo + remarkNft,
     print: function() {
-        var toPrint = "Ciao" + this.firstName;
-      return toPrint
+        switch (this.nftType) {
+            case Kanbird:
+                var nome = "Kanaria Bird";
+                var text = "Si tratta del N°" + this.id + " Classe rarità: " + this.nftGrade;
+                break;
+            case KanBack:
+                var nome = "Backgournd";
+                var text = "Si tratta del N°" + this.id;
+                break;
+        }
+        var toPrint = "<p>Attenzione un " + nome + " è stato messo in vendità</p> \
+                        <p>" + text + "</p> \
+                        <p>Al prezzo di " + this.price + "</p> \
+                        <a href='" + this.link + "'>Guarda!</a>";
+
+        return toPrint
     }
-  };
+};
 
 
-*/
+
 /***************************
  * FILTER LIST FOR KANARIA
  ***************************/
 // 1. LIST
 // List + price != 0, se il prezzo è 0 NFT è stato tolto dalla vendita
+
 if (remarkInteraction == List && remarkPrice > 0) {
     // from here pass only NFT list for sell
 
     if (nftTypeOf == Kanbird) {
         // print all Kanaria Bird
-        message.print();
+        //message.print();
+        console.log(message.print());
+
     }
     if (nftRarity == KanbirdSuperFounder) {
         // print only Kanaria Bird Super Founder
