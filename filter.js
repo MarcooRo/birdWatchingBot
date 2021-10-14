@@ -96,7 +96,7 @@ if (remarkInteraction == List && remarkPrice > 0) {
 
     if (nftTypeOf == Kanbird) {
         // print all Kanaria Bird
-        person.print();
+        message.print();
     }
     if (nftRarity == KanbirdSuperFounder) {
         // print only Kanaria Bird Super Founder
