@@ -53,7 +53,7 @@ var nftNid = nftTypJson.numberId;
 const version_1 = "1.0.0";
 const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
 const list = "LIST";
-const Buy = "BUY";
+const buy = "BUY";
 const mint = "MINT";
 const baseCollection = "e0b9bdcc456a36497a";
 const kanbird = "KANBIRD";
@@ -74,6 +74,18 @@ const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
 const linkCatalogoComp = linkCatalogo + remarkNft;
 var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
 //var freePrice = al valore di input della UI bot 
+
+
+/***************************
+ * BOT COMMAND
+ ***************************/
+let botList = true; // take true/false from bot inout
+let botBuy = true; // take true/false from bot inout
+let botKanbird = true; // take true/false from bot inout
+let botKanbirdSuperFounder = true; // take true/false from bot inout
+let botKanbirdFounder = true; // take true/false from bot inout
+let botKanbirdRare = true; // take true/false from bot inout
+let botKanbirdLimited = true; // take true/false from bot inout
 
 
 /***************************
