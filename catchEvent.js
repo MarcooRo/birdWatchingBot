@@ -6,7 +6,7 @@ const ApiPromise  = require('@polkadot/api')
 const WsProvider  = require('@polkadot/api')
 const hexToString = require('@polkadot/util')
 const getMessageGivenFilter = require('./filter.js')
-const sendMessage = require('./bot-Telegram/sendMessage');
+const sendMessage = require('./bot/sendMessage');
 
 
 const getRemark = async function getRemark(api, hederNumber, filter) {
