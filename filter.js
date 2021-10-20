@@ -32,7 +32,7 @@
  let addressSell = "..." // address di chi lista o vende
 //var remark = "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
 
-export function getMessageGivenFilter(remark, filter) {
+exports.getMessageGivenFilter = function getMessageGivenFilter(remark, filter) {
     addressSell = "..." // address di chi lista o vende
 
     //RMRK::LIST::2.0.0::8788607-e0b9bdcc456a36497a-KANBG-1f303_background-00000023
@@ -125,6 +125,7 @@ const message = {
     price: remarkPrice,
     link: linkCatalogoComp,
     print: function() {
+        console.log(this.nftType)
         switch (this.nftType) {
             case kanbird:
                 var nome = "Kanaria Bird";
@@ -156,9 +157,9 @@ const message = {
                 break;
 
         }
-        var toPrint = "<p>Attenzione! Un " + nome + " è stato messo in vendita</p><br> \
-                        <p>" + text + "</p><br> \
-                        <p>Al prezzo di " + this.price + "KSM</p><br> \
+        var toPrint = "<i>Attenzione! Un " + nome + " è stato messo in vendita</i>\n\
+                        <i>" + text + "</i> \n \
+                        <i>Al prezzo di " + this.price + "KSM</i>\n \
                         <a href='" + this.link + "'>Vai allo shop</a>";
 
         return toPrint;
