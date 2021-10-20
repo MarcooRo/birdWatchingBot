@@ -1,84 +1,95 @@
 /***************************
  * OUR REMARK FROM THE BLOCK
  ***************************/
-var remark = "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-var addressSell = "..." // address di chi lista o vende
 
-//RMRK::LIST::2.0.0::8788607-e0b9bdcc456a36497a-KANBG-1f303_background-00000023
-//https://kanaria.rmrk.app/catalogue/8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+/***************************
+ * FILTER UTILITY
+ ***************************/
+ const version_1 = "1.0.0";
+ const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
+ const list = "LIST";
+ const buy = "BUY";
+ const mint = "MINT";
+ const baseCollection = "e0b9bdcc456a36497a";
+ const kanbird = "KANBIRD";
+ const kanbirdSuperFounder = "KANS";
+ const kanbirdFounder = "KANF";
+ const kanbirdRare = "KANR";
+ const kanbirdLimited = "KANL";
+ const kanBack = "KANBACK";
+ const kanBg = "KANBG";
+ const kanFrnt = "KANFRNT";
+ const kanHead = "KANHEAD";
+ const kanHand = "KANHAND";
+ const kanChest = "KANCHEST";
+ const freeString = "" // campo di trak libero
+ const img = ""; // come trovare il Json?
+ const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
+ const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
+ let linkCatalogoComp = "";
+ var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
+//var freePrice = al valore di input della UI bot 
+ let addressSell = "..." // address di chi lista o vende
+//var remark = "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
 
-var remarkSplit = remark.split('::');
-//console.log(remarkSplit);
-var remarkObj = new Map([
-    ["rmrk", remarkSplit[0]],
-    ["interaction", remarkSplit[1]],
-    ["version", remarkSplit[2]],
-    ["nft", remarkSplit[3]],
-    ["price", remarkSplit[4]]
-]);
-//console.log(remarkObj);
-var rmrkJson = Object.fromEntries(remarkObj);
-console.log(rmrkJson);
+export function getMessageGivenFilter(remark, filter) {
+    addressSell = "..." // address di chi lista o vende
+
+    //RMRK::LIST::2.0.0::8788607-e0b9bdcc456a36497a-KANBG-1f303_background-00000023
+    //https://kanaria.rmrk.app/catalogue/8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+
+    var remarkSplit = remark.split('::');
+    //console.log(remarkSplit);
+    var remarkObj = new Map([
+        ["rmrk", remarkSplit[0]],
+        ["interaction", remarkSplit[1]],
+        ["version", remarkSplit[2]],
+        ["nft", remarkSplit[3]],
+        ["price", remarkSplit[4]]
+    ]);
+    //console.log(remarkObj);
+    var rmrkJson = Object.fromEntries(remarkObj);
+    console.log(rmrkJson);
+    var remarkNft = rmrkJson.nft;
+    linkCatalogoComp = linkCatalogo + remarkNft;
+
+    /***************************
+     * ESPLODE NFT TYPE
+     ***************************/
+    var nftType = remarkNft.split('-');
+    //console.log(nftType);
+    var nftTypeObj = new Map([
+        ["nonServe", nftType[0]],
+        ["vertionKanaria", nftType[1]],
+        ["typeNFT", nftType[2]],
+        ["typeRarity", nftType[3]],
+        ["numberId", nftType[4]]
+    ]);
+    //console.log(nftTypeObj);
+    var nftTypJson = Object.fromEntries(nftTypeObj);
+    return checkFilter(rmrkJson, nftTypJson, filter)
+}
+
+
+
+
+
+function checkFilter(rmrkJson, nftTypJson, filter) {
 var remarkRmrk = rmrkJson.rmrk;
 var remarkInteraction = rmrkJson.interaction;
 var remarkVersion = rmrkJson.version;
-var remarkNft = rmrkJson.nft;
 var remarkPrice = rmrkJson.price / 10000000000;
+var remarkNft = rmrkJson.nft;
 
-/***************************
- * ESPLODE NFT TYPE
- ***************************/
-var nftType = remarkNft.split('-');
-//console.log(nftType);
-var nftTypeObj = new Map([
-    ["nonServe", nftType[0]],
-    ["vertionKanaria", nftType[1]],
-    ["typeNFT", nftType[2]],
-    ["typeRarity", nftType[3]],
-    ["numberId", nftType[4]]
-]);
-//console.log(nftTypeObj);
-var nftTypJson = Object.fromEntries(nftTypeObj);
-console.log(nftTypJson);
 var nftNonSo = nftTypJson.nonServe; // I don't know what is it
 var nftVertion = nftTypJson.vertionKanaria;
 var nftTypeOf = nftTypJson.typeNFT;
 var nftRarity = nftTypJson.typeRarity;
 var nftNid = nftTypJson.numberId;
-
-
-/***************************
- * FILTER UTILITY
- ***************************/
-const version_1 = "1.0.0";
-const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
-const list = "LIST";
-const buy = "BUY";
-const mint = "MINT";
-const baseCollection = "e0b9bdcc456a36497a";
-const kanbird = "KANBIRD";
-const kanbirdSuperFounder = "KANS";
-const kanbirdFounder = "KANF";
-const kanbirdRare = "KANR";
-const kanbirdLimited = "KANL";
-const kanBack = "KANBACK";
-const kanBg = "KANBG";
-const kanFrnt = "KANFRNT";
-const kanHead = "KANHEAD";
-const kanHand = "KANHAND";
-const kanChest = "KANCHEST";
-const freeString = "" // campo di trak libero
-const img = ""; // come trovare il Json?
-const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
-const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
-const linkCatalogoComp = linkCatalogo + remarkNft;
-var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
-//var freePrice = al valore di input della UI bot 
-
-
 /***************************
  * BOT COMMAND
  ***************************/
+//inizializzare tutti i filtri in base alla variabile filter 
 let botList = true; // take true/false from bot inout
 let botBuy = true; // take true/false from bot inout
 let botKanbird = true; // take true/false from bot inout
@@ -155,7 +166,7 @@ const message = {
 };
 
 
-
+return message.print();
 /***************************
  * FILTER LIST FOR KANARIA
  ***************************/
@@ -243,3 +254,5 @@ if (remarkInteraction == list && remarkPrice > 0) {
 
     } // end Price
 } // end List
+//return del messaggio 
+}
