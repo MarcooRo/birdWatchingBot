@@ -19,14 +19,10 @@ const init = async () => {
 }
 
 app.post(URI, async (req, res) => {
-    console.log(req.body)
-
-    //console.log(req.body)
-
     const chatId = req.body.message.chat.id
     const text = req.body.message.text
     if(text == "Start") {
-        BotStart.BotStart(true, null)
+        BotStart.BotStart(chatId, true, null)
     }
     sendMessage.sendMessage(chatId, text)
     return res.send()
