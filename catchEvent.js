@@ -9,20 +9,20 @@ const getMessageGivenFilter = require('./filter.js')
 const sendMessage = require('./bot/sendMessage');
 
 
-const getRemark = async function getRemark(api, hederNumber, filter) {
+const getRemark = async function getRemark(chatId, api, hederNumber, filter) {
   const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
   const signedBlock = await api.rpc.chain.getBlock(blockHash);
   signedBlock.block.extrinsics.forEach((ex, index) => {
       if (ex.method.meta.name.toString() == "remark") {
           console.log(index+"----------", hexToString.hexToString(ex.args.toString()));
-          sendMessage.sendMessage("1238654632",getMessageGivenFilter.getMessageGivenFilter(hexToString.hexToString(ex.args.toString()), filter))
+          sendMessage.sendMessage(chatId, getMessageGivenFilter.getMessageGivenFilter(hexToString.hexToString(ex.args.toString()), filter))
 
       }
   });
   return "";
 }
 
-exports.BotStart =  function botStart (on, filter) {
+exports.BotStart =  function botStart (chatId, on, filter) {
   (async () => {
     console.log("SCANSIONE EVENTI AVVIATA")
     const provider = new WsProvider.WsProvider('wss://kusama-rpc.polkadot.io/');
@@ -31,7 +31,7 @@ exports.BotStart =  function botStart (on, filter) {
     if(on){
       const blockNumber = await api.rpc.chain.subscribeNewHeads((header) => {
             console.log("Blocco numero "+ header.number)
-            getRemark(api, header.number, filter)
+            getRemark(chatId, api, header.number, filter)
       });
     }else{
       return;
