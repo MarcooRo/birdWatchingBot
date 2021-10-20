@@ -1,5 +1,3 @@
-
-
 const { TOKEN } = process.env
 const axios = require('axios')
 
