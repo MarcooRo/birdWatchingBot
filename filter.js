@@ -78,7 +78,7 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
     var remarkRmrk = rmrkJson.rmrk;
     var remarkInteraction = rmrkJson.interaction;
     var remarkVersion = rmrkJson.version;
-    var remarkPrice = rmrkJson.price / 10000000000;
+    var remarkPrice = rmrkJson.price / 100000000000;
     var remarkNft = rmrkJson.nft;
 
     var nftNonSo = nftTypJson.nonServe; // I don't know what is it
@@ -157,13 +157,13 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
                     break;
 
             }
-            var toPrint = "<i>OMG! An " + nome + " was put up for sale</i>\n\
-                    <i>" + text + "</i> \n \
-                    <i>At the price of " + this.price + "KSM</i>\n \
-                    <a href='" + this.link + "'>Get it first -></a>\n \
-                    \n \
-                    \n \
-                    <i>This is a beta version. More features coming soon</i>";
+            var toPrint = "<b>OMG!</b>\n\<b>An " + nome + " was put up for sale</b>\n\
+<pre>" + text + "</pre> \n \
+<pre>At the price of " + this.price + "KSM</pre>\n \
+<a href='" + this.link + "'>Get it first -></a>\n \
+\n \
+\n \
+<i>This is a beta version. More features coming soon</i>";
 
             return toPrint;
         }
