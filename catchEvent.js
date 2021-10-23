@@ -1,7 +1,3 @@
-// import { ApiPromise, WsProvider } from '@polkadot/api';
-// import { hexToString } from "@polkadot/util";
-// import { getMessageGivenFilter } from './filter.js';
-
 const ApiPromise  = require('@polkadot/api')
 const WsProvider  = require('@polkadot/api')
 const hexToString = require('@polkadot/util')
@@ -14,9 +10,9 @@ const getRemark = async function getRemark(chatId, api, hederNumber, filter) {
   const signedBlock = await api.rpc.chain.getBlock(blockHash);
   signedBlock.block.extrinsics.forEach((ex, index) => {
       if (ex.method.meta.name.toString() == "remark") {
-          console.log(index+"----------", hexToString.hexToString(ex.args.toString()));
-          sendMessage.sendMessage(chatId, getMessageGivenFilter.getMessageGivenFilter(hexToString.hexToString(ex.args.toString()), filter))
-
+          let remarks = hexToString.hexToString(ex.args.toString());
+          console.log(index+"----------", remarks);
+          if(remarks.includes("2.0.0"))sendMessage.sendMessage(chatId, getMessageGivenFilter.getMessageGivenFilter(remarks, filter))
       }
   });
   return "";
