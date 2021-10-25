@@ -78,7 +78,7 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
     var remarkRmrk = rmrkJson.rmrk;
     var remarkInteraction = rmrkJson.interaction;
     var remarkVersion = rmrkJson.version;
-    var remarkPrice = rmrkJson.price / 100000000000;
+    var remarkPrice = rmrkJson.price / 950000000000;
     var remarkNft = rmrkJson.nft;
 
     var nftNonSo = nftTypJson.nonServe; // I don't know what is it
@@ -129,47 +129,46 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
             switch (this.nftType) {
                 case kanbird:
                     var nome = "Kanaria Bird";
-                    var text = "This is the N°" + this.id + " Rarity class: " + this.nftGrade;
+                    var text = "Rarity: " + this.nftGrade + " N°" + this.id;
                     break;
                 case kanBack:
-                    var nome = "backpack";
-                    var text = "This is the N°" + this.id;
+                    var nome = "Backpack";
+                    var text = "N°" + this.id;
                     break;
                 case kanBg:
                     var nome = "Backgournd";
-                    var text = "This is the N°" + this.id;
+                    var text = "N°" + this.id;
                     break;
                 case kanFrnt:
-                    var nome = "foreground";
-                    var text = "This is the N°" + this.id;
+                    var nome = "Foreground";
+                    var text = "N°" + this.id;
                     break;
                 case kanHead:
-                    var nome = "headwear";
-                    var text = "This is the N°" + this.id;
+                    var nome = "Headwear";
+                    var text = "N°" + this.id;
                     break;
                 case kanHand:
-                    var nome = "handheld";
-                    var text = "This is the N°" + this.id;
+                    var nome = "Handheld";
+                    var text = "N°" + this.id;
                     break;
                 case kanChest:
-                    var nome = "necklace";
-                    var text = "This is the N°" + this.id;
+                    var nome = "Necklace";
+                    var text = "N°" + this.id;
                     break;
 
             }
-            var toPrint = "<b>OMG!</b>\n\<b>An " + nome + " was put up for sale</b>\n\
-<pre>" + text + "</pre> \n \
-<pre>At the price of " + this.price + "KSM</pre>\n \
-<a href='" + this.link + "'>Get it first -></a>\n \
-\n \
-\n \
-<i>This is a beta version. More features coming soon</i>";
+            var toPrint = "<b>OMG!</b>\n\An <b>" + nome + "</b> has been listed\n\
+<b>" + text + "</b>\n\
+<b>Sale at: " + this.price + " KSM</b>\n\
+<a href='" + this.link + "'>Take a look -></a>\n\
+\n\
+<i>This is a beta version, bug will fix and more features coming soon</i>";
 
             return toPrint;
         }
     };
 
-    return message.print();
+
     /***************************
      * FILTER LIST FOR KANARIA
      ***************************/
@@ -178,6 +177,8 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
 
     if (remarkInteraction == list && remarkPrice > 0) {
         // from here pass only NFT list for sell
+
+        return message.print();
 
         if (remarkPrice >= freePrice) {
             // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
@@ -256,6 +257,7 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
             }
 
         } // end Price
+
     } // end List
     //return del messaggio 
 }
