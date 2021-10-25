@@ -2,8 +2,9 @@ require('dotenv').config()
 const { Telegraf } = require('telegraf')
 const { Extra, Markup, InlineKeyboardMarkup} = require('telegraf');
 const axios = require('axios')
-
+const BotStart = require('../catchEvent')
 const bot = new Telegraf(process.env.BOT_TOKEN);
+
 let chatId = ""
 let inExecution = false
 const checked = '\u{1F7E2}'
@@ -66,7 +67,7 @@ bot.action('filtra', ctx => {
                     {text: "Test", callback_data: 'test'}
                 ],
                 [
-                    {text: "Salva", callback_data: 'Salva'}
+                    {text: "Start", callback_data: 'Start'}
                 ],
                 [
                     {text: "Indietro", callback_data: 'indietro'}
@@ -81,8 +82,9 @@ bot.action('indietro', ctx => {
     sendStartMenu(ctx);
 })
 
-bot.action('Salva', ctx => {
+bot.action('Start', ctx => {
     inExecution = true
+    BotStart.BotStart()
     bot.telegram.sendMessage(ctx.chat.id, "BOT LANCIATO", {
         reply_markup: {
             remove_keyboard: true
