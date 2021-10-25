@@ -84,7 +84,7 @@ bot.action('indietro', ctx => {
 
 bot.action('Start', ctx => {
     inExecution = true
-    BotStart.BotStart()
+    BotStart.BotStart(ctx.chat.id, null, true)
     bot.telegram.sendMessage(ctx.chat.id, "BOT LANCIATO", {
         reply_markup: {
             remove_keyboard: true
