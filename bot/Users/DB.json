@@ -1,0 +1,12 @@
+{
+    "Users":{
+        "User1": {
+            "name": "Alberto",
+            "filter": [0,1,1,1,0,0,0,0]
+        },
+        "User2": {
+            "name": "Marco",
+            "filter": [0,1,1,1,0,0,0,0]
+        }
+    }
+}
