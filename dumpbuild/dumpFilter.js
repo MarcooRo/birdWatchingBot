@@ -1,11 +1,10 @@
-
-let dump = require('./DUMP2.json');
-const collect = ["KANBACK","KANBG","KANFRNT", "KANHEAD", "KANHAND","KANCHEST"]
+let dump = require('./DUMP.json');
+const collect = ["KANBACK", "KANBG", "KANFRNT", "KANHEAD", "KANHAND", "KANCHEST", "EVNTS"]
 const fs = require('fs');
 const fine = `"fine":{}}`
 
-function writeFile(name, obj){
-    fs.appendFileSync(`./CollectionsDump/${name}.json`, obj, 'utf8', function (err) {
+function writeFile(name, obj) {
+    fs.appendFileSync(`./CollectionsDump/${name}.json`, obj, 'utf8', function(err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
@@ -14,8 +13,8 @@ function writeFile(name, obj){
 }
 
 function checkKey(key) {
-    for(let i = 0; i < collect.length; i++){
-        if(key.includes(collect[i]))return true
+    for (let i = 0; i < collect.length; i++) {
+        if (key.includes(collect[i])) return true
     }
     return false
 }
@@ -23,23 +22,23 @@ function checkKey(key) {
 var value = ""
 var collection = ""
 let obj = {}
-//devo aprire graffa in tutti i file
+    //devo aprire graffa in tutti i file
 collect.forEach(element => {
     writeFile(element, "{")
 });
-for (var key in dump.nfts){
-    if(!checkKey(key))continue
+for (var key in dump.nfts) {
+    if (!checkKey(key)) continue
     value = dump.nfts[key];
     collection = value.collection.split('-')[1]
-    //creazione del'oggetto
-    if(value.resources[0].src == undefined) console.log(key)
+        //creazione del'oggetto
+    if (value.resources[0].src == undefined) console.log(key)
     let text = ` "${key}" : {` +
-    ` "src": "${value.resources[0].src}" ,
+        ` "thumb": "${value.resources[0].src}" ,
        "slot": "${value.resources[0].slot}",` +
-    `  "collection": "${collection}", 
+        `  "collection": "${collection}", 
        "metadata": "${value.metadata}"},`;
 
-    switch(collection){
+    switch (collection) {
         case 'KANBACK':
             writeFile("KANBACK", text)
         case 'KANBG':
@@ -51,6 +50,8 @@ for (var key in dump.nfts){
         case 'KANHAND':
             writeFile("KANHAND", text)
         case 'KANCHEST':
+            writeFile("KANCHEST", text)
+        case 'EVNTS':
             writeFile("KANCHEST", text)
     }
 }
