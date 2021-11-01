@@ -34,7 +34,6 @@ bot.help(ctx => {
 
 bot.command('start', ctx => {
     sendStartMenu(ctx);
-    db.addUser("123456", "123456");
 })
 
 function sendStartMenu (ctx, inExecution) {
@@ -69,6 +68,7 @@ function sendStartMenu (ctx, inExecution) {
 
 bot.action('filtra', ctx => {
     const menuMessage = "Crea il tuo filtro!"
+    ctx.deleteMessage()
     bot.telegram.sendMessage(ctx.chat.id, menuMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -118,9 +118,8 @@ bot.action('Start', ctx => {
     let result = ''
     console.log(filter)
     for(key in filter)result += filter[key];
-    db.addUser(ctx.chat.id, result)
+    db.addUser(bot, ctx.chat.id, result)
     sendStartMenu(ctx,1);
-    console.log(user)
 })
 bot.action('List', ctx = async() => {
    if(filter.List) filter.List = 0
@@ -172,15 +171,23 @@ bot.action('Necklace', ctx = async() => {
 })
 bot.action('Stop', ctx => {
     //reset filter 
+    ctx.deleteMessage()
     filter = {"List": 0,"Buy": 0,"SuperFunder": 0,"Funder": 0,"Rare": 0,"Limited": 0,
     "BackPack": 0,"Background": 0,"Foreground": 0,"Headwear": 0,"Handheld": 0,"Necklace": 0
     }
-    db.deleteUser(ctx.chat.id)
+    if(db.deleteUser(ctx.chat.id) == -1){
+        bot.telegram.sendMessage(ctx.chat.id, "NON HAI MAI AVVIATO IL BOT", {
+            reply_markup: {
+                remove_keyboard: true
+            }
+        })
+    }
     bot.telegram.sendMessage(ctx.chat.id, "BOT FERMATO!", {
         reply_markup: {
             remove_keyboard: true
         }
     })
+    sendStartMenu(ctx,0);
 })
 
 

@@ -18,21 +18,21 @@ services:
     ports:
       - "8001:80"
 
- botjs:
-    build: 
-      context: .
-      dockerfile: Dockerfile2
-    image: albertorotondo/nodejsapp
-    networks:
-      - frontend  
-      - backend
-    environment:
-      - MYSQL_HOST=myapp_mysql
-      - MYSQL_USER=KanUser
-      - MYSQL_PASSWORD=rootPass1803
-      - MYSQL_DB=ProgettoHackaton
-    volumes:
-      - ./bot:/usr/app/bot
+#  botjs:
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile2
+#     image: albertorotondo/nodejsapp
+#     networks:
+#       - frontend  
+#       - backend
+#     environment:
+#       - MYSQL_HOST=myapp_mysql
+#       - MYSQL_USER=KanUser
+#       - MYSQL_PASSWORD=rootPass1803
+#       - MYSQL_DB=ProgettoHackaton
+#     volumes:
+#       - ./bot:/usr/app/bot
 
 
  mysql:

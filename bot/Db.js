@@ -18,12 +18,21 @@ exports.getAllUsers = function getAllUsers() {
 
 exports.deleteUser = function deleteUser(chatId) {
     pool.query(`Delete From Users Where chatId=?`,[chatId], (err, result, fields) =>{
-        if(err) return console.log(err)
+        if(err) return -1
     })
 }
 
-exports.addUser = function addUser(chatId, filter) {
+exports.addUser = function addUser(bot, chatId, filter) {
     pool.query(`Insert into Users(chatId, filter) Values (${chatId}, ${filter})`, (err, result, fields) => {
-        if(err) return console.log(err)
+        if(err) {
+            if(err.code){
+                bot.telegram.sendMessage(chatId, "Bot già avviato!", {
+                reply_markup: {
+                    remove_keyboard: true
+                }
+            })
+        }
+            return console.log(err.code)
+        }
     })
 }
