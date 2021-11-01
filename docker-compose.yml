@@ -1,0 +1,70 @@
+version: '3.2'
+services:
+ nodejs:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: albertorotondo/nodejsapp
+    networks:
+      - frontend  
+      - backend
+    environment:
+      - MYSQL_HOST=myapp_mysql
+      - MYSQL_USER=KanUser
+      - MYSQL_PASSWORD=rootPass1803
+      - MYSQL_DB=ProgettoHackaton
+    volumes:
+      - .:/usr/app
+    ports:
+      - "8001:80"
+
+ botjs:
+    build: 
+      context: .
+      dockerfile: Dockerfile2
+    image: albertorotondo/nodejsapp
+    networks:
+      - frontend  
+      - backend
+    environment:
+      - MYSQL_HOST=myapp_mysql
+      - MYSQL_USER=KanUser
+      - MYSQL_PASSWORD=rootPass1803
+      - MYSQL_DB=ProgettoHackaton
+    volumes:
+      - ./bot:/usr/app/bot
+
+
+ mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=moeuser
+      - MYSQL_PASSWORD=moepass
+      - MYSQL_DATABASE=progettoHackaton
+    volumes:
+      - db:/var/lib/mysql
+    container_name: myapp
+
+ phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    ports:
+      - "8002:80"
+    environment:
+      - PMA_HOST=myapp
+      - PMA_PORT= 3306
+    volumes:
+      - /sessions
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db:
