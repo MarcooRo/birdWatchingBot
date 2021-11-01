@@ -1,5 +1,12 @@
-let dump = require('./DUMP.json');
-const collect = ["KANBACK", "KANBG", "KANFRNT", "KANHEAD", "KANHAND", "KANCHEST", "EVNTS"]
+//let dump = require('./DUMP.json');
+
+let dump = ""
+async() => {
+    let url = 'https://gateway.pinata.cloud/ipns/precon-rmrk2.rmrk.link';
+    dump = await (await fetch(url)).json();
+}
+
+const collect = ["KANS", "KANF", "KANR", "KANL", "KANBACK", "KANBG", "KANFRNT", "KANHEAD", "KANHAND", "KANCHEST", "EVNTS"]
 const fs = require('fs');
 const fine = `"fine":{}}`
 
@@ -39,6 +46,14 @@ for (var key in dump.nfts) {
        "metadata": "${value.metadata}"},`;
 
     switch (collection) {
+        case 'KANS':
+            writeFile("KANS", text)
+        case 'KANF':
+            writeFile("KANF", text)
+        case 'KANR':
+            writeFile("KANR", text)
+        case 'KANL':
+            writeFile("KANL", text)
         case 'KANBACK':
             writeFile("KANBACK", text)
         case 'KANBG':
@@ -52,7 +67,7 @@ for (var key in dump.nfts) {
         case 'KANCHEST':
             writeFile("KANCHEST", text)
         case 'EVNTS':
-            writeFile("KANCHEST", text)
+            writeFile("EVNTS", text)
     }
 }
 //devo scrivere json di fine su tutti i file
