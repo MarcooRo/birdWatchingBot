@@ -1,4 +1,8 @@
 let dump = require('./DUMP.json');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 355ccb2d30f91abf88c08ac066792903c8556ee9
 const collect = ["KANS", "KANF", "KANR", "KANL", "KANBACK", "KANBG", "KANFRNT", "KANHEAD", "KANHAND", "KANCHEST", "EVNTS"]
 const fs = require('fs');
 const fine = `"fine":{}}`
@@ -31,9 +35,13 @@ for (var key in dump.nfts) {
     value = dump.nfts[key];
     collection = value.collection.split('-')[1]
         //creazione del'oggetto
+<<<<<<< HEAD
     if (value.resources[0].src == undefined) console.log(value.resources[0])
+=======
+    if (value.resources[0].thumb == undefined) console.log(key)
+>>>>>>> 355ccb2d30f91abf88c08ac066792903c8556ee9
     let text = ` "${key}" : {` +
-        ` "thumb": "${value.resources[0].src}" ,
+        ` "thumb": "${value.resources[0].thumb}" ,
        "slot": "${value.resources[0].slot}",` +
         `  "collection": "${collection}", 
        "metadata": "${value.metadata}"},`;
