@@ -14,20 +14,15 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             // console.log(index + "----------", hexToString.hexToString(ex.args.toString()));
-            // if (remarks.includes("2.0.0")) {
-                    // prepara messaggio
-                let message = getMessageGivenFilter.buildMessage(remarks);
-                // messagebuilder(remark)
-                pool.pool.getConnection(function(err, connection) {
+            if (remarks.includes("2.0.0")) {
+                let message = getMessageGivenFilter.buildMessage(remarks)
                     pool.pool.query(`Select * from Users`, (err, result, fields) =>{
                         if(err) return console.log(err)
-                        for(let k in result)
-                        console.log(remarks)
-                            //sendMessage.sendMessage(result[k].chatId, message)
+                        for(let k in result){
+                            sendMessage.sendMessage(result[k].chatId.toString(), message)
+                        }
                     })
-                    connection.release()
-                });
-            // }
+            }
         }
     });
     return "";
