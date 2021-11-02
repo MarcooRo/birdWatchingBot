@@ -73,60 +73,58 @@ exports.buildMessage = function buildMessage(remark) {
             break;
         case kanbirdLimited:
             var nftRarytext = "Limited edition";
-
-            const message = {
-                nftType: nftTypeOf,
-                nftGrade: nftRarytext,
-                id: nftNid,
-                price: remarkPrice,
-                link: linkCatalogoComp,
-                print: function() {
-                    ////console.log(this.nftType)
-                    switch (this.nftType) {
-                        case kanbird:
-                            var nome = "Kanaria Bird";
-                            var text = "Rarity: " + this.nftGrade + " N°" + this.id;
-                            break;
-                        case kanBack:
-                            var nome = "Backpack";
-                            var text = "N°" + this.id;
-                            break;
-                        case kanBg:
-                            var nome = "Backgournd";
-                            var text = "N°" + this.id;
-                            break;
-                        case kanFrnt:
-                            var nome = "Foreground";
-                            var text = "N°" + this.id;
-                            break;
-                        case kanHead:
-                            var nome = "Headwear";
-                            var text = "N°" + this.id;
-                            break;
-                        case kanHand:
-                            var nome = "Handheld";
-                            var text = "N°" + this.id;
-                            break;
-                        case kanChest:
-                            var nome = "Necklace";
-                            var text = "N°" + this.id;
-                            break;
-        
-                    }
-                    var toPrint = "<b>OMG!</b>\n\An <b>" + nome + "</b> has been listed\n\
-                    <b>" + text + "</b>\n\
-                    <b>Rarity:" + this.nftGrade +"</b>\n\
-                    <b>Sale at: " + this.price + " KSM</b>\n\
-                    <a href='" + this.link + "'>Take a look -></a>\n\
-                    \n\
-                    <i>This is a beta version, bug will fix and more features coming soon</i>";
-        
-                    return toPrint; 
-                }
-            };
-            console.log(message.print)
-            return  message.print()
     }
+
+    const message = {
+        nftType: nftTypeOf,
+        nftGrade: nftRarytext,
+        id: nftNid,
+        price: remarkPrice,
+        link: linkCatalogoComp,
+        print: function() {
+            switch (this.nftType) {
+                case kanbird:
+                    var nome = "Kanaria Bird";
+                    var text = "Rarity: " + this.nftGrade + " N°" + this.id;
+                    break;
+                case kanBack:
+                    var nome = "Backpack";
+                    var text = "N°" + this.id;
+                    break;
+                case kanBg:
+                    var nome = "Backgournd";
+                    var text = "N°" + this.id;
+                    break;
+                case kanFrnt:
+                    var nome = "Foreground";
+                    var text = "N°" + this.id;
+                    break;
+                case kanHead:
+                    var nome = "Headwear";
+                    var text = "N°" + this.id;
+                    break;
+                case kanHand:
+                    var nome = "Handheld";
+                    var text = "N°" + this.id;
+                    break;
+                case kanChest:
+                    var nome = "Necklace";
+                    var text = "N°" + this.id;
+                    break;
+
+            }
+            var toPrint = "<b>OMG!</b>\n\An <b>" + nome + "</b> has been listed\n\
+            <b>" + text + "</b>\n\
+            <b>" + this.nftGrade +"</b>\n\
+            <b>Sale at: " + this.price + " KSM</b>\n\
+            <a href='" + this.link + "'>Take a look -></a>\n\
+            \n\
+            <i>This is a beta version, bug will fix and more features coming soon</i>";
+            console.log(toPrint)
+            return toPrint; 
+        }
+    };
+            return  message.print()
 }
 
 function checkFilter(rmrkJson, nftTypJson, filter) {
