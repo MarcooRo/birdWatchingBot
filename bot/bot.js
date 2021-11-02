@@ -1,10 +1,9 @@
 require('dotenv').config()
-const { Telegraf } = require('telegraf')
-const { Extra, Markup, InlineKeyboardMarkup} = require('telegraf');
+const { Telegraf, Extra, Markup } = require('telegraf')
 const axios = require('axios')
 const db = require('./Db.js');
 const bot = new Telegraf(process.env.BOT_TOKEN);
-let filter = {
+let filter = {  
     "List": 0,
     "Buy": 0,
     "SuperFunder": 0,
@@ -19,6 +18,8 @@ let filter = {
     "Necklace": 0
 }
 const checked = '\u{1F7E2}'
+const rocket = '\u{1F680}'
+const stop = '\u{1F6D1}'
 let id = 0;
 
 bot.help(ctx => {
@@ -65,7 +66,6 @@ function sendStartMenu (ctx, inExecution) {
         })
     } 
 }
-
 bot.action('filtra', ctx => {
     const menuMessage = "Crea il tuo filtro!"
     ctx.deleteMessage()
@@ -74,7 +74,7 @@ bot.action('filtra', ctx => {
             inline_keyboard: [
                 [
                     {text: "List", callback_data: 'List'},
-                    {text: "Buy", callback_data: 'Buy'}
+                    {text: "Buy", callback_data: 'Buy'},
                 ],
                 [
                     {text: "Super Funder", callback_data: 'Super Funder'},
@@ -111,19 +111,19 @@ bot.action('filtra', ctx => {
 bot.action('Indietro', ctx => {
     ctx.deleteMessage();
     sendStartMenu(ctx);
-})
+})  
 bot.action('Start', ctx => {
-    //qui preparo oggetto da spedire a sb
     ctx.deleteMessage()
-    let result = ''
-    console.log(filter)
-    for(key in filter)result += filter[key];
-    db.addUser(bot, ctx.chat.id, result)
+    let result = "";
+    for(key in filter)result += (filter[key]);
+    db.addUser(bot, ctx.chat.id, result )
+    console.log(result)
     sendStartMenu(ctx,1);
 })
 bot.action('List', ctx = async() => {
    if(filter.List) filter.List = 0
    else filter.List = 1
+   console.log(bot.EditMessageReplyMarkup)
 })
 bot.action('Buy', ctx = async() => {
     if(filter.Buy) filter.Buy = 0
@@ -182,13 +182,12 @@ bot.action('Stop', ctx => {
             }
         })
     }
-    bot.telegram.sendMessage(ctx.chat.id, "BOT FERMATO!", {
+    bot.telegram.sendMessage(ctx.chat.id, `BOT FERMATO! ${stop}`, {
         reply_markup: {
             remove_keyboard: true
         }
     })
     sendStartMenu(ctx,0);
 })
-
 
 bot.launch();

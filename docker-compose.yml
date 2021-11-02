@@ -1,10 +1,24 @@
 version: '3.2'
 services:
+  
  nodejs:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile1
     image: albertorotondo/nodejsapp
+    networks:
+      - frontend  
+      - backend
+    volumes:
+      - ./catchEvent:/usr/app/catchEvent
+    ports:
+      - "8001:80"
+
+ botjs:
+    build: 
+      context: .
+      dockerfile: Dockerfile2
+    image: albertorotondo/botjsapp
     networks:
       - frontend  
       - backend
@@ -14,25 +28,7 @@ services:
       - MYSQL_PASSWORD=rootPass1803
       - MYSQL_DB=ProgettoHackaton
     volumes:
-      - .:/usr/app
-    ports:
-      - "8001:80"
-
-#  botjs:
-#     build: 
-#       context: .
-#       dockerfile: Dockerfile2
-#     image: albertorotondo/nodejsapp
-#     networks:
-#       - frontend  
-#       - backend
-#     environment:
-#       - MYSQL_HOST=myapp_mysql
-#       - MYSQL_USER=KanUser
-#       - MYSQL_PASSWORD=rootPass1803
-#       - MYSQL_DB=ProgettoHackaton
-#     volumes:
-#       - ./bot:/usr/app/bot
+      - ./bot:/usr/app/bot
 
 
  mysql:

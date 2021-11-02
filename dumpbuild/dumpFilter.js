@@ -1,11 +1,4 @@
-//let dump = require('./DUMP.json');
-
-let dump = ""
-async() => {
-    let url = 'https://gateway.pinata.cloud/ipns/precon-rmrk2.rmrk.link';
-    dump = await (await fetch(url)).json();
-}
-
+let dump = require('./DUMP.json');
 const collect = ["KANS", "KANF", "KANR", "KANL", "KANBACK", "KANBG", "KANFRNT", "KANHEAD", "KANHAND", "KANCHEST", "EVNTS"]
 const fs = require('fs');
 const fine = `"fine":{}}`
@@ -38,7 +31,7 @@ for (var key in dump.nfts) {
     value = dump.nfts[key];
     collection = value.collection.split('-')[1]
         //creazione del'oggetto
-    if (value.resources[0].src == undefined) console.log(key)
+    if (value.resources[0].src == undefined) console.log(value.resources[0])
     let text = ` "${key}" : {` +
         ` "thumb": "${value.resources[0].src}" ,
        "slot": "${value.resources[0].slot}",` +

@@ -1,4 +1,5 @@
 const { createPool } = require('mysql');
+const rocket = '\u{1F680}'
 
 const pool = createPool({
     host: "mysql",
@@ -8,31 +9,29 @@ const pool = createPool({
     connectionLimit: "10"
 })
 
-
-exports.getAllUsers = function getAllUsers() {
-        pool.query(`Select * from Users`, (err, result, fields) =>{
-            if(err) return console.log(err)
-            else result
-        })
-}
-
 exports.deleteUser = function deleteUser(chatId) {
-    pool.query(`Delete From Users Where chatId=?`,[chatId], (err, result, fields) =>{
-        if(err) return -1
-    })
+    pool.getConnection(function(err, connection) {
+        pool.query(`Delete From Users Where chatId=?`,[chatId], (err, result, fields) =>{
+            if(err) return -1
+        })
+        connection.release()
+    });
 }
 
 exports.addUser = function addUser(bot, chatId, filter) {
-    pool.query(`Insert into Users(chatId, filter) Values (${chatId}, ${filter})`, (err, result, fields) => {
-        if(err) {
-            if(err.code){
-                bot.telegram.sendMessage(chatId, "Bot già avviato!", {
-                reply_markup: {
-                    remove_keyboard: true
+    pool.getConnection(function(err, connection) {
+        pool.query(`Insert into Users(chatId, filter) Values (${chatId}, "${filter}")`, (err, result, fields) => {
+            if(err) {
+                if(err.code){
+                    bot.telegram.sendMessage(chatId, "Bot già avviato! premi stop per inserire un nuovo filtro", {})
+                }else{
+                    bot.telegram.sendMessage(chatId, `BOT AVVIATO ${rocket}`, {})
                 }
-            })
-        }
-            return console.log(err.code)
-        }
-    })
+            }
+            connection.release()
+        })
+    });
 }
+
+exports.pool = pool
+
