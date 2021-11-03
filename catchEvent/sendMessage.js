@@ -9,3 +9,12 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
         parse_mode: "HTML"
     })
 }
+
+exports.sendPhoto = async(chatId, photo, caption) => {
+    await axios.post(`${TELEGRAM_API}/sendPhoto`, {
+        chat_id: chatId,
+        photo: photo,
+        caption: caption,
+        parse_mode: "HTML"
+    })
+}
