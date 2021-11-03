@@ -1,9 +1,9 @@
-let dumpKANCHEST = require('../dumpbuild/CollectionsDump/KANCHEST.json');
-let dumpKANBACK = require('../dumpbuild/CollectionsDump/KANBACK.json');
-let dumpKANBG = require('../dumpbuild/CollectionsDump/KANBG.json');
-let dumpKANHAND = require('../dumpbuild/CollectionsDump/KANHAND.json');
-let dumpKANHEAD = require('../dumpbuild/CollectionsDump/KANHEAD.json');
-let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
+let dumpKANCHEST = require('./dumpbuild/CollectionsDump/KANCHEST.json');
+let dumpKANBACK = require('./dumpbuild/CollectionsDump/KANBACK.json');
+let dumpKANBG = require('./dumpbuild/CollectionsDump/KANBG.json');
+let dumpKANHAND = require('./dumpbuild/CollectionsDump/KANHAND.json');
+let dumpKANHEAD = require('./dumpbuild/CollectionsDump/KANHEAD.json');
+let dumpEVNTS = require('./dumpbuild/CollectionsDump/EVNTS.json');
 
 
 /***************************
@@ -82,6 +82,7 @@ exports.buildMessage = function buildMessage(remark) {
 
     var thumb = imgDump.split('/');
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1];
+    console.log(thumb)
 
     switch (nftTypJson.typeRarity) {
         case kanbirdSuperFounder:
