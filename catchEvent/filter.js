@@ -52,7 +52,7 @@ exports.buildMessage = function buildMessage(remark) {
         ["numberId", nftType[4]] // 00004594, 00000066, 00000017
     ]);
     var nftTypJson = Object.fromEntries(nftTypeObj);
-    var remarkPrice = rmrkJson.price / 950000000000;
+    var remarkPrice = rmrkJson.price / 1000000000000;
 
     switch (nftTypJson.typeNFT) {
         case 'KANBACK':
@@ -82,7 +82,6 @@ exports.buildMessage = function buildMessage(remark) {
 
     var thumb = imgDump.split('/');
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1];
-    console.log(thumb)
 
     switch (nftTypJson.typeRarity) {
         case kanbirdSuperFounder:
@@ -166,7 +165,7 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
 
     var remarkInteraction = rmrkJson.interaction; // BUY o LIST
     //var remarkVersion = rmrkJson.version; // 2.0.0
-    var remarkPrice = rmrkJson.price / 950000000000; // prezzo
+    var remarkPrice = rmrkJson.price / 1000000000000; // prezzo
     var remarkNft = rmrkJson.nft; //
 
     //var nftVertion = nftTypJson.vertionKanaria; // collezione
