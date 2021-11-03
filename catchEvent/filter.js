@@ -76,9 +76,12 @@ exports.buildMessage = function buildMessage(remark) {
         case 'EVNTS':
             var imgDump = dumpEVNTS[`${remarkNft}`].thumb;
             break;
+        default:
+            var imgDump = "https://rmrk.mypinata.cloud/ipfs/QmWS1jXv8B8smQotmtpHkkYkvUma4dmTVGDYAtCuEtNMR3"
     }
 
     var thumb = imgDump.split('/');
+    console.log(thumb);
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1];
 
     switch (nftTypJson.typeRarity) {
@@ -92,6 +95,8 @@ exports.buildMessage = function buildMessage(remark) {
             var nftRarytext = "Rare";
             break;
         case kanbirdLimited:
+            var nftRarytext = "Limited edition";
+        default:
             var nftRarytext = "Limited edition";
     }
 
@@ -137,6 +142,9 @@ exports.buildMessage = function buildMessage(remark) {
                     var nome = "Events Items";
                     var text = "N°" + this.id;
                     break;
+                default:
+                    var nome = "Something";
+                    var text = "";
             }
             var toPrint = "<b>OMG!</b>\n\An <b>" + nome + "</b> has been listed\n\
 <img src=" + this.imgSRC + " />\n\
@@ -257,6 +265,8 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
                     case necklace:
                         let messageFilter = filter.Necklace = 1;
                         break;
+                    default:
+                        let messageFilter = filter.List = 1;
                 }
 
             }
@@ -351,6 +361,8 @@ function checkFilter(rmrkJson, nftTypJson, filter) {
                     case necklace:
                         let messageFilter = filter.Necklace = 1;
                         break;
+                    default:
+                        let messageFilter = filter.List = 1;
                 }
 
             }
