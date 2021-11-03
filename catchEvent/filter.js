@@ -9,7 +9,7 @@ let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
 /***************************
  * FILTER UTILITY
  ***************************/
-const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
+//const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
 const list = "LIST";
 const buy = "BUY";
 const kanbird = "KANBIRD";
@@ -24,16 +24,14 @@ const kanHead = "KANHEAD";
 const kanHand = "KANHAND";
 const kanChest = "KANCHEST";
 const Evnts = "EVNTS"
-const img = "https://bafybeifmzegzxid3kjxx5tzew7o3wqyxy5xs7ay2pikmdzobflgazrlk2i.ipfs.dweb.link/"; // come trovare il Json?
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
-const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
+//const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
 var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
-let addressSell = "..." // address di chi lista o vende
-    //ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-    // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-    // 8788624-e0b9bdcc456a36497a-KANBG-var1_background-00004594
-    // 8788594-e0b9bdcc456a36497a-KANHAND-1fa93_objectleft-00000066
-    // 9807302-e0b9bdcc456a36497a-EVNTS-BNCHST-00000017
+//ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
+// 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
+// 8788624-e0b9bdcc456a36497a-KANBG-var1_background-00004594
+// 8788594-e0b9bdcc456a36497a-KANHAND-1fa93_objectleft-00000066
+// 9807302-e0b9bdcc456a36497a-EVNTS-BNCHST-00000017
 
 
 exports.buildMessage = function buildMessage(remark) {
@@ -157,137 +155,207 @@ exports.buildMessage = function buildMessage(remark) {
 
 
 function checkFilter(rmrkJson, nftTypJson, filter) {
-    var remarkRmrk = rmrkJson.rmrk;
-    var remarkInteraction = rmrkJson.interaction;
-    var remarkVersion = rmrkJson.version;
-    var remarkPrice = rmrkJson.price / 950000000000;
-    var remarkNft = rmrkJson.nft;
 
-    var nftNonSo = nftTypJson.nonServe; // I don't know what is it
-    var nftVertion = nftTypJson.vertionKanaria;
-    var nftTypeOf = nftTypJson.typeNFT;
-    var nftRarity = nftTypJson.typeRarity;
-    var nftNid = nftTypJson.numberId;
-    /***************************
-     * BOT COMMAND
-     ***************************/
-    //inizializzare tutti i filtri in base alla variabile filter 
-    let botList = filter[0]; // take true/false from bot inout
-    let botBuy = filter[1]; // take true/false from bot inout
-    let botKanbird = filter[2]; // take true/false from bot inout
-    let botKanbirdSuperFounder = filter[3]; // take true/false from bot inout
-    let botKanbirdFounder = filter[4]; // take true/false from bot inout
-    let botKanbirdRare = filter[5]; // take true/false from bot inout
-    let botKanbirdLimited = filter[6]; // take true/false from bot inout
+    var remarkInteraction = rmrkJson.interaction; // BUY o LIST
+    //var remarkVersion = rmrkJson.version; // 2.0.0
+    var remarkPrice = rmrkJson.price / 950000000000; // prezzo
+    var remarkNft = rmrkJson.nft; //
 
-    /***************************
-     * MESSAGE LIST TO PRINT
-     ***************************/
-
-    switch (nftRarity) {
-        case kanbirdSuperFounder:
-            var nftRarytext = "Super Founder";
-            break;
-        case kanbirdFounder:
-            var nftRarytext = "Founder";
-            break;
-        case kanbirdRare:
-            var nftRarytext = "Rare";
-            break;
-        case kanbirdLimited:
-            var nftRarytext = "Limited edition";
-            break;
-    }
-
+    //var nftVertion = nftTypJson.vertionKanaria; // collezione
+    var nftTypeOf = nftTypJson.typeNFT; // KANBIRD, KANBG, EVNTS
+    var nftRarity = nftTypJson.typeRarity; // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
+    //var nftNid = nftTypJson.numberId; 
 
     /***************************
      * FILTER LIST FOR KANARIA
      ***************************/
+
     // 1. LIST
     // List + price != 0, se il prezzo è 0 NFT è stato tolto dalla vendit
     if (remarkInteraction == list && remarkPrice > 0) {
         // from here pass only NFT list for sell
-
-        return message.print();
+        let messageFilter = filter.List = 1;
 
         if (remarkPrice >= freePrice) {
             // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
-            // perchè mettere qui questo? perchè il valore prestabilito è 0.
             // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
 
             //Grupe of Birds
             if (nftTypeOf == kanbird) {
                 // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
-                //message.print();
-                //console.log(message.print());
-                //console.log('1');
+                let messageFilter = filter.allBirds = 1;
             }
             if (nftRarity == kanbirdSuperFounder) {
                 // print only Kanaria Bird Super Founder
-                //console.log(message.print());
-                //console.log('2');
+                let messageFilter = filter.SuperFunder = 1;
             }
             if (nftRarity == kanbirdFounder) {
                 // print only Kanaria Bird Founder
-                //console.log(message.print());
-                //console.log('3');
+                let messageFilter = filter.Funder = 1;
             }
             if (nftRarity == kanbirdRare) {
                 // print only Kanaria Bird Rare
-                //console.log(message.print());
-                //console.log('4');
+                let messageFilter = filter.Rare = 1;
             }
             if (nftRarity == kanbirdLimited) {
                 // print only Kanaria Bird Limited Edition
-                //console.log(message.print());
-                //console.log('5');
+                let messageFilter = filter.Limited = 1;
             }
 
             // Grupe of Items
             if (nftTypeOf == kanBack) {
                 // print backpack 
-                //console.log(message.print());
-                //console.log('6');
+                let messageFilter = filter.BackPack = 1;
             }
             if (nftTypeOf == kanBg) {
                 // print background
-                //console.log(message.print());
-                //console.log('7');
+                let messageFilter = filter.Background = 1;
             }
             if (nftTypeOf == kanFrnt) {
                 // print foreground
-                //console.log(message.print());
+                let messageFilter = filter.Foreground = 1;
             }
             if (nftTypeOf == kanHead) {
                 // print headwear
-                //console.log(message.print());
+                let messageFilter = filter.Headwear = 1;
             }
             if (nftTypeOf == kanHand) {
                 // print handheld
-                //console.log(message.print());
+                let messageFilter = filter.Handheld = 1;
             }
             if (nftTypeOf == kanChest) {
                 // print necklace
-                //console.log(message.print());
+                let messageFilter = filter.Necklace = 1;
             }
-            if (freeString == remarkNft) {
-                // La stringa confronta con tutta la perte dell'url inerente nel campo libero
-                //console.log(message.print());
-                //console.log('8');
+            if (nftTypeOf == kanChest) {
+                // print necklace
+                let messageFilter = filter.Necklace = 1;
             }
-            if (freeString == linkCatalogoComp) {
-                // La stringa confronta tutto l'url
-                //console.log(message.print());
-                //console.log('9');
-            }
-            if (freeString == addressSell) {
-                // La stringa confronta se un address ha listato qualche cosa
-                //console.log(message.print());
-                //console.log('10');
+
+            if (nftTypeOf = "EVNTS") {
+
+                var eventItems = dumpEVNTS[`${remarkNft}`].slot;
+                eventItems.split('.');
+                eventItems[eventItems.length - 1];
+
+                switch (eventItems) {
+                    case backpack:
+                        let messageFilter = filter.BackPack = 1;
+                        break;
+                    case background:
+                        let messageFilter = filter.Background = 1;
+                        break;
+                    case foreground:
+                        let messageFilter = filter.Foreground = 1;
+                        break;
+                    case headwear:
+                        let messageFilter = filter.Headwear = 1;
+                        break;
+                    case objectleft:
+                        let messageFilter = filter.Handheld = 1;
+                        break;
+                    case necklace:
+                        let messageFilter = filter.Necklace = 1;
+                        break;
+                }
+
             }
 
         } // end Price
 
     } // end List
-    //return del messaggio 
+
+    // 1. BUY
+    if (remarkInteraction == buy && remarkPrice > 0) {
+        // from here pass only NFT list for sell
+        let messageFilter = filter.Buy = 1;
+
+        if (remarkPrice >= freePrice) {
+            // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
+            // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
+
+            //Grupe of Birds
+            if (nftTypeOf == kanbird) {
+                // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
+                let messageFilter = filter.allBirds = 1;
+            }
+            if (nftRarity == kanbirdSuperFounder) {
+                // print only Kanaria Bird Super Founder
+                let messageFilter = filter.SuperFunder = 1;
+            }
+            if (nftRarity == kanbirdFounder) {
+                // print only Kanaria Bird Founder
+                let messageFilter = filter.Funder = 1;
+            }
+            if (nftRarity == kanbirdRare) {
+                // print only Kanaria Bird Rare
+                let messageFilter = filter.Rare = 1;
+            }
+            if (nftRarity == kanbirdLimited) {
+                // print only Kanaria Bird Limited Edition
+                let messageFilter = filter.Limited = 1;
+            }
+
+            // Grupe of Items
+            if (nftTypeOf == kanBack) {
+                // print backpack 
+                let messageFilter = filter.BackPack = 1;
+            }
+            if (nftTypeOf == kanBg) {
+                // print background
+                let messageFilter = filter.Background = 1;
+            }
+            if (nftTypeOf == kanFrnt) {
+                // print foreground
+                let messageFilter = filter.Foreground = 1;
+            }
+            if (nftTypeOf == kanHead) {
+                // print headwear
+                let messageFilter = filter.Headwear = 1;
+            }
+            if (nftTypeOf == kanHand) {
+                // print handheld
+                let messageFilter = filter.Handheld = 1;
+            }
+            if (nftTypeOf == kanChest) {
+                // print necklace
+                let messageFilter = filter.Necklace = 1;
+            }
+            if (nftTypeOf == kanChest) {
+                // print necklace
+                let messageFilter = filter.Necklace = 1;
+            }
+
+            if (nftTypeOf = "EVNTS") {
+
+                var eventItems = dumpEVNTS[`${remarkNft}`].slot;
+                eventItems.split('.');
+                eventItems[eventItems.length - 1];
+
+                switch (eventItems) {
+                    case backpack:
+                        let messageFilter = filter.BackPack = 1;
+                        break;
+                    case background:
+                        let messageFilter = filter.Background = 1;
+                        break;
+                    case foreground:
+                        let messageFilter = filter.Foreground = 1;
+                        break;
+                    case headwear:
+                        let messageFilter = filter.Headwear = 1;
+                        break;
+                    case objectleft:
+                        let messageFilter = filter.Handheld = 1;
+                        break;
+                    case necklace:
+                        let messageFilter = filter.Necklace = 1;
+                        break;
+                }
+
+            }
+
+        } // end Price
+
+    } // end BUY
 }
