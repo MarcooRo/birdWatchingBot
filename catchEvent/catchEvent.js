@@ -3,8 +3,24 @@ const WsProvider = require('@polkadot/api')
 const hexToString = require('@polkadot/util')
 const getMessageGivenFilter = require('./scriptUtils/filter.js')
 const sendMessage = require('./scriptUtils/sendMessage.js');
-const db = require('./Db.js')
-const pool = require('./Db.js')
+const {db, pool} = require('./scriptUtils/Db.js')
+
+
+
+function sendToAll(remarks){
+    let message = getMessageGivenFilter.buildMessage(remarks)
+    pool.pool.query(`Select * from Users`, (err, result, fields) =>{
+        if(err) return console.log(err)
+        console.log(remarks)
+        
+        for(let k in result){
+            console.log(result[k].chatId.toString())
+            console.log(message.imgSRC)
+            console.log(message.print())
+            sendMessage.sendPhoto(result[k].chatId.toString(), message.imgSRC, message.print())
+        }
+    })
+}
 
 const getRemark = async function getRemark(api, hederNumber) {
     const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
@@ -13,18 +29,7 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
-                let message = getMessageGivenFilter.buildMessage(remarks)
-                    pool.pool.query(`Select * from Users`, (err, result, fields) =>{
-                        if(err) return console.log(err)
-                        console.log(remarks)
-                        
-                        for(let k in result){
-                            console.log(result[k].chatId.toString())
-                            console.log(message.imgSRC)
-                            console.log(message.print())
-                            sendMessage.sendPhoto(result[k].chatId.toString(), message.imgSRC, message.print())
-                        }
-                    })
+                sendToAll(remarks)
              }
 
         }
