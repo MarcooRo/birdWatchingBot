@@ -1,7 +1,8 @@
 const stop = '\u{1F6D1}'
+const checked = '\u{1F7E2}'
 
 exports.reset = function reset(){
-    return filter = {"List": 0,"Buy": 0,"SuperFunder": 0,"Funder": 0,"Rare": 0,"Limited": 0,
+    return filter = {"allList": 0,"Buy": 0,"SuperFunder": 0,"Funder": 0,"Rare": 0,"Limited": 0,
     "BackPack": 0,"Background": 0,"Foreground": 0,"Headwear": 0,"Handheld": 0,"Necklace": 0
     }
 }
@@ -53,35 +54,36 @@ exports.doStop = function doStop(ctx, db, bot) {
     })
     this.sendStartMenu(ctx,0,bot);
 }
-exports.sendFilterMenu = function sendFilterMenu(ctx, bot){
+let ref;
+exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter){
     const menuMessage = "Crea il tuo filtro!"
-    ctx.deleteMessage()
+    ctx.deleteMessage();
     bot.telegram.sendMessage(ctx.chat.id, menuMessage, {
         reply_markup: {
             inline_keyboard: [
                 [
-                    {text: "List", callback_data: 'List'},
-                    {text: "Buy", callback_data: 'Buy'},
+                    {text: (filter.allList ? `allList${checked}`: 'allList') , callback_data: 'allList'},
+                    {text: (filter.allBird ? `allBirds${checked}`: 'allBirds') , callback_data: 'allBird'}
                 ],
                 [
-                    {text: "Super Funder", callback_data: 'Super Funder'},
-                    {text: "Funder", callback_data: 'Funder'}
+                    {text: (filter.SuperFunder ? `Super Funder${checked}`:'Super Funder'), callback_data: 'SuperFunder'},
+                    {text: (filter.Funder ? `Funder${checked}`:'Funder'), callback_data: 'Funder'}
                 ],
                 [
-                    {text: "Rare", callback_data: 'Rare'},
-                    {text: "Limited", callback_data: 'Limited'}
+                    {text: (filter.Rare ? `Rare${checked}`:'Rare'), callback_data: 'Rare'},
+                    {text: (filter.Limited ? `Limited${checked}`:'Limited'), callback_data: 'Limited'}
                 ],
                 [
-                    {text: "BackPack", callback_data: 'BackPack'},
-                    {text: "Background", callback_data: 'Background'}
+                    {text: (filter.BackPack ? `BackPack${checked}`:'BackPack'), callback_data: 'BackPack'},
+                    {text: (filter.Background ? `Background${checked}`:'Background'), callback_data: 'Background'}
                 ],
                 [
-                    {text: "ForeGround", callback_data: 'ForeGround'},
-                    {text: "Headwear", callback_data: 'Headwear'}
+                    {text: (filter.ForeGround ? `ForeGround${checked}`:'ForeGround'), callback_data: 'ForeGround'},
+                    {text: (filter.Headwear ? `Headwear${checked}`:'Headwear'), callback_data: 'Headwear'}
                 ],
                 [
-                    {text: "Handheld", callback_data: 'Handheld'},
-                    {text: "Necklace", callback_data: 'Necklace'}
+                    {text: (filter.Handheld ? `Handheld${checked}`:'Handheld'), callback_data: 'Handheld'},
+                    {text: (filter.Necklace ? `Necklace${checked}`:'Necklace'), callback_data: 'Necklace'}
                 ],
                 [
                     {text: "Salva e avvia", callback_data: 'Start'}

@@ -1,28 +1,31 @@
 const ApiPromise = require('@polkadot/api')
 const WsProvider = require('@polkadot/api')
 const hexToString = require('@polkadot/util')
-const getMessageGivenFilter = require('./filter.js')
-const sendMessage = require('./sendMessage.js');
+const getMessageGivenFilter = require('./scriptUtils/filter.js')
+const sendMessage = require('./scriptUtils/sendMessage.js');
 const db = require('./Db.js')
 const pool = require('./Db.js')
 
 const getRemark = async function getRemark(api, hederNumber) {
     const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
     const signedBlock = await api.rpc.chain.getBlock(blockHash);
-    let users = await pool.pool.query( 'SELECT * FROM Users' )
     signedBlock.block.extrinsics.forEach((ex, index) => {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
-            // if (remarks.includes("2.0.0")) {
+            if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
                 let message = getMessageGivenFilter.buildMessage(remarks)
                     pool.pool.query(`Select * from Users`, (err, result, fields) =>{
                         if(err) return console.log(err)
+                        console.log(remarks)
+                        
                         for(let k in result){
-                            //sendMessage.sendMessage(result[k].chatId.toString(), message)
-                            console.log(message)
+                            console.log(result[k].chatId.toString())
+                            console.log(message.imgSRC)
+                            console.log(message.print())
+                            sendMessage.sendPhoto(result[k].chatId.toString(), message.imgSRC, message.print())
                         }
                     })
-            // }
+             }
 
         }
     });

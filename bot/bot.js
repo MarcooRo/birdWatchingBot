@@ -6,24 +6,28 @@ const db = require('./Utils/Db.js');
 const { reset } = require('nodemon');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const checked = '\u{1F7E2}'
-let filter = {  
-    "List": 0,
-    "Buy": 0,
-    "SuperFunder": 0,
-    "Funder": 0,
-    "Rare": 0,
-    "Limited": 0,
-    "BackPack": 0,
-    "Background": 0,
-    "Foreground": 0,
-    "Headwear": 0,
-    "Handheld": 0,
-    "Necklace": 0
+let filters= {}
+
+function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace){
+    this.allList = allList
+    this.allBird = allBird
+    this.SuperFunder = SuperFunder
+    this.Funder = Funder
+    this.Rare = Rare
+    this.Limited = Limited
+    this.BackPack = BackPack
+    this.Background = Background
+    this.ForeGround = Foreground
+    this.Headwear = Headwear
+    this.Handheld =Handheld
+    this.Necklace = Necklace
 }
+
 bot.help(ctx => {
     const helpMessage = `
-    Benvenuto, inserire o premere 
+    Benvenuto su, lista comandi 
     /start - per inizializzare il bot
+    /menu per mostarer le opzioni
     `
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
@@ -31,31 +35,38 @@ bot.help(ctx => {
 })
 bot.command('start', ctx => {
     botUtils.sendStartMenu(ctx,0, bot);
+    filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0)
 })
+
+bot.command('menu', ctx => {
+    botUtils.sendStartMenu(ctx,1, bot);
+})
+
 bot.on('callback_query', (ctx) => {
     let cmd = ctx.callbackQuery.data
     switch(cmd) {
         case 'Indietro':
             ctx.deleteMessage();
-            botUtils.sendStartMenu(ctx, bot);
+            botUtils.sendStartMenu(ctx,0, bot);
             break;
         case 'Start':
             ctx.deleteMessage()
             let result = "";
-            for(key in filter)result += (filter[key]);
+            for(key in filters[ctx.chat.id])result += (filters[ctx.chat.id][key]);
             db.addUser(bot, ctx.chat.id, result)
             botUtils.sendStartMenu(ctx,1,bot);
             break
         case 'Stop':
             botUtils.doStop(ctx, db, bot);
-            filter = botUtils.reset()
+            filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0)
             break
         case 'filtra':
-            botUtils.sendFilterMenu(ctx, bot)
+            botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
             break;
         default:
-            if(filter[`${ctx.callbackQuery.data}`]) filter[`${ctx.callbackQuery.data}`] = 0
-            else filter[`${ctx.callbackQuery.data}`] = 1
+            if(filters[ctx.chat.id][`${ctx.callbackQuery.data}`]) filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 0
+            else filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 1
+            botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
     }
 
 })

@@ -1,9 +1,9 @@
-let dumpKANCHEST = require('./dumpbuild/CollectionsDump/KANCHEST.json');
-let dumpKANBACK = require('./dumpbuild/CollectionsDump/KANBACK.json');
-let dumpKANBG = require('./dumpbuild/CollectionsDump/KANBG.json');
-let dumpKANHAND = require('./dumpbuild/CollectionsDump/KANHAND.json');
-let dumpKANHEAD = require('./dumpbuild/CollectionsDump/KANHEAD.json');
-let dumpEVNTS = require('./dumpbuild/CollectionsDump/EVNTS.json');
+let dumpKANCHEST = require('../dumpbuild/CollectionsDump/KANCHEST.json');
+let dumpKANBACK = require('../dumpbuild/CollectionsDump/KANBACK.json');
+let dumpKANBG = require('../dumpbuild/CollectionsDump/KANBG.json');
+let dumpKANHAND = require('../dumpbuild/CollectionsDump/KANHAND.json');
+let dumpKANHEAD = require('../dumpbuild/CollectionsDump/KANHEAD.json');
+let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
 
 
 /***************************
@@ -156,12 +156,28 @@ exports.buildMessage = function buildMessage(remark) {
         }
     };
     console.log(message.print)
-    return message.print()
+    return message
 }
 
 
-function checkFilter(rmrkJson, nftTypJson, filter) {
+function checkFilter(remark) {
+    var remarkSplit = remark.split('::');
+    var remarkObj = new Map([
+        ["interaction", remarkSplit[1]], // LIST - BUY
+        ["nft", remarkSplit[3]], // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+        ["price", remarkSplit[4]] // 20000000000
+    ]);
+    var rmrkJson = Object.fromEntries(remarkObj);
+    var remarkNft = rmrkJson.nft; // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+    let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
 
+    var nftType = remarkNft.split('-');
+    var nftTypeObj = new Map([
+        ["typeNFT", nftType[2]], // KANBIRD, KANBG, EVNTS
+        ["typeRarity", nftType[3]], // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
+        ["numberId", nftType[4]] // 00004594, 00000066, 00000017
+    ]);
+    var nftTypJson = Object.fromEntries(nftTypeObj);
     var remarkInteraction = rmrkJson.interaction; // BUY o LIST
     //var remarkVersion = rmrkJson.version; // 2.0.0
     var remarkPrice = rmrkJson.price / 1000000000000; // prezzo
