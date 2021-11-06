@@ -4,12 +4,8 @@ let dumpKANBG = require('../dumpbuild/CollectionsDump/KANBG.json');
 let dumpKANHAND = require('../dumpbuild/CollectionsDump/KANHAND.json');
 let dumpKANHEAD = require('../dumpbuild/CollectionsDump/KANHEAD.json');
 let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
+let dumpKANFRNT = require ('../dumpbuild/CollectionsDump/KANFRNT.json');
 
-
-/***************************
- * FILTER UTILITY
- ***************************/
-//const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
 const list = "LIST";
 const buy = "BUY";
 const kanbird = "KANBIRD";
@@ -25,363 +21,273 @@ const kanHand = "KANHAND";
 const kanChest = "KANCHEST";
 const Evnts = "EVNTS"
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
-//const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
-var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
-//ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-// 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-// 8788624-e0b9bdcc456a36497a-KANBG-var1_background-00004594
-// 8788594-e0b9bdcc456a36497a-KANHAND-1fa93_objectleft-00000066
-// 9807302-e0b9bdcc456a36497a-EVNTS-BNCHST-00000017
+var freePrice = 0; 
 
-
-exports.buildMessage = function buildMessage(remark) {
-    var remarkSplit = remark.split('::');
-    var remarkObj = new Map([
-        ["interaction", remarkSplit[1]], // LIST - BUY
-        ["nft", remarkSplit[3]], // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
-        ["price", remarkSplit[4]] // 20000000000
-    ]);
-    var rmrkJson = Object.fromEntries(remarkObj);
-    var remarkNft = rmrkJson.nft; // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
-    let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
-
-    var nftType = remarkNft.split('-');
-    var nftTypeObj = new Map([
-        ["typeNFT", nftType[2]], // KANBIRD, KANBG, EVNTS
-        ["typeRarity", nftType[3]], // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
-        ["numberId", nftType[4]] // 00004594, 00000066, 00000017
-    ]);
-    var nftTypJson = Object.fromEntries(nftTypeObj);
-    var remarkPrice = rmrkJson.price / 1000000000000;
-
-    switch (nftTypJson.typeNFT) {
-        case 'KANBACK':
-            var imgDump = dumpKANBACK[`${remarkNft}`].thumb;
-            break;
-        case 'KANFRNT':
-            var imgDump = dumpKANFRNT[`${remarkNft}`].thumb;
-            break;
-        case 'KANBG':
-            var imgDump = dumpKANBG[`${remarkNft}`].thumb;
-            break;
-        case 'KANHEAD':
-            var imgDump = dumpKANHEAD[`${remarkNft}`].thumb;
-            break;
-        case 'KANHAND':
-            var imgDump = dumpKANHAND[`${remarkNft}`].thumb;
-            break;
-        case 'KANCHEST':
-            var imgDump = dumpKANCHEST[`${remarkNft}`].thumb;
-            break;
-        case 'EVNTS':
-            var imgDump = dumpEVNTS[`${remarkNft}`].thumb;
-            break;
-        default:
-            var imgDump = "https://rmrk.mypinata.cloud/ipfs/QmWS1jXv8B8smQotmtpHkkYkvUma4dmTVGDYAtCuEtNMR3"
+exports.prepareFilterMesage = function prepareFilterMesage(remark) {
+    let Filter = {
+        "allList": 0,
+        "allBird": 0,
+        "SuperFunder": 0,
+        "Funder": 0,
+        "Rare": 0,
+        "Limited" : 0,
+        "BackPack" : 0,
+        "Background" : 0,
+        "ForeGround" : 0,
+        "Headwear" : 0,
+        "Handheld" :0,
+        "Necklace" : 0,
+        "isBird" : 0
     }
 
-    var thumb = imgDump.split('/');
-    thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1];
+    if(remark.includes(kanbirdSuperFounder))Filter.SuperFunder = 1
+    if(remark.includes(kanbirdFounder))Filter.Funder = 1
+    if(remark.includes(kanbirdRare))Filter.Rare = 1
+    if(remark.includes(kanbirdLimited))Filter.Limited =1
+    if(remark.includes(kanBack))Filter.BackPack = 1
+    if(remark.includes(kanBg))Filter.Background = 1
+    if(remark.includes(kanFrnt))Filter.ForeGround = 1
+    if(remark.includes(kanHead))Filter.Headwear = 1
+    if(remark.includes(kanHand))Filter.Handheld = 1
+    if(remark.includes(kanChest))Filter.Necklace = 1
+    if(remark.includes("KANBIRD")) Filter.isBird = 1
 
-    switch (nftTypJson.typeRarity) {
-        case kanbirdSuperFounder:
-            var nftRarytext = "Super Founder";
-            break;
-        case kanbirdFounder:
-            var nftRarytext = "Founder";
-            break;
-        case kanbirdRare:
-            var nftRarytext = "Rare";
-            break;
-        case kanbirdLimited:
-            var nftRarytext = "Limited edition";
-        default:
-            var nftRarytext = "Limited edition";
-    }
+    let stringFilter= ''
+    for(key in Filter)stringFilter += (Filter[key]);
+    return stringFilter
+}
 
-    const message = {
-        imgSRC: "https://bafybeia54q2hszfmfxctlpalu5sv4tmus3ry4h3xs255b52sumdktvkcqe.ipfs.dweb.link/" + thumb,
-        nftType: nftTypJson.typeNFT,
-        nftGrade: nftRarytext,
-        id: nftTypJson.numberId,
-        price: remarkPrice,
-        link: linkCatalogoComp,
-        print: function() {
-            ////console.log(this.nftType)
-            switch (this.nftType) {
-                case kanbird:
-                    var nome = "Kanaria Bird";
-                    var text = "Rarity: " + this.nftGrade + " N°" + this.id;
-                    break;
-                case kanBack:
-                    var nome = "Backpack";
-                    var text = "N°" + this.id;
-                    break;
-                case kanBg:
-                    var nome = "Backgournd";
-                    var text = "N°" + this.id;
-                    break;
-                case kanFrnt:
-                    var nome = "Foreground";
-                    var text = "N°" + this.id;
-                    break;
-                case kanHead:
-                    var nome = "Headwear";
-                    var text = "N°" + this.id;
-                    break;
-                case kanHand:
-                    var nome = "Handheld";
-                    var text = "N°" + this.id;
-                    break;
-                case kanChest:
-                    var nome = "Necklace";
-                    var text = "N°" + this.id;
-                    break;
-                case Evnts:
-                    var nome = "Events Items";
-                    var text = "N°" + this.id;
-                    break;
-                default:
-                    var nome = "Something";
-                    var text = "";
-            }
-            var toPrint = "<b>OMG!</b>\n\An <b>" + nome + "</b> has been listed\n\
-<b>" + text + "</b>\n\
-<b>Sale at: " + this.price + " KSM</b>\n\
-<a href='" + this.link + "'>Take a look -></a>\n\
-\n\
-<i>This is a beta version, bug will fix and more features coming soon</i>";
-
-            return toPrint;
+exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser) {
+        if(filterUser[0])return true // se voglio tutto 
+        if(filterUser.allBird && filterMessage.isBird) return true // se voglio solo canarini
+        for(let i = 2; i < filterMessage.length; i++) { // check degli oggetti 
+            if(!(filterUser[i] && filterMessage[i]))return false
         }
-    };
-    console.log(message.print)
-    return message
+        return true
 }
 
+// function checkFilter(remark) {
+//     var remarkSplit = remark.split('::');
+//     var remarkObj = new Map([
+//         ["interaction", remarkSplit[1]], // LIST - BUY
+//         ["nft", remarkSplit[3]], // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+//         ["price", remarkSplit[4]] // 20000000000
+//     ]);
+//     var rmrkJson = Object.fromEntries(remarkObj);
+//     var remarkNft = rmrkJson.nft; // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
+//     let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
 
-function checkFilter(remark) {
-    var remarkSplit = remark.split('::');
-    var remarkObj = new Map([
-        ["interaction", remarkSplit[1]], // LIST - BUY
-        ["nft", remarkSplit[3]], // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
-        ["price", remarkSplit[4]] // 20000000000
-    ]);
-    var rmrkJson = Object.fromEntries(remarkObj);
-    var remarkNft = rmrkJson.nft; // 8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649
-    let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
+//     var nftType = remarkNft.split('-');
+//     var nftTypeObj = new Map([
+//         ["typeNFT", nftType[2]], // KANBIRD, KANBG, EVNTS
+//         ["typeRarity", nftType[3]], // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
+//         ["numberId", nftType[4]] // 00004594, 00000066, 00000017
+//     ]);
+//     var nftTypJson = Object.fromEntries(nftTypeObj);
+//     var remarkInteraction = rmrkJson.interaction; // BUY o LIST
+//     //var remarkVersion = rmrkJson.version; // 2.0.0
+//     var remarkPrice = rmrkJson.price / 1000000000000; // prezzo
+//     var remarkNft = rmrkJson.nft; //
 
-    var nftType = remarkNft.split('-');
-    var nftTypeObj = new Map([
-        ["typeNFT", nftType[2]], // KANBIRD, KANBG, EVNTS
-        ["typeRarity", nftType[3]], // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
-        ["numberId", nftType[4]] // 00004594, 00000066, 00000017
-    ]);
-    var nftTypJson = Object.fromEntries(nftTypeObj);
-    var remarkInteraction = rmrkJson.interaction; // BUY o LIST
-    //var remarkVersion = rmrkJson.version; // 2.0.0
-    var remarkPrice = rmrkJson.price / 1000000000000; // prezzo
-    var remarkNft = rmrkJson.nft; //
+//     //var nftVertion = nftTypJson.vertionKanaria; // collezione
+//     var nftTypeOf = nftTypJson.typeNFT; // KANBIRD, KANBG, EVNTS
+//     var nftRarity = nftTypJson.typeRarity; // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
+//     //var nftNid = nftTypJson.numberId; 
 
-    //var nftVertion = nftTypJson.vertionKanaria; // collezione
-    var nftTypeOf = nftTypJson.typeNFT; // KANBIRD, KANBG, EVNTS
-    var nftRarity = nftTypJson.typeRarity; // KANL, KANS, var1_background, 1fa93_objectleft, BNCHST
-    //var nftNid = nftTypJson.numberId; 
+//     /***************************
+//      * FILTER LIST FOR KANARIA
+//      ***************************/
 
-    /***************************
-     * FILTER LIST FOR KANARIA
-     ***************************/
+//     // 1. LIST
+//     // List + price != 0, se il prezzo è 0 NFT è stato tolto dalla vendit
+//     if (remarkInteraction == list && remarkPrice > 0) {
+//         // from here pass only NFT list for sell
+//         filter.List = 1;
 
-    // 1. LIST
-    // List + price != 0, se il prezzo è 0 NFT è stato tolto dalla vendit
-    if (remarkInteraction == list && remarkPrice > 0) {
-        // from here pass only NFT list for sell
-        filter.List = 1;
+//         if (remarkPrice >= freePrice) {
+//             // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
+//             // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
 
-        if (remarkPrice >= freePrice) {
-            // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
-            // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
+//             //Grupe of Birds
+//             if (nftTypeOf == kanbird) {
+//                 // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
+//                 filter.allBirds = 1;
+//             }
+//             if (nftRarity == kanbirdSuperFounder) {
+//                 // print only Kanaria Bird Super Founder
+//                 filter.SuperFunder = 1;
+//             }
+//             if (nftRarity == kanbirdFounder) {
+//                 // print only Kanaria Bird Founder
+//                 filter.Funder = 1;
+//             }
+//             if (nftRarity == kanbirdRare) {
+//                 // print only Kanaria Bird Rare
+//                 filter.Rare = 1;
+//             }
+//             if (nftRarity == kanbirdLimited) {
+//                 // print only Kanaria Bird Limited Edition
+//                 filter.Limited = 1;
+//             }
 
-            //Grupe of Birds
-            if (nftTypeOf == kanbird) {
-                // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
-                filter.allBirds = 1;
-            }
-            if (nftRarity == kanbirdSuperFounder) {
-                // print only Kanaria Bird Super Founder
-                filter.SuperFunder = 1;
-            }
-            if (nftRarity == kanbirdFounder) {
-                // print only Kanaria Bird Founder
-                filter.Funder = 1;
-            }
-            if (nftRarity == kanbirdRare) {
-                // print only Kanaria Bird Rare
-                filter.Rare = 1;
-            }
-            if (nftRarity == kanbirdLimited) {
-                // print only Kanaria Bird Limited Edition
-                filter.Limited = 1;
-            }
+//             // Grupe of Items
+//             if (nftTypeOf == kanBack) {
+//                 // print backpack 
+//                 filter.BackPack = 1;
+//             }
+//             if (nftTypeOf == kanBg) {
+//                 // print background
+//                 filter.Background = 1;
+//             }
+//             if (nftTypeOf == kanFrnt) {
+//                 // print foreground
+//                 filter.Foreground = 1;
+//             }
+//             if (nftTypeOf == kanHead) {
+//                 // print headwear
+//                 filter.Headwear = 1;
+//             }
+//             if (nftTypeOf == kanHand) {
+//                 // print handheld
+//                 filter.Handheld = 1;
+//             }
+//             if (nftTypeOf == kanChest) {
+//                 // print necklace
+//                 filter.Necklace = 1;
+//             }
+//             if (nftTypeOf == kanChest) {
+//                 // print necklace
+//                 filter.Necklace = 1;
+//             }
 
-            // Grupe of Items
-            if (nftTypeOf == kanBack) {
-                // print backpack 
-                filter.BackPack = 1;
-            }
-            if (nftTypeOf == kanBg) {
-                // print background
-                filter.Background = 1;
-            }
-            if (nftTypeOf == kanFrnt) {
-                // print foreground
-                filter.Foreground = 1;
-            }
-            if (nftTypeOf == kanHead) {
-                // print headwear
-                filter.Headwear = 1;
-            }
-            if (nftTypeOf == kanHand) {
-                // print handheld
-                filter.Handheld = 1;
-            }
-            if (nftTypeOf == kanChest) {
-                // print necklace
-                filter.Necklace = 1;
-            }
-            if (nftTypeOf == kanChest) {
-                // print necklace
-                filter.Necklace = 1;
-            }
+//             if (nftTypeOf = "EVNTS") {
 
-            if (nftTypeOf = "EVNTS") {
+//                 var eventItems = dumpEVNTS[`${remarkNft}`].slot;
+//                 eventItems.split('.');
+//                 eventItems[eventItems.length - 1];
 
-                var eventItems = dumpEVNTS[`${remarkNft}`].slot;
-                eventItems.split('.');
-                eventItems[eventItems.length - 1];
+//                 switch (eventItems) {
+//                     case backpack:
+//                         filter.BackPack = 1;
+//                         break;
+//                     case background:
+//                         filter.Background = 1;
+//                         break;
+//                     case foreground:
+//                         filter.Foreground = 1;
+//                         break;
+//                     case headwear:
+//                         filter.Headwear = 1;
+//                         break;
+//                     case objectleft:
+//                         filter.Handheld = 1;
+//                         break;
+//                     case necklace:
+//                         filter.Necklace = 1;
+//                         break;
+//                     default:
+//                         filter.List = 1;
+//                 }
 
-                switch (eventItems) {
-                    case backpack:
-                        filter.BackPack = 1;
-                        break;
-                    case background:
-                        filter.Background = 1;
-                        break;
-                    case foreground:
-                        filter.Foreground = 1;
-                        break;
-                    case headwear:
-                        filter.Headwear = 1;
-                        break;
-                    case objectleft:
-                        filter.Handheld = 1;
-                        break;
-                    case necklace:
-                        filter.Necklace = 1;
-                        break;
-                    default:
-                        filter.List = 1;
-                }
+//             }
 
-            }
+//         } // end Price
 
-        } // end Price
+//     } // end List
 
-    } // end List
+//     // 1. BUY
+//     if (remarkInteraction == buy && remarkPrice > 0) {
+//         // from here pass only NFT list for sell
+//         filter.Buy = 1;
 
-    // 1. BUY
-    if (remarkInteraction == buy && remarkPrice > 0) {
-        // from here pass only NFT list for sell
-        filter.Buy = 1;
+//         if (remarkPrice >= freePrice) {
+//             // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
+//             // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
 
-        if (remarkPrice >= freePrice) {
-            // mostrami solo gli elementi che siano superiori o inferiori a questo prezzo.
-            // se uno non imposta nulla questa condizione è sempre vera, altrimenti lavora a monte del filtraggio
+//             //Grupe of Birds
+//             if (nftTypeOf == kanbird) {
+//                 // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
+//                 filter.allBirds = 1;
+//             }
+//             if (nftRarity == kanbirdSuperFounder) {
+//                 // print only Kanaria Bird Super Founder
+//                 filter.SuperFunder = 1;
+//             }
+//             if (nftRarity == kanbirdFounder) {
+//                 // print only Kanaria Bird Founder
+//                 filter.Funder = 1;
+//             }
+//             if (nftRarity == kanbirdRare) {
+//                 // print only Kanaria Bird Rare
+//                 filter.Rare = 1;
+//             }
+//             if (nftRarity == kanbirdLimited) {
+//                 // print only Kanaria Bird Limited Edition
+//                 filter.Limited = 1;
+//             }
 
-            //Grupe of Birds
-            if (nftTypeOf == kanbird) {
-                // print all Kanaria Bird. NOTA questa condizione non va richiamata se impostato una speficla classe di rarita
-                filter.allBirds = 1;
-            }
-            if (nftRarity == kanbirdSuperFounder) {
-                // print only Kanaria Bird Super Founder
-                filter.SuperFunder = 1;
-            }
-            if (nftRarity == kanbirdFounder) {
-                // print only Kanaria Bird Founder
-                filter.Funder = 1;
-            }
-            if (nftRarity == kanbirdRare) {
-                // print only Kanaria Bird Rare
-                filter.Rare = 1;
-            }
-            if (nftRarity == kanbirdLimited) {
-                // print only Kanaria Bird Limited Edition
-                filter.Limited = 1;
-            }
+//             // Grupe of Items
+//             if (nftTypeOf == kanBack) {
+//                 // print backpack 
+//                 filter.BackPack = 1;
+//             }
+//             if (nftTypeOf == kanBg) {
+//                 // print background
+//                 filter.Background = 1;
+//             }
+//             if (nftTypeOf == kanFrnt) {
+//                 // print foreground
+//                 filter.Foreground = 1;
+//             }
+//             if (nftTypeOf == kanHead) {
+//                 // print headwear
+//                 filter.Headwear = 1;
+//             }
+//             if (nftTypeOf == kanHand) {
+//                 // print handheld
+//                 filter.Handheld = 1;
+//             }
+//             if (nftTypeOf == kanChest) {
+//                 // print necklace
+//                 filter.Necklace = 1;
+//             }
+//             if (nftTypeOf == kanChest) {
+//                 // print necklace
+//                 filter.Necklace = 1;
+//             }
 
-            // Grupe of Items
-            if (nftTypeOf == kanBack) {
-                // print backpack 
-                filter.BackPack = 1;
-            }
-            if (nftTypeOf == kanBg) {
-                // print background
-                filter.Background = 1;
-            }
-            if (nftTypeOf == kanFrnt) {
-                // print foreground
-                filter.Foreground = 1;
-            }
-            if (nftTypeOf == kanHead) {
-                // print headwear
-                filter.Headwear = 1;
-            }
-            if (nftTypeOf == kanHand) {
-                // print handheld
-                filter.Handheld = 1;
-            }
-            if (nftTypeOf == kanChest) {
-                // print necklace
-                filter.Necklace = 1;
-            }
-            if (nftTypeOf == kanChest) {
-                // print necklace
-                filter.Necklace = 1;
-            }
+//             if (nftTypeOf = "EVNTS") {
 
-            if (nftTypeOf = "EVNTS") {
+//                 var eventItems = dumpEVNTS[`${remarkNft}`].slot;
+//                 eventItems.split('.');
+//                 eventItems[eventItems.length - 1];
 
-                var eventItems = dumpEVNTS[`${remarkNft}`].slot;
-                eventItems.split('.');
-                eventItems[eventItems.length - 1];
+//                 switch (eventItems) {
+//                     case backpack:
+//                         filter.BackPack = 1;
+//                         break;
+//                     case background:
+//                         filter.Background = 1;
+//                         break;
+//                     case foreground:
+//                         filter.Foreground = 1;
+//                         break;
+//                     case headwear:
+//                         filter.Headwear = 1;
+//                         break;
+//                     case objectleft:
+//                         filter.Handheld = 1;
+//                         break;
+//                     case necklace:
+//                         filter.Necklace = 1;
+//                         break;
+//                     default:
+//                         filter.List = 1;
+//                 }
 
-                switch (eventItems) {
-                    case backpack:
-                        filter.BackPack = 1;
-                        break;
-                    case background:
-                        filter.Background = 1;
-                        break;
-                    case foreground:
-                        filter.Foreground = 1;
-                        break;
-                    case headwear:
-                        filter.Headwear = 1;
-                        break;
-                    case objectleft:
-                        filter.Handheld = 1;
-                        break;
-                    case necklace:
-                        filter.Necklace = 1;
-                        break;
-                    default:
-                        filter.List = 1;
-                }
+//             }
 
-            }
+//         } // end Price
 
-        } // end Price
-
-    } // end BUY
-}
+//     } // end BUY
+// }
