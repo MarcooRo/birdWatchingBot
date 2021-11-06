@@ -21,6 +21,7 @@ const getRemark = async function getRemark(api, hederNumber) {
                     console.log(remarks)
                     for(let k in result) {
                             if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter))
+                                console.log(message.reamrkId)
                                 sendMessage.sendPhoto(result[k].chatId.toString(), message.reamrkId, message.print())
                     }
                 })
