@@ -4,6 +4,7 @@ const hexToString = require('@polkadot/util')
 const filterUtils = require('./scriptUtils/filter.js')
 const sendMessage = require('./scriptUtils/sendMessage.js');
 const messageCreator = require('./scriptUtils/messageCreator.js');
+const prepareImg = require('./scriptUtils/prepareImage.js')
 let pool = require('./scriptUtils/Db.js')
 
 
@@ -16,13 +17,14 @@ const getRemark = async function getRemark(api, hederNumber) {
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) { // get only LIST & 2.0.0
                 let message = messageCreator.buildMessage(remarks)
                 let messageFilter = filterUtils.prepareFilterMesage(remarks)
+                prepareImg.prepareImg(message)
                 pool.pool.query(`Select * from Users`, (err, result, fields) =>{
                     if(err) return console.log(err)
                     console.log(remarks)
                     for(let k in result) {
                             if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter))
                                 console.log(message.reamrkId)
-                                sendMessage.sendPhoto(result[k].chatId.toString(), message.reamrkId, message.print())
+                                sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
                     }
                 })
              }

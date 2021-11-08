@@ -52,23 +52,27 @@ function getMetadataAndImage(url2, chatId, caption){
     xhr2.send(null);
 }
 
-exports.sendPhoto = (chatId, remarkId, caption) => {
+exports.sendPhoto = (chatId, message, caption) => {
+    remarkId = message.reamrkId
     var xhr = new XMLHttpRequest();
-    var url = `https://kanaria.rmrk.app/api/rmrk2/nft/${remarkId}`
+    let url = `https://kanaria.rmrk.app/api/rmrk2/nft/${remarkId}`
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             if(xhr.status == 200){
-                let img = JSON.parse(xhr.responseText).image  
-                console.log(img)
+                let img = JSON.parse(xhr.responseText).image
+                let test = `<a href="${img}"> </a>`;
+                caption = test+caption;
+                console.log(caption)
+                message.imgSRC = img
                 if(img != ''){  
-                    console.log("existing image field")
+                    console.log("campo immagine esistente e' un uccello")
                     axios.post(`${TELEGRAM_API}/sendPhoto`, {
                         chat_id: chatId,
                         photo: img,
                         caption: caption,
                         parse_mode: "HTML"
                     }).catch(function (error) {
-                        console.log("error in requesting the image I pass to the text")
+                        console.log("errore nella richiesta dell'immagine passo al testo")
                         axios.post(`${TELEGRAM_API}/sendMessage`, {
                             chat_id: chatId,
                             text: caption,
@@ -78,7 +82,6 @@ exports.sendPhoto = (chatId, remarkId, caption) => {
                 } else {
                     let url2 = JSON.parse(xhr.responseText).metadata
                     let temp = url2.substring(6, url2.lenght)
-                    console.log(temp)
                     //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
                     console.log('https://rmrk.mypinata.cloud'+temp)
                     getMetadataAndImage('https://rmrk.mypinata.cloud'+temp, chatId, caption)
