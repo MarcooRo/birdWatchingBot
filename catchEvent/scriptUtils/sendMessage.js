@@ -11,6 +11,15 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
     })
 }
 
+exports.testSend = async(chatId, img, caption) => {
+    await axios.post(`${TELEGRAM_API}/sendPhoto`, {
+        chat_id: chatId,
+        photo: img,
+        caption: caption,
+        parse_mode: "HTML"
+     })
+}
+
 function sendNormalPhoto(chatId, img, caption) {
      axios.post(`${TELEGRAM_API}/sendPhoto`, {
          chat_id: chatId,
@@ -37,8 +46,6 @@ function getMetadataAndImage(url2, chatId, caption){
             let objectPhoto = `https://gateway.pinata.cloud`+temp
             console.log(objectPhoto)
             sendNormalPhoto(chatId,objectPhoto, caption);
-
-            
         }
     }
     xhr2.open('GET', url2, true);
@@ -54,7 +61,7 @@ exports.sendPhoto = (chatId, remarkId, caption) => {
                 let img = JSON.parse(xhr.responseText).image  
                 console.log(img)
                 if(img != ''){  
-                    console.log("campo immagine inesistente e' un oggetto")
+                    console.log("campo immagine esistente e' un uccello")
                     axios.post(`${TELEGRAM_API}/sendPhoto`, {
                         chat_id: chatId,
                         photo: img,

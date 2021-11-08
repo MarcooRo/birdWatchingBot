@@ -26,7 +26,8 @@ let test =  [
 "9807302-e0b9bdcc456a36497a-EVNTS-BNCHST-00000055"
 ]
 
-for(let s in test)sendMessage.sendPhoto("1238654632",test[s],"dio")
+// for(let s in test)
+sendMessage.testSend("1238654632",'https://kanaria-img.rmrk.link/1636241177565/jpeg/8949162-e0b9bdcc456a36497a-KANBIRD-KANL-00002302.jpg',"dio")
 
 
 //for(let i = 0; i < 5; i++) 

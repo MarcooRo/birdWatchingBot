@@ -60,8 +60,10 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser) {
         if(filterUser[0])return true // se voglio tutto 
         if(filterUser.allBird && filterMessage.isBird) return true // se voglio solo canarini
-        for(let i = 2; i < filterMessage.length; i++) { // check degli oggetti 
-            if(!(filterUser[i] && filterMessage[i]))return false
+        for(let i = 2; i < filterMessage.length-1; i++) { // check degli oggetti 
+            if(filterUser[i]){
+                if(!filterMessage[i])return false
+            }
         }
         return true
 }
