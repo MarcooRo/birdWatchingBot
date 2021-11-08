@@ -61,14 +61,14 @@ exports.sendPhoto = (chatId, remarkId, caption) => {
                 let img = JSON.parse(xhr.responseText).image  
                 console.log(img)
                 if(img != ''){  
-                    console.log("campo immagine esistente e' un uccello")
+                    console.log("existing image field")
                     axios.post(`${TELEGRAM_API}/sendPhoto`, {
                         chat_id: chatId,
                         photo: img,
                         caption: caption,
                         parse_mode: "HTML"
                     }).catch(function (error) {
-                        console.log("errore nella richiesta dell'immagine passo al testo")
+                        console.log("error in requesting the image I pass to the text")
                         axios.post(`${TELEGRAM_API}/sendMessage`, {
                             chat_id: chatId,
                             text: caption,

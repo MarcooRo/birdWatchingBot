@@ -13,7 +13,7 @@ const getRemark = async function getRemark(api, hederNumber) {
     signedBlock.block.extrinsics.forEach((ex, index) => {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
-            if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
+            if (remarks.includes("2.0.0") && remarks.includes("LIST")) { // get only LIST & 2.0.0
                 let message = messageCreator.buildMessage(remarks)
                 let messageFilter = filterUtils.prepareFilterMesage(remarks)
                 pool.pool.query(`Select * from Users`, (err, result, fields) =>{
@@ -33,10 +33,10 @@ const getRemark = async function getRemark(api, hederNumber) {
 
 function botStart() {
     (async() => {
-        console.log("SCANSIONE EVENTI AVVIATA")
+        console.log("SCAN STARTED")
         const provider = new WsProvider.WsProvider('wss://kusama-rpc.polkadot.io/');
         const api = await ApiPromise.ApiPromise.create({ provider });
-        const VERSION = "2.0.0";
+        //const VERSION = "2.0.0";
             const blockNumber = await api.rpc.chain.subscribeNewHeads((header) => {
                 console.log("Blocco numero " + header.number)
                 getRemark(api, header.number)

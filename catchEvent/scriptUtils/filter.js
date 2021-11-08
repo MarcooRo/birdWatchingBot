@@ -6,8 +6,7 @@ let dumpKANHEAD = require('../dumpbuild/CollectionsDump/KANHEAD.json');
 let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
 let dumpKANFRNT = require ('../dumpbuild/CollectionsDump/KANFRNT.json');
 
-const list = "LIST";
-const buy = "BUY";
+// toDo: replace string variables with value slot in dump
 const kanbird = "KANBIRD";
 const kanbirdSuperFounder = "KANS";
 const kanbirdFounder = "KANF";
@@ -39,6 +38,8 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
         "Necklace" : 0,
         "isBird" : 0
     }
+    // toDo: add price
+    // toDo: add switch per cercare info slot in EVNTS
 
     if(remark.includes(kanbirdSuperFounder))Filter.SuperFunder = 1
     if(remark.includes(kanbirdFounder))Filter.Funder = 1
@@ -50,7 +51,7 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     if(remark.includes(kanHead))Filter.Headwear = 1
     if(remark.includes(kanHand))Filter.Handheld = 1
     if(remark.includes(kanChest))Filter.Necklace = 1
-    if(remark.includes("KANBIRD")) Filter.isBird = 1
+    if(remark.includes(kanbird)) Filter.isBird = 1
 
     let stringFilter= ''
     for(key in Filter)stringFilter += (Filter[key]);
@@ -58,9 +59,9 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
 }
 
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser) {
-        if(filterUser[0])return true // se voglio tutto 
-        if(filterUser.allBird && filterMessage.isBird) return true // se voglio solo canarini
-        for(let i = 2; i < filterMessage.length-1; i++) { // check degli oggetti 
+        if(filterUser[0])return true // all 
+        if(filterUser.allBird && filterMessage.isBird) return true // only Kanaria Bird
+        for(let i = 2; i < filterMessage.length-1; i++) { // itmes 
             if(filterUser[i]){
                 if(!filterMessage[i])return false
             }

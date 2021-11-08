@@ -1,8 +1,6 @@
-
 /***************************
  * FILTER UTILITY
  ***************************/
-//const version_2 = "2.0.0"; // we get only the V2 from the API looking in the block
 const list = "LIST";
 const buy = "BUY";
 const kanbird = "KANBIRD";
@@ -19,7 +17,7 @@ const kanChest = "KANCHEST";
 const Evnts = "EVNTS"
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
 //const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
-var freePrice = 0; // campo campo ha valore base 0 ma si deve poter riscrivere
+var freePrice = 0;
 //ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
 
 const warning = '\u{26A0}'	
@@ -114,10 +112,10 @@ exports.buildMessage = function buildMessage(remark) {
                     var nome = "Something";
                     var text = "";
             }
-            var toPrint = ` <b>${warning}OMG</b><a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
+            var toPrint = ` <b>OMG</b><a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
 <b>" + text + "</b>\n\
-<b>Sale at: " + this.price + " KSM</b>"
-+ `\n<a href="${this.link}">Take a look -></a>`;
+\n<b>Price: " + this.price + " KSM</b>\n"
++ `\n<a href="${this.link}">Take a look -></a>\n`;
 
             return toPrint;
         }

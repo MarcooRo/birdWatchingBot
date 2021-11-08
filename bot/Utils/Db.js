@@ -22,9 +22,9 @@ exports.addUser = function addUser(bot, chatId, filter) {
     pool.getConnection(function(err, connection) {
         pool.query(`Insert into Users(chatId, filter) Values (${chatId}, "${filter}")`, (err, result, fields) => {
             if(err) {
-                bot.telegram.sendMessage(chatId, "Bot già avviato! premi stop per inserire un nuovo filtro", {parse_mode: "Markdown"})
+                bot.telegram.sendMessage(chatId, "Bot already started! press stop to insert a new filtero", {parse_mode: "Markdown"})
             }else{
-                bot.telegram.sendMessage(chatId, `BOT AVVIATO ${rocket}`, {parse_mode: "Markdown" })
+                bot.telegram.sendMessage(chatId, `BOT STARTED ${rocket}`, {parse_mode: "Markdown" })
             }
             
             connection.release()

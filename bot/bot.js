@@ -19,15 +19,14 @@ function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Backgro
     this.Background = Background
     this.ForeGround = Foreground
     this.Headwear = Headwear
-    this.Handheld =Handheld
+    this.Handheld = Handheld
     this.Necklace = Necklace
 }
 
 bot.help(ctx => {
     const helpMessage = `
-    Benvenuto su, lista comandi 
-    /start - per inizializzare il bot
-    /menu per mostarer le opzioni
+    /start - to initialize the bot
+    /menu - to show the options
     `
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
@@ -45,7 +44,7 @@ bot.command('menu', ctx => {
 bot.on('callback_query', (ctx) => {
     let cmd = ctx.callbackQuery.data
     switch(cmd) {
-        case 'Indietro':
+        case 'Back':
             ctx.deleteMessage();
             botUtils.sendStartMenu(ctx,0, bot);
             break;
