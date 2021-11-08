@@ -41,6 +41,11 @@ bot.command('menu', ctx => {
     botUtils.sendStartMenu(ctx,1, bot);
 })
 
+bot.command('priceLimit', ctx => {
+    let resp = bot.telegram.getUpdates().then(console.log).text
+    console.log("test"+resp)
+})
+
 bot.on('callback_query', (ctx) => {
     let cmd = ctx.callbackQuery.data
     switch(cmd) {
@@ -61,6 +66,10 @@ bot.on('callback_query', (ctx) => {
             break
         case 'filtra':
             botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
+            break;
+        case 'price':
+            //ctx.deleteMessage()
+            bot.telegram.sendMessage(ctx.chat.id, "Insert your price limit for your filter in this way /priceLimit 0.03 or /priceLimit 5", {parse_mode: "Markdown"})
             break;
         default:
             if(filters[ctx.chat.id][`${ctx.callbackQuery.data}`]) filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 0

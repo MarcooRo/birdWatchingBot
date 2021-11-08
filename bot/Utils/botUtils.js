@@ -86,6 +86,9 @@ exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter){
                     {text: (filter.Necklace ? `Necklace ${checked}`:'Necklace'), callback_data: 'Necklace'}
                 ],
                 [
+                    {text: `Price Limit ${dollar}`, callback_data: 'price'}
+                ],
+                [
                     {text: "Save and start", callback_data: 'Start'}
                 ],
                 [
