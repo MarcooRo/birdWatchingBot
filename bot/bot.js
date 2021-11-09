@@ -5,6 +5,7 @@ const axios = require('axios')
 const db = require('./Utils/Db.js');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 let filters= {}
+let priceLimits = {}
 
 function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace,price){
     this.allList = allList
@@ -19,7 +20,6 @@ function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Backgro
     this.Headwear = Headwear
     this.Handheld =Handheld
     this.Necklace = Necklace
-    this,price = price
 }
     
 bot.help(ctx => {
@@ -27,6 +27,7 @@ bot.help(ctx => {
     Benvenuto su, lista comandi 
     /start - per inizializzare il bot
     /menu per mostarer le opzioni
+    /priceLimit price limiter 
     `
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
@@ -34,6 +35,7 @@ bot.help(ctx => {
 })
 bot.command('start', ctx => {
     botUtils.sendStartMenu(ctx,0, bot);
+    priceLimits[ctx.chat.id] = 0
     filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0)
 })
 
@@ -42,8 +44,19 @@ bot.command('menu', ctx => {
 })
 
 bot.command('priceLimit', ctx => {
-    let resp = bot.telegram.getUpdates().then(console.log).text
-    console.log("asdasd"+resp)
+     bot.telegram.getUpdates(0).then(res =>{
+        let resp = ctx.message.text
+        resp = resp.split(" ")
+        let n = resp[1]
+        console.log(n)
+        if(isNaN(n - parseFloat(n))){
+             bot.telegram.sendMessage(ctx.chat.id, "Insert a Number!", {parse_mode: "Markdown"})
+             return
+        }
+        priceLimits[ctx.chat.id] = n
+        bot.telegram.sendMessage(ctx.chat.id, "Correctly inserted!", {parse_mode: "Markdown"})
+        return
+     })
     
 })
 
@@ -62,11 +75,12 @@ bot.on('callback_query', (ctx) => {
             ctx.deleteMessage()
             let result = "";
             for(key in filters[ctx.chat.id])result += (filters[ctx.chat.id][key]);
-            db.addUser(bot, ctx.chat.id, result)
+            db.addUser(bot, ctx.chat.id, result, priceLimits[ctx.chat.id])
             botUtils.sendStartMenu(ctx,1,bot);
             break
         case 'Stop':
             botUtils.doStop(ctx, db, bot);
+            priceLimits[ctx.chat.id] = 0
             filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
             break
         case 'filtra':

@@ -3,6 +3,7 @@ const  XMLHttpRequest = require ('xhr2');
 
 function getRequest(img){
     axios.get(`${img}`)
+    axios.get(`${img}`)
     var waitTill = new Date(new Date().getTime() + 10 * 1000);
     while(waitTill > new Date()){}
 }

@@ -18,14 +18,17 @@ const getRemark = async function getRemark(api, hederNumber) {
                 let message = messageCreator.buildMessage(remarks)
                 let messageFilter = filterUtils.prepareFilterMesage(remarks)
                 prepareImg.prepareImg(message)
-                pool.pool.query(`Select * from Users`, (err, result, fields) =>{
-                    if(err) return console.log(err)
-                    console.log(remarks)
-                    for(let k in result) {
-                            if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter))
-                                console.log(message.reamrkId)
-                                sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
-                    }
+                pool.pool.getConnection(function(err, connection) {
+                    pool.pool.query(`Select * from Users`, (err, result, fields) =>{
+                        if(err) return console.log(err)
+                        console.log(remarks)
+                        for(let k in result) {
+                                if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter))
+                                    console.log(message.reamrkId)
+                                    sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
+                        }
+                    })
+                    connection.release()
                 })
              }
         }

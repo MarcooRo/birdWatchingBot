@@ -18,9 +18,9 @@ exports.deleteUser = function deleteUser(chatId) {
     });
 }
 
-exports.addUser = function addUser(bot, chatId, filter) {
+exports.addUser = function addUser(bot, chatId, filter, price) {
     pool.getConnection(function(err, connection) {
-        pool.query(`Insert into Users(chatId, filter) Values (${chatId}, "${filter}")`, (err, result, fields) => {
+        pool.query(`Insert into Users(chatId, filter, priceLimit) Values (${chatId}, "${filter}",${price})`, (err, result, fields) => {
             if(err) {
                 bot.telegram.sendMessage(chatId, "Bot already started! press stop to insert a new filtero", {parse_mode: "Markdown"})
             }else{
