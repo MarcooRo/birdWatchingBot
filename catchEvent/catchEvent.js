@@ -5,6 +5,7 @@ const filterUtils = require('./scriptUtils/filter.js')
 const sendMessage = require('./scriptUtils/sendMessage.js');
 const messageCreator = require('./scriptUtils/messageCreator.js');
 const prepareImg = require('./scriptUtils/prepareImage.js')
+const discord = require('./discordBot.js')
 let pool = require('./scriptUtils/Db.js')
 
 
@@ -15,21 +16,25 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) { // get only LIST & 2.0.0
+                //send discord notification\
                 let message = messageCreator.buildMessage(remarks)
-                let messageFilter = filterUtils.prepareFilterMesage(remarks)
-                prepareImg.prepareImg(message)
-                pool.pool.getConnection(function(err, connection) {
-                    pool.pool.query(`Select * from Users`, (err, result, fields) =>{
-                        if(err) return console.log(err)
-                        console.log(remarks)
-                        for(let k in result) {
-                                if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
-                                    console.log(message.reamrkId)
-                                    sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
-                        }
+                if(message.price != 0){
+                    //discord.sendRmrkDiscord(message.print(), null, "LIST")
+                    let messageFilter = filterUtils.prepareFilterMesage(remarks)
+                    if(remarks.includes("KANBIRD"))prepareImg.prepareImg(message)
+                    pool.pool.getConnection(function(err, connection) {
+                        pool.pool.query(`Select * from Users`, (err, result, fields) =>{
+                            if(err) return console.log(err)
+                            console.log(remarks)
+                            for(let k in result) {
+                                    if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
+                                        console.log(remarks)
+                                        sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
+                            }
+                        })
+                        connection.release()
                     })
-                    connection.release()
-                })
+                }
              }
         }
     });

@@ -19,8 +19,7 @@ const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
 //const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
 var freePrice = 0;
 //ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-
-const warning = '\u{26A0}'	
+	
 
 
 
@@ -42,7 +41,9 @@ exports.buildMessage = function buildMessage(remark) {
         ["numberId", nftType[4]] // 00004594, 00000066, 00000017
     ]);
     var nftTypJson = Object.fromEntries(nftTypeObj);
-    var remarkPrice = rmrkJson.price / 950000000000;
+    console.log(rmrkJson.price)
+    var remarkPrice = ((remarkSplit[4]/1000000000000)/0.95)
+    console.log(remarkPrice)
     var imgDump = 'https://kanaria-img.rmrk.link/1635945800349/jpeg/'+rmrkJson.nft+'.jpg';
 
 
@@ -74,7 +75,6 @@ exports.buildMessage = function buildMessage(remark) {
         price: remarkPrice,
         link: linkCatalogoComp,
         print: function() {
-            ////console.log(this.nftType)
             switch (this.nftType) {
                 case kanbird:
                     var nome = "Kanaria Bird";

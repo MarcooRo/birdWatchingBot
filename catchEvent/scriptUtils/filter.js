@@ -23,6 +23,7 @@ const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
 var freePrice = 0; 
 
 exports.prepareFilterMesage = function prepareFilterMesage(remark) {
+    var remarkSplit = remark.split('::');
     let Filter = {
         "allList": 0,
         "allBird": 0,
@@ -54,36 +55,39 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     if(remark.includes(kanChest))Filter.Necklace = 1
     if(remark.includes(kanbird)) Filter.isBird = 1
 
-    if (remark.includes(Evnts)){
-        var eventItems = dumpEVNTS[`${remarkNft}`].slot;
-        eventItems.split('.');
-        eventItems[eventItems.length - 1];
+    // if (remark.includes(Evnts)){
+    //     var eventItems = dumpEVNTS[`${remarkSplit[3]}`].slot;
+    //     eventItems.split('.');
+    //     eventItems[eventItems.length - 1];
 
-        switch (eventItems) {
-            case backpack:
-                Filter.BackPack = 1
-            break;
-            case background:
-                Filter.Background = 1
-                break;
-            case foreground:
-                Filter.ForeGround = 1
-                break;
-             case headwear:
-                Filter.Headwear = 1
-                break;
-             case objectleft:
-                Filter.Handheld = 1
-                break;
-             case necklace:
-                Filter.Necklace = 1
-                break;
-             default:
-                Filter.allList = 0         
-        }
-    }
-    var remarkSplit = remark.split('::');
-    let price = remarkSplit[4] / 950000000000;
+    //     switch (eventItems) {
+    //         case backpack:
+    //             Filter.BackPack = 1
+    //             break;
+    //         case background:
+    //             Filter.Background = 1
+    //             break;
+    //         case foreground:
+    //             Filter.ForeGround = 1
+    //             break;
+    //          case headwear:
+    //             Filter.Headwear = 1
+    //             break;
+    //          case objectleft:
+    //             Filter.Handheld = 1
+    //             break;
+    //          case necklace:
+    //             Filter.Necklace = 1
+    //             break;
+    //          default:
+    //             Filter.allList = 0         
+    //     }
+    // }
+    console.log(remarkSplit[4])
+    let price =  parseFloat(remarkSplit[4] / 10000000000000).toPrecision(8);
+    ///10^12/(100-5%)/100
+    price = (remarkSplit[4]/100000000000)/0.95
+    console.log(price)
     Filter.price = price
     let stringFilter= ''
     for(key in Filter)stringFilter += (Filter[key]);
@@ -92,24 +96,32 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
 //ordine bit lato db
 //allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
-        let stringFilterMessage
-        for(key in filterMessage)stringFilterMessage += (filterMessage[key]);
+        let stringFilterMessage = ""
+        //console.log(filterMessage)
+        //console.log(filterUser)
+        for(key in filterMessage){
+            stringFilterMessage += (filterMessage[key]);
+        }
         if(priceLimit != 0){
             if(filterMessage.price > priceLimit)return false
         }
-        if(filterUser[0])return true // all 
-        if(filterUser[1] && filterMessage.isBird) return true // only Kanaria Bird
+        console.log(stringFilterMessage)
+        if(filterUser[0] == 1){
+            return true // all 
+        }
+        if(filterUser[1] == 1  && filterMessage.isBird == 1) {
+            return true
+        } // only Kanaria Bird
 
-        if(filterMessage.Funder)
         //tipi di oggetti
-        for(var i = 2; i < filterUser.lenght;i++){
-            if(filterUser[i]){
-                if(!stringFilterMessage[i])return false
+        console.log(filterUser.length)
+        for(var i = 2; i < filterUser.length;i++) {
+            if(filterUser[i] == 1){
+                if(stringFilterMessage[i] == 0)return false
             }
         }
-        // if(filterUser[6] )
-        console.log(filterMessage)
-        console.log(filterUser)
+
+        
         return true
         
 }

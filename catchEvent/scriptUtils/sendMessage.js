@@ -42,9 +42,7 @@ function getMetadataAndImage(url2, chatId, caption){
         if (xhr2.readyState == 4) {
             img = JSON.parse(xhr2.responseText).image
             let temp = img.substring(6, img.lenght)
-            console.log(temp)
             let objectPhoto = `https://gateway.pinata.cloud`+temp
-            console.log(objectPhoto)
             sendNormalPhoto(chatId,objectPhoto, caption);
         }
     }
@@ -62,7 +60,6 @@ exports.sendPhoto = (chatId, message, caption) => {
                 let img = JSON.parse(xhr.responseText).image
                 let test = `<a href="${img}"> </a>`;
                 caption = test+caption;
-                console.log(caption)
                 message.imgSRC = img
                 if(img != ''){  
                     console.log("campo immagine esistente e' un uccello")
@@ -82,12 +79,11 @@ exports.sendPhoto = (chatId, message, caption) => {
                 } else {
                     let url2 = JSON.parse(xhr.responseText).metadata
                     let temp = url2.substring(6, url2.lenght)
-                    //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
-                    console.log('https://rmrk.mypinata.cloud'+temp)
+                    //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4  
                     getMetadataAndImage('https://rmrk.mypinata.cloud'+temp, chatId, caption)
                 }
 
-                }
+            }
         }
     }
     xhr.open('GET', url, true);

@@ -1,10 +1,11 @@
 const axios = require('axios')
 const  XMLHttpRequest = require ('xhr2');
 
+
 function getRequest(img){
     axios.get(`${img}`)
     axios.get(`${img}`)
-    var waitTill = new Date(new Date().getTime() + 10 * 1000);
+    var waitTill = new Date(new Date().getTime() + 45 * 1000);
     while(waitTill > new Date()){}
 }
 
@@ -16,9 +17,8 @@ exports.prepareImg = function prepareImg(message){
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             if(xhr.status == 200){
-        let imgUrl = JSON.parse(xhr.responseText).image
-        //console.log(imgUrl)
-        getRequest(imgUrl)
+                let imgUrl = JSON.parse(xhr.responseText).image
+                if(imgUrl != '' && imgUrl != undefined)getRequest(imgUrl)
             }
         }
     }

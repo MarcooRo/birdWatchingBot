@@ -8,7 +8,7 @@ const d = new Date();
 let time = d.getTime();
 let n = Math.floor(Math.random() * (time*1000))
 const prepareImg = require('./scriptUtils/prepareImage.js')
-const filterUtils = require('./scriptUtils/filter.js')
+const testALl = require('./testAll.json')
 
 //esempio di immagien finita
 //ipfs://ipfs/QmQMLMjx55DqbsLRF48kt8c1XTqCJWxvLhF4jQBhnaaz1e/substrapunk/substrapunk_foreground_thumb.png
@@ -16,27 +16,26 @@ const filterUtils = require('./scriptUtils/filter.js')
 
 let url = 'https://kanaria.rmrk.app/api/rmrk2/nft/8788682-e0b9bdcc456a36497a-KANFRNT-substrapunk_foreground-00002615'
 
-let test =  [
-"RMRK::LIST::2.0.0::8949171-e0b9bdcc456a36497a-KANBIRD-KANL-00009272::1899050000000",
-"RMRK::LIST::2.0.0::8949171-e0b9bdcc456a36497a-KANBIRD-KANL-00009260::1899050000000",
-"RMRK::LIST::2.0.0::8949162-e0b9bdcc456a36497a-KANBIRD-KANL-00002312::316350000000000",
-"RMRK::LIST::2.0.0::8949162-e0b9bdcc456a36497a-KANBIRD-KANL-00002294::950000000000000"
-]
-
-
-var remark = "RMRK::LIST::2.0.0::8949162-e0b9bdcc456a36497a-KANBIRD-KANL-00002294::950000000000000";
-// let message1 = message.buildMessage(test[2])
+var remark = "RMRK::LIST::2.0.0::8949171-e0b9bdcc456a36497a-KANBIRD-KANL-00009677::0";
+let message1 =""
 // console.log(message1.reamrkId)
-let messageFilter = filterUtils.prepareFilterMesage(remark)
-let messageUser = "010000000000"
-console.log(filterUtils.checkFilterMessage_User(messageFilter, messageUser, 0.002))
-//for(let s in test) {
-   // message1 = message.buildMessage(test[s])
-   // sendMessage.sendPhoto("1238654632",message1,message1.print())
+// let messageFilter = filterUtils.prepareFilterMesage(remark)
+// console.log(messageFilter)
+// let messageUser = "000000001000"
+// console.log(filterUtils.checkFilterMessage_User(messageFilter, messageUser, 2000))
+//for(let s in testALl) {
+   message1 = message.buildMessage(testALl[5].remark)
+   sendMessage.sendPhoto("1238654632",message1,message1.print())
+   //message1 = message.buildMessage(test[2])
+///}
+//message1 = message.buildMessage()
+//console.log(message1.print())
+   //sendMessage.sendPhoto("1238654632",message1,message1.print())
+   //prepareImg.prepareImg(message1)
 //}
 //https://kanaria-img.rmrk.link/1636286958976/jpeg/8949162-e0b9bdcc456a36497a-KANBIRD-KANL-00003151.jpg
 // sendMessage.testSend("1238654632",'http://kanaria-img.rmrk.link/1636383554180/jpeg/8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00003869.jpg', "test")
-
+// discord.sendRmrkDiscord("ciao", "d", "LIST")
 
 //for(let i = 0; i < 5; i++) 
 //sendMessage.sendPhoto("1238654632",`8788682-e0b9bdcc456a36497a-KANFRNT-substrapunk_foreground-00002615`,"ciao")
