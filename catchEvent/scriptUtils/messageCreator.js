@@ -112,8 +112,8 @@ exports.buildMessage = function buildMessage(remark) {
                     var nome = "Something";
                     var text = "";
             }
-            var toPrint = ` <b>OMG</b><a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
-<b>" + text + "</b>\n\
+            var toPrint = `<b>OMG</b><a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
+\n<b>" + text + "</b>\n\
 \n<b>Price: " + this.price + " KSM</b>\n"
 + `\n<a href="${this.link}">Take a look -></a>\n`;
 

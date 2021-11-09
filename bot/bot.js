@@ -18,16 +18,15 @@ function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Backgro
     this.Background = Background
     this.ForeGround = Foreground
     this.Headwear = Headwear
-    this.Handheld =Handheld
+    this.Handheld = Handheld
     this.Necklace = Necklace
 }
     
 bot.help(ctx => {
     const helpMessage = `
-    Benvenuto su, lista comandi 
-    /start - per inizializzare il bot
-    /menu per mostarer le opzioni
-    /priceLimit price limiter 
+    /start - to initialize bot
+    /menu - to show options
+    /priceLimit - to set price limiter
     `
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
@@ -57,7 +56,6 @@ bot.command('priceLimit', ctx => {
         bot.telegram.sendMessage(ctx.chat.id, "Correctly inserted!", {parse_mode: "Markdown"})
         return
      })
-    
 })
 
 bot.on('callback_query', (ctx) => {
