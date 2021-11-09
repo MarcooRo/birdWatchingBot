@@ -23,7 +23,7 @@ const getRemark = async function getRemark(api, hederNumber) {
                         if(err) return console.log(err)
                         console.log(remarks)
                         for(let k in result) {
-                                if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter))
+                                if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
                                     console.log(message.reamrkId)
                                     sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
                         }

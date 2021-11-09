@@ -57,8 +57,8 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     for(key in Filter)stringFilter += (Filter[key]);
     return stringFilter
 }
-
-exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser) {
+//domani
+exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
         if(filterUser[0])return true // all 
         if(filterUser.allBird && filterMessage.isBird) return true // only Kanaria Bird
         for(let i = 2; i < filterMessage.length-1; i++) { // itmes 
