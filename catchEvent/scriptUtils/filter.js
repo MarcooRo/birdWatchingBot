@@ -36,7 +36,8 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
         "Headwear" : 0,
         "Handheld" :0,
         "Necklace" : 0,
-        "isBird" : 0
+        "isBird" : 0,
+        "price": 0
     }
     // toDo: add price
     // toDo: add switch per cercare info slot in EVNTS
@@ -81,19 +82,34 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
                 Filter.allList = 0         
         }
     }
-
+    var remarkSplit = remark.split('::');
+    let price = remarkSplit[4] / 950000000000;
+    Filter.price = price
     let stringFilter= ''
     for(key in Filter)stringFilter += (Filter[key]);
-    return stringFilter
+    return Filter
 }
-
+//ordine bit lato db
+//allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
+        let stringFilterMessage
+        for(key in filterMessage)stringFilterMessage += (filterMessage[key]);
+        if(priceLimit != 0){
+            if(filterMessage.price > priceLimit)return false
+        }
         if(filterUser[0])return true // all 
-        if(filterUser.allBird && filterMessage.isBird) return true // only Kanaria Bird
-        for(let i = 2; i < filterMessage.length-1; i++) { // itmes 
+        if(filterUser[1] && filterMessage.isBird) return true // only Kanaria Bird
+
+        if(filterMessage.Funder)
+        //tipi di oggetti
+        for(var i = 2; i < filterUser.lenght;i++){
             if(filterUser[i]){
-                if(!filterMessage[i])return false
+                if(!stringFilterMessage[i])return false
             }
         }
+        // if(filterUser[6] )
+        console.log(filterMessage)
+        console.log(filterUser)
         return true
+        
 }
