@@ -16,20 +16,19 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) { // get only LIST & 2.0.0
-                //send discord notification\
+                //send discord notificationx
                 let message = messageCreator.buildMessage(remarks)
-                if(message.price != 0){
+                if(message.price != 0) {
                     //discord.sendRmrkDiscord(message.print(), null, "LIST")
                     let messageFilter = filterUtils.prepareFilterMesage(remarks)
-                    if(remarks.includes("KANBIRD"))prepareImg.prepareImg(message)
+                    //if(remarks.includes("KANBIRD"))prepareImg.prepareImg(message)
                     pool.pool.getConnection(function(err, connection) {
                         pool.pool.query(`Select * from Users`, (err, result, fields) =>{
                             if(err) return console.log(err)
                             console.log(remarks)
                             for(let k in result) {
-                                    if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
-                                        console.log(remarks)
-                                        sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
+                                if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
+                                    sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
                             }
                         })
                         connection.release()

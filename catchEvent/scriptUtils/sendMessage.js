@@ -1,23 +1,17 @@
-const TOKEN = "1991386673:AAHd1SiiQAzRVDpM0liFyJYmWs4G3Bg5YMM";
+const TOKEN = "1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY";
+//1991386673:AAHd1SiiQAzRVDpM0liFyJYmWs4G3Bg5YMM
 const axios = require('axios')
 const  XMLHttpRequest = require ('xhr2');
 
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
- exports.sendMessage = async(chatId, text) => {
-    await axios.post(`${TELEGRAM_API}/sendMessage`, {
+ function sendMessage(chatId, text) {
+    axios.post(`https://api.telegram.org/bot1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY/sendMessage`, {
         chat_id: chatId,
         text: text,
         parse_mode: "HTML"
+    }).catch(function (error) {
+        console.log("errori.......")
     })
-}
-
-exports.testSend = async(chatId, img, caption) => {
-    await axios.post(`${TELEGRAM_API}/sendPhoto`, {
-        chat_id: chatId,
-        photo: img,
-        caption: caption,
-        parse_mode: "HTML"
-     })
 }
 
 function sendNormalPhoto(chatId, img, caption) {
@@ -27,22 +21,20 @@ function sendNormalPhoto(chatId, img, caption) {
          caption: caption,
          parse_mode: "HTML"
       }).catch(function (error) {
-         axios.post(`${TELEGRAM_API}/sendMessage`, {
-             chat_id: chatId,
-             text: caption,
-             parse_mode: "HTML"
-         })
+         sendMessage(chatId, caption)
        });
  }
 
-function getMetadataAndImage(url2, chatId, caption){
+function getMetadataAndImage(url2, chatId, caption) {
     console.log("\n\n request 2 ")
     var xhr2 = new XMLHttpRequest();
     xhr2.onreadystatechange = function() {
         if (xhr2.readyState == 4) {
             img = JSON.parse(xhr2.responseText).image
             let temp = img.substring(6, img.lenght)
+            console.log(temp)
             let objectPhoto = `https://gateway.pinata.cloud`+temp
+            console.log(objectPhoto)
             sendNormalPhoto(chatId,objectPhoto, caption);
         }
     }
@@ -60,30 +52,20 @@ exports.sendPhoto = (chatId, message, caption) => {
                 let img = JSON.parse(xhr.responseText).image
                 let test = `<a href="${img}"> </a>`;
                 caption = test+caption;
+                console.log(caption)
                 message.imgSRC = img
-                if(img != ''){  
+                if(img != '' && img != undefined){  
                     console.log("campo immagine esistente e' un uccello")
-                    axios.post(`${TELEGRAM_API}/sendPhoto`, {
-                        chat_id: chatId,
-                        photo: img,
-                        caption: caption,
-                        parse_mode: "HTML"
-                    }).catch(function (error) {
-                        console.log("errore nella richiesta dell'immagine passo al testo")
-                        axios.post(`${TELEGRAM_API}/sendMessage`, {
-                            chat_id: chatId,
-                            text: caption,
-                            parse_mode: "HTML"
-                        })
-                    });
+                    sendNormalPhoto(chatId, img, caption)
                 } else {
                     let url2 = JSON.parse(xhr.responseText).metadata
                     let temp = url2.substring(6, url2.lenght)
-                    //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4  
+                    //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
+                    console.log('https://rmrk.mypinata.cloud'+temp)
                     getMetadataAndImage('https://rmrk.mypinata.cloud'+temp, chatId, caption)
                 }
 
-            }
+                }
         }
     }
     xhr.open('GET', url, true);

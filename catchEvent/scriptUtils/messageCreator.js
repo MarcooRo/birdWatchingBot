@@ -42,7 +42,7 @@ exports.buildMessage = function buildMessage(remark) {
     ]);
     var nftTypJson = Object.fromEntries(nftTypeObj);
     console.log(rmrkJson.price)
-    var remarkPrice = ((remarkSplit[4]/1000000000000)/0.95)
+    var remarkPrice = (remarkSplit[4]/1000000000000)/0.95
     console.log(remarkPrice)
     var imgDump = 'https://kanaria-img.rmrk.link/1635945800349/jpeg/'+rmrkJson.nft+'.jpg';
 
@@ -112,7 +112,7 @@ exports.buildMessage = function buildMessage(remark) {
                     var nome = "Something";
                     var text = "";
             }
-            var toPrint = `<b>OMG</b><a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
+            var toPrint = `<b>OMG</b> <a href="${this.imgSRC}">!</a> \n\An <b>` + nome + "</b> has been listed\n\
 \n<b>" + text + "</b>\n\
 \n<b>Price: " + this.price + " KSM</b>\n"
 + `\n<a href="${this.link}">Take a look -></a>\n`;
