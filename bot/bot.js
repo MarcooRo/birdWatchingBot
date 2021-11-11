@@ -27,10 +27,13 @@ const helpMessage = `
 /priceLimit - to set price limiter
 `
 
-const presentation = `Welcome to birdWatchingBot, a small telegram bot capable of capturing all 2.0.0 remark in real time, here you can be attentive to the new releases of all the most fantastic objects on the market including birds through a convenient control panel. 
-Filter what you want, the bot is equipped not only to interact through telegram but also through two discord channels where all the LIST and BUY eventsof the network will be communicated. enjoy yourselves!
+const presentation = `Welcome to birdWatchingBot!
+The bot captures all of Kanaria's Birds and Items in real time.
+Create your own filter and don't miss a single opportunity!
 
-Work in progress -> some images will not be able to load immediately because they may not yet exist, speed is our first goal`;
+Come and visit us on Discord, you will find two channels, one with all sales and one with all purchases.
+
+(This is a beta version, we are working on fixing small bugs, some images will not be able to load immediately, we are working on it, speed is our first goal)`;
     
 bot.help(ctx => {
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {

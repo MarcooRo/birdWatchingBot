@@ -6,6 +6,7 @@ const { request } = require('http');
 const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 const d = new Date();
 let time = d.getTime();
+let filterUtils = require('../catchEvent/scriptUtils/filter')
 let n = Math.floor(Math.random() * (time * 1000))
 const prepareImg = require('../catchEvent/scriptUtils/prepareImage.js')
 const testALl = require('./testAll.json')
@@ -17,18 +18,19 @@ const testALl = require('./testAll.json')
 let url = 'https://kanaria.rmrk.app/api/rmrk2/nft/8788682-e0b9bdcc456a36497a-KANFRNT-substrapunk_foreground-00002615'
 
 var remark = "RMRK::LIST::2.0.0::9807302-e0b9bdcc456a36497a-EVNTS-HNTDTR-00000008::950000000000000";
-let message1 = ""
-    // console.log(message1.reamrkId)
-    // let messageFilter = filterUtils.prepareFilterMesage(remark)
-    // console.log(messageFilter)
-    // let messageUser = "000000001000"
-    // console.log(filterUtils.checkFilterMessage_User(messageFilter, messageUser, 2000))
-for (let s in testALl) {
-    message1 = message.buildMessage(remark)
+
+let message1 = message.buildMessage(remark)
+console.log(message1.reamrkId)
+let messageFilter = filterUtils.prepareFilterMesage(remark)
+console.log(messageFilter)
+let messageUser = "000000100000"
+console.log(filterUtils.checkFilterMessage_User(messageFilter, messageUser, 0))
+//for (let s in testALl) {
+    //message1 = message.buildMessage(testALl[7].remark)
         //prepareImg.prepareImg(message1)
-    sendMessage.sendPhoto("1238654632", message1, message1.print())
+    //sendMessage.sendPhoto("1238654632", message1, message1.print())
         //message1 = message.buildMessage(test[2])
-}
+//}
 //message1 = message.buildMessage()
 //console.log(message1.print())
 //sendMessage.sendPhoto("1238654632",message1,message1.print())

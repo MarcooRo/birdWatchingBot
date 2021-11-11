@@ -55,38 +55,37 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
         if (remark.includes(kanChest)) Filter.Necklace = 1
         if (remark.includes(kanbird)) Filter.isBird = 1
 
-        // if (remark.includes(Evnts)){
-        //     var eventItems = dumpEVNTS[`${remarkSplit[3]}`].slot;
-        //     eventItems.split('.');
-        //     eventItems[eventItems.length - 1];
+        if (remark.includes(Evnts)){
+            var eventItems = dumpEVNTS[`${remarkSplit[3]}`].slot;
+            eventItems = eventItems.split('.');
+            let event = eventItems[eventItems.length-1];
 
-        //     switch (eventItems) {
-        //         case backpack:
-        //             Filter.BackPack = 1
-        //             break;
-        //         case background:
-        //             Filter.Background = 1
-        //             break;
-        //         case foreground:
-        //             Filter.ForeGround = 1
-        //             break;
-        //          case headwear:
-        //             Filter.Headwear = 1
-        //             break;
-        //          case objectleft:
-        //             Filter.Handheld = 1
-        //             break;
-        //          case necklace:
-        // Filter.Necklace = 1
-        //             break;
-        //          default:
-        //             Filter.allList = 0         
-        //     }
-        // }
-        console.log(remarkSplit[4])
-        let price = parseFloat(remarkSplit[4] / 10000000000000).toPrecision(8);
+            switch (event) {
+                case "backpack":
+                    Filter.BackPack = 1
+                    break;
+                case "background":
+                    Filter.Background = 1
+                    break;
+                case "foreground":
+                    Filter.ForeGround = 1
+                    break;
+                 case "headwear":
+                    Filter.Headwear = 1
+                    break;
+                 case "objectleft":
+                    Filter.Handheld = 1
+                    break;
+                 case "necklace":
+                    Filter.Necklace = 1
+                    break;
+                 default:
+                    console.log('unknown')         
+            }
+        }
+        
         ///10^12/(100-5%)/100
-        price = (remarkSplit[4] / 100000000000) / 0.95
+        let price = (remarkSplit[4] / 100000000000) / 0.95
         console.log(price)
         Filter.price = price
         let stringFilter = ''
@@ -97,31 +96,28 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     //allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
     let stringFilterMessage = ""
-        //console.log(filterMessage)
-        //console.log(filterUser)
+        console.log("filter del messaggio")
+        console.log(filterMessage)
+        console.log("filter Utente"+filterUser)
     for (key in filterMessage) {
         stringFilterMessage += (filterMessage[key]);
     }
     if (priceLimit != 0) {
         if (filterMessage.price > priceLimit) return false
     }
-    console.log(stringFilterMessage)
     if (filterUser[0] == 1) {
         return true // all 
     }
-    if (filterUser[1] == 1 && filterMessage.isBird == 1) {
-        return true
+    if (filterUser[1] == 1) {
+        return  (filterMessage.isBird == 1)
     } // only Kanaria Bird
 
     //tipi di oggetti
-    console.log(filterUser.length)
-    for (var i = 2; i < filterUser.length; i++) {
+    for (var i = 1; i < filterUser.length; i++) {
         if (filterUser[i] == 1) {
             if (stringFilterMessage[i] == 0) return false
         }
     }
-
-
     return true
 
 }
