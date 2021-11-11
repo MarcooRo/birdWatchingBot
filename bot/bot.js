@@ -7,7 +7,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 let filters= {}
 let priceLimits = {}
 
-function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace,price){
+function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace){
     this.allList = allList
     this.allBird = allBird
     this.SuperFunder = SuperFunder
@@ -21,25 +21,27 @@ function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Backgro
     this.Handheld = Handheld
     this.Necklace = Necklace
 }
+const helpMessage = `
+/start - to initialize bot
+/menu - to show options
+/priceLimit - to set price limiter
+`
     
 bot.help(ctx => {
-    const helpMessage = `
-    /start - to initialize bot
-    /menu - to show options
-    /priceLimit - to set price limiter
-    `
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
     })
 })
 bot.command('start', ctx => {
-    botUtils.sendStartMenu(ctx,0, bot);
+    botUtils.sendKeyboardsMenu(ctx,bot)
+    bot.telegram.sendMessage(ctx.chat.id, "Descrizione testuale del funzionamento del bot", {parse_mode: "Markdown"})
     priceLimits[ctx.chat.id] = 0
     filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0)
 })
 
 bot.command('menu', ctx => {
-    botUtils.sendStartMenu(ctx,1, bot);
+    if(filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
+    botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
 })
 
 bot.command('priceLimit', ctx => {
@@ -58,6 +60,17 @@ bot.command('priceLimit', ctx => {
      })
 })
 
+bot.hears('Filter', (ctx) => {
+    if(filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
+    botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id]) 
+});
+
+bot.hears('Stop', (ctx) => {
+    priceLimits[ctx.chat.id] = 0
+    filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
+    botUtils.doStop(ctx,db, bot);
+});
+
 bot.on('callback_query', (ctx) => {
     let cmd = ctx.callbackQuery.data
     switch(cmd) {
@@ -67,25 +80,21 @@ bot.on('callback_query', (ctx) => {
             break;
         case 'Indietro':
             ctx.deleteMessage();
-            botUtils.sendStartMenu(ctx,0, bot);
             break;
         case 'Start':
             ctx.deleteMessage()
             let result = "";
             for(key in filters[ctx.chat.id])result += (filters[ctx.chat.id][key]);
             db.addUser(bot, ctx.chat.id, result, priceLimits[ctx.chat.id])
-            botUtils.sendStartMenu(ctx,1,bot);
             break
         case 'Stop':
+            ctx.deleteMessage()
             botUtils.doStop(ctx, db, bot);
             priceLimits[ctx.chat.id] = 0
             filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
             break
-        case 'filtra':
-            if(filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
-            botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
-            break;
         default:
+            if(filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0,0)
             if(filters[ctx.chat.id][`${ctx.callbackQuery.data}`]) filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 0
             else filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 1
             botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])

@@ -5,53 +5,23 @@ const rocket = '\u{1F680}'
 const back = '\u{1F519}'
 const dollar = '\u{1F4B5}'
 
-exports.sendStartMenu = function sendStartMenu (ctx, inExecution, bot) {
-    const startMessage = "Welcome on Bird Watching Bot";
-    chatId = ctx.chat.id
-    if(!inExecution){
-    bot.telegram.sendMessage(ctx.chat.id, startMessage, {
+exports.sendKeyboardsMenu = function sendKeyboardsMenu(ctx, bot){
+    bot.telegram.sendMessage(ctx.chat.id, 'Welcome on Bird Watching Bot', {
         reply_markup: {
-            inline_keyboard: [
-                [
-                    {text: `Create Filter ${start}`, callback_data: 'filtra'}
-                ]
-            ]
-        }
-    })}
-    else {
-        bot.telegram.sendMessage(ctx.chat.id, startMessage, {
-            reply_markup: {
-
-                inline_keyboard: [
+            "resize_keyboard": true,
+            "one_time_keyboard": true,
+                keyboard: [
                     [
-                        {text: `Create Filter ${start}`, callback_data: 'filtra'}
-                    ],
-                    [
-                        {text: `Stop ${stop}`, callback_data: 'Stop'}
+                        {text: `Filter `},{text: `Stop `}
                     ]
                 ]
-            }
-        })
-    } 
+        }
+    })
 }
-
 
 exports.doStop = function doStop(ctx, db, bot) {
     //reset filter 
-    ctx.deleteMessage()
-    if(db.deleteUser(ctx.chat.id) == -1){
-        bot.telegram.sendMessage(ctx.chat.id, "YOU HAVE NEVER STARTED THE BOT", {
-            reply_markup: {
-                remove_keyboard: true
-            }
-        })
-    }
-    bot.telegram.sendMessage(ctx.chat.id, `BOT STOPPED! ${stop}`, {
-        reply_markup: {
-            remove_keyboard: true
-        }
-    })
-    this.sendStartMenu(ctx,0,bot);
+    db.deleteUser(ctx.chat.id, bot)
 }
 let ref;
 exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter){
