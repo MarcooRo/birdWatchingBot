@@ -1,13 +1,13 @@
-const message = require('./scriptUtils/messageCreator.js')
+const message = require('../catchEvent/scriptUtils/messageCreator.js')
 const XMLHttpRequest = require('xhr2');
-const sendMessage = require('./scriptUtils/sendMessage.js')
+const sendMessage = require('../catchEvent/scriptUtils/sendMessage.js')
 const https = require('https');
 const { request } = require('http');
 const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 const d = new Date();
 let time = d.getTime();
 let n = Math.floor(Math.random() * (time * 1000))
-const prepareImg = require('./scriptUtils/prepareImage.js')
+const prepareImg = require('../catchEvent/scriptUtils/prepareImage.js')
 const testALl = require('./testAll.json')
 
 //esempio di immagien finita

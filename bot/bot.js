@@ -26,6 +26,11 @@ const helpMessage = `
 /menu - to show options
 /priceLimit - to set price limiter
 `
+
+const presentation = `Welcome to birdWatchingBot, a small telegram bot capable of capturing all 2.0.0 remark in real time, here you can be attentive to the new releases of all the most fantastic objects on the market including birds through a convenient control panel. 
+Filter what you want, the bot is equipped not only to interact through telegram but also through two discord channels where all the LIST and BUY eventsof the network will be communicated. enjoy yourselves!
+
+Work in progress -> some images will not be able to load immediately because they may not yet exist, speed is our first goal`;
     
 bot.help(ctx => {
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
@@ -34,7 +39,8 @@ bot.help(ctx => {
 })
 bot.command('start', ctx => {
     botUtils.sendKeyboardsMenu(ctx,bot)
-    bot.telegram.sendMessage(ctx.chat.id, "Descrizione testuale del funzionamento del bot", {parse_mode: "Markdown"})
+    bot.telegram.sendMessage(ctx.chat.id, presentation, {parse_mode: "Markdown"})
+    bot.telegram.sendMessage(ctx.chat.id, helpMessage, {parse_mode: "Markdown"})
     priceLimits[ctx.chat.id] = 0
     filters[ctx.chat.id] = new Filter(0,0,0,0,0,0,0,0,0,0,0,0)
 })

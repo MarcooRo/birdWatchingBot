@@ -5,7 +5,7 @@ const filterUtils = require('./scriptUtils/filter.js')
 const sendMessage = require('./scriptUtils/sendMessage.js');
 const messageCreator = require('./scriptUtils/messageCreator.js');
 const prepareImg = require('./scriptUtils/prepareImage.js')
-const discord = require('../discordBot/discordBot.js')
+//const discord = require('../discordBot/discordBot.js')
 let pool = require('./scriptUtils/Db.js')
 
 

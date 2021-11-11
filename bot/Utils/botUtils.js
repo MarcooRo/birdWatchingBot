@@ -20,10 +20,9 @@ exports.sendKeyboardsMenu = function sendKeyboardsMenu(ctx, bot){
 }
 
 exports.doStop = function doStop(ctx, db, bot) {
-    //reset filter 
     db.deleteUser(ctx.chat.id, bot)
 }
-let ref;
+
 exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter) {
     const menuMessage = "Create your filter!"
     ctx.deleteMessage();
