@@ -2,4 +2,4 @@ FROM node:alpine
 COPY ./catchEvent /usr/app/catchEvent
 WORKDIR /usr/app/catchEvent
 RUN npm install
-CMD [ "node","catchEvent.js"]
+CMD [ "forever","catchEvent.js"]

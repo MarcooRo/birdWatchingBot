@@ -19,13 +19,6 @@ const kanChest = "KANCHEST";
 const Evnts = "EVNTS"
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
 
-//const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
-var freePrice = 0;
-//ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-	
-
-
-
 exports.buildMessage = function buildMessage(remark) {
     var remarkSplit = remark.split('::');
     var remarkObj = new Map([
@@ -107,7 +100,8 @@ exports.buildMessage = function buildMessage(remark) {
 var message = `OMG  \n\A ` + nome + " has been listed\n\
 \n" + text + "\n\
 \nPrice: " + remarkPrice + " KSM\n"
-+ `\n${linkCatalogoComp}"`;
++ `\nLink del catalogo ->${linkCatalogoComp}
+\n Link immagine ->${imgDump}`;
 
     const embed = new MessageEmbed()
     .setColor('#0099ff')

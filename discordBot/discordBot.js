@@ -3,14 +3,10 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const messageCreator = require('./botUtils/messageCreator.js');
 const token = process.env.BOT_DISCORD_TOKEN
 const botStart = require('./catchEvent.js')
+
+
 bot.login("OTA3NDE0MDc2MjgyNTIzNzAw.YYm1Ng.RAkoZko32XCOAKwi9P2hEH7Bfqs")
-const channelList = bot.channels.cache.find(channel => channel.id === '907415732432814101')
-const channelBuy = bot.channels.cache.find(channel => channel.id === '907415768893915237')
-
-function test(channelList, text){
-    channelList.send(text)
-}
-
+let start = 0
 
 bot.on("message", function(message) {
     const channelList = bot.channels.cache.find(channel => channel.id === '907415732432814101')
@@ -19,31 +15,21 @@ bot.on("message", function(message) {
         List: channelList,
         Buy: channelBuy
     }
-    switch(message.content){
-        case '!START':
-            botStart.botStart(channels)
-        case '!TEST':
-            channels.List.send({embeds:[(messageCreator.buildMessage("RMRK::LIST::2.0.0::8949171-e0b9bdcc456a36497a-KANBIRD-KANL-00007714::3788600000000"))]})
-
-            //sendRmrkDiscord("","","")
-			//const embed = new MessageEmbed() //Ver 11.5.1 of Discord.js
-            // .setColor('#0099ff')
-            // .setTitle('Some title')
-            // .setURL('https://discord.js.org/')
-            // .setAuthor('Some name', 'https://i.imgur.com/AfFp7pu.png', 'https://discord.js.org')
-            // .setDescription('Some description here')
-            // .setThumbnail('https://i.imgur.com/AfFp7pu.png')
-            // .addFields(
-            //     { name: 'Regular field title', value: 'Some value here' },
-            //     { name: '\u200B', value: '\u200B' },
-            //     { name: 'Inline field title', value: 'Some value here', inline: true },
-            //     { name: 'Inline field title', value: 'Some value here', inline: true },
-            // )
-            // .addField('Inline field title', 'Some value here', true)
-            // .setImage('https://i.imgur.com/AfFp7pu.png')
-            // .setTimestamp()
-            // .setFooter('Some footer text here', 'https://i.imgur.com/AfFp7pu.png');
-            // channelList.send({ embeds: [embed] });
-
+    switch(message.content) {
+        case '!start':
+            if(start == 0) {
+                start = 1
+                botStart.botStart(channels)
+            }else{
+                console.log(`bot is arleady started`)
+            }
+            break;
+        case '!test':
+            channels.List.send({embeds:[(messageCreator.buildMessage("RMRK::LIST::2.0.0::8949162-e0b9bdcc456a36497a-KANBIRD-KANR-00000353::142500000000000"))]})
+            break;
+        case '!stop':          
+            channels.List.send('Resetting...')
+            process.exit()
+            break
     }
 })

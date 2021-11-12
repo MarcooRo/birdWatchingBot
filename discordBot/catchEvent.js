@@ -12,7 +12,7 @@ const getRemark = async function getRemark(api, hederNumber, channel) {
             var remarks = hexToString.hexToString(ex.args.toString());
             if (remarks.includes("2.0.0")) { // get only LIST & 2.0.0
                 let message = messageCreator.buildMessage(remarks)
-                console.log(remarks)
+                    console.log(remarks)
                     if(remarks.includes("LIST")) channel.List.send({ embeds: [message] })
                     if(remarks.includes("BUY")) channel.Buy.send({ embeds: [message] })
              }
