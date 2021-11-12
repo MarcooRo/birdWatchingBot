@@ -92,7 +92,6 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
         for (key in Filter) stringFilter += (Filter[key]);
         return Filter
     }
-    //ordine bit lato db
     //allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
     let stringFilterMessage = ""

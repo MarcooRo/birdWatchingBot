@@ -16,12 +16,9 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) { // get only LIST & 2.0.0
-                //send discord notificationx
                 let message = messageCreator.buildMessage(remarks)
                 if(message.price != 0) {
-                    //discord.sendRmrkDiscord(message.print(), null, "LIST")
                     let messageFilter = filterUtils.prepareFilterMesage(remarks)
-                    //if(remarks.includes("KANBIRD"))prepareImg.prepareImg(message)
                     pool.pool.getConnection(function(err, connection) {
                         pool.pool.query(`Select * from Users`, (err, result, fields) =>{
                             if(err) return console.log(err)

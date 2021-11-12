@@ -16,12 +16,6 @@ const kanHand = "KANHAND";
 const kanChest = "KANCHEST";
 const Evnts = "EVNTS"
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
-//const linkIpfs = "https://rmrk.mypinata.cloud/ipfs/";
-var freePrice = 0;
-//ES di remerk --> "RMRK::LIST::2.0.0::8949167-e0b9bdcc456a36497a-KANBIRD-KANL-00006649::20000000000";
-	
-
-
 
 exports.buildMessage = function buildMessage(remark) {
     var remarkSplit = remark.split('::');
