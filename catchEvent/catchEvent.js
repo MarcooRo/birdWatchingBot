@@ -14,11 +14,10 @@ const getRemark = async function getRemark(api, hederNumber) {
                 manage2_0_0.manage2_0_0(remarks)
             }
             if (remarks.includes("1.0.0") && remarks.includes("LIST")) {
-                //manage1_0_0.manage1_0_0(remarks)
+                manage1_0_0.manage1_0_0(remarks)
             }
         }
     });
-    return "";
 }
 
 function botStart() {

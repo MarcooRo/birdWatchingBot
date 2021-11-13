@@ -23,6 +23,7 @@ exports.buildMessage = function buildMessage(remark) {
     var imgDump = linkIpfs + remarkNft + '.jpg'; // TODO!!!!!!
     var thumb = imgDump.split('/'); // TODO!!!!!!
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1]; // TODO!!!!!!
+    console.log(imgDump)
 
     const message = {
         imgSRC: imgDump,

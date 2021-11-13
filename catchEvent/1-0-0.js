@@ -14,7 +14,8 @@ let message = messageCreator.buildMessage(remarks)
                 if(err) return console.log(err)
                 console.log(remarks)
                 for(let k in result) {
-                    if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].priceLimit))
+                    //filterMessage, filterUser ,nft, collection, priceLimit
+                    if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].nftObject, result[k].nftCollection, result[k].priceLimit))
                         sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
                 }
             })
