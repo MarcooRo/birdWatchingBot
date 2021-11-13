@@ -1,11 +1,5 @@
-let dumpKANCHEST = require('../dumpbuild/CollectionsDump/KANCHEST.json');
-let dumpKANBACK = require('../dumpbuild/CollectionsDump/KANBACK.json');
-let dumpKANBG = require('../dumpbuild/CollectionsDump/KANBG.json');
-let dumpKANHAND = require('../dumpbuild/CollectionsDump/KANHAND.json');
-let dumpKANHEAD = require('../dumpbuild/CollectionsDump/KANHEAD.json');
-let dumpEVNTS = require('../dumpbuild/CollectionsDump/EVNTS.json');
-let dumpKANFRNT = require('../dumpbuild/CollectionsDump/KANFRNT.json');
 
+let dumpEVNTS = require('../../dumpbuild/CollectionsDump/EVNTS.json');
 // toDo: replace string variables with value slot in dump
 const kanbird = "KANBIRD";
 const kanbirdSuperFounder = "KANS";

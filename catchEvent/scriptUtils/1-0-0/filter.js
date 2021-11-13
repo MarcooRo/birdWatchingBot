@@ -34,21 +34,12 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     console.log("filter del messaggio")
     console.log(filterMessage)
     console.log("filter Utente" + filterUser)
-    for (key in filterMessage) {
-        stringFilterMessage += (filterMessage[key]);
-    }
+    
     if (priceLimit != 0) {
         if (filterMessage.price > priceLimit) return false
     }
     if (filterUser[0] == 1) {
         return true // all 
-    }
-
-    //tipi di oggetti ---> SERVE ANCHE PER IL 1.0.0 ?
-    for (var i = 1; i < filterUser.length; i++) {
-        if (filterUser[i] == 1) {
-            if (stringFilterMessage[i] == 0) return false
-        }
     }
     return true
 
