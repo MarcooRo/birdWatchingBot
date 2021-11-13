@@ -8,7 +8,7 @@ const d = new Date();
 let time = d.getTime();
 let filterUtils = require('../catchEvent/scriptUtils/filter')
 let n = Math.floor(Math.random() * (time * 1000))
-const prepareImg = require('../catchEvent/scriptUtils/prepareImage.js')
+// const prepareImg = require('../catchEvent/scriptUtils/prepareImage.js')
 const testALl = require('./testAll.json')
 
 //esempio di immagien finita

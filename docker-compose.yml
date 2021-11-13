@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   
- nodejs:
+  nodejs:
     build: 
       context: .
       dockerfile: Dockerfile1
@@ -14,11 +14,11 @@ services:
     ports:
       - "8001:80"
 
- botjs:
+  bot2-0-0:
     build: 
       context: .
       dockerfile: Dockerfile2
-    image: albertorotondo/botjsapp
+    image: albertorotondo/botjsapp1
     networks:
       - frontend  
       - backend
@@ -28,10 +28,26 @@ services:
       - MYSQL_PASSWORD=rootPass1803
       - MYSQL_DB=ProgettoHackaton
     volumes:
-      - ./bot:/usr/app/bot
+      - ./bot2-0-0:/usr/app/bot2-0-0
+      
+  bot1-0-0:
+    build: 
+      context: .
+      dockerfile: Dockerfile4
+    image: albertorotondo/botjsapp2
+    networks:
+      - frontend  
+      - backend
+    environment:
+      - MYSQL_HOST=myapp_mysql
+      - MYSQL_USER=KanUser
+      - MYSQL_PASSWORD=rootPass1803
+      - MYSQL_DB=ProgettoHackaton
+    volumes:
+      - ./bot1-0-0:/usr/app/bot1-0-0
 
 
- mysql:
+  mysql2-0-0:
     image: mysql:5.7
     networks:
       - backend
@@ -41,19 +57,46 @@ services:
       - MYSQL_PASSWORD=moepass
       - MYSQL_DATABASE=progettoHackaton
     volumes:
-      - db:/var/lib/mysql
-    container_name: myapp
+      - db2:/var/lib/mysql
+    container_name: myapp2
 
- phpmyadmin:
+  mysql1-0-0:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=moeuser
+      - MYSQL_PASSWORD=moepass
+      - MYSQL_DATABASE=progettoHackaton
+    volumes:
+      - db1:/var/lib/mysql
+    container_name: myapp1
+
+  phpmyadmin1:
     image: phpmyadmin/phpmyadmin:4.7
     depends_on:
-      - mysql
+      - mysql2-0-0
     networks:
       - backend
     ports:
       - "8002:80"
     environment:
-      - PMA_HOST=myapp
+      - PMA_HOST=myapp1
+      - PMA_PORT= 3306
+    volumes:
+      - /sessions
+
+  phpmyadmin2:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql2-0-0
+    networks:
+      - backend
+    ports:
+      - "8003:80"
+    environment:
+      - PMA_HOST=myapp2
       - PMA_PORT= 3306
     volumes:
       - /sessions
@@ -63,4 +106,5 @@ networks:
   backend:
 
 volumes:
-  db:
+  db1:
+  db2:

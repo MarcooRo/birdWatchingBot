@@ -1,5 +1,5 @@
 FROM node:alpine
-COPY ./bot2-0-0 /usr/app/bot2-0-0
-WORKDIR /usr/app/bot2-0-0
+COPY ./bot1-0-0 /usr/app/bot1-0-0
+WORKDIR /usr/app/bot1-0-0
 RUN npm install
 CMD [ "npm", "run", "devserver"]
