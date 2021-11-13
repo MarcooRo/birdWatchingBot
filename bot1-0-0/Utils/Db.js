@@ -3,7 +3,7 @@ const rocket = '\u{1F680}'
 const stop = '\u{1F6D1}'
 
 const pool = createPool({
-    host: "mysql1-0-0",
+    host: "myapp1",
     user: "moeuser",
     password: "moepass",
     database: "progettoHackaton",
@@ -22,22 +22,21 @@ exports.deleteUser = function deleteUser(chatId, bot) {
                 bot.telegram.sendMessage(chatId, `BOT STOPPED ${stop}`, {parse_mode: "Markdown" })
             }
         })
-        connection.release()
+         connection.release()
     });
 }
 
 exports.addUser = function addUser(bot, chatId, filter, nft, collection, priceLimit) {
     pool.getConnection(function(err, connection) {
-        pool.query(`Insert into Users(chatId, filter, nftCollection, nftObject, priceLimit) Values (${chatId},${filter},${collection},${nft},${priceLimit})`, (err, result, fields) => {
+        pool.query(`Insert into Users (chatId, filter, nftCollection, nftObject, priceLimit) Values (${chatId},"${filter}","${collection}","${nft}",${priceLimit})`, (err, result, fields) => {
             if(err) {
-                console.log(err)
                 bot.telegram.sendMessage(chatId, "Bot already started! press stop to insert a new filter", {parse_mode: "Markdown"})
             }else{
                 bot.telegram.sendMessage(chatId, `BOT STARTED ${rocket}`, {parse_mode: "Markdown" })
             }
             
-            connection.release()
         })
+        connection.release()
     });
 }
 

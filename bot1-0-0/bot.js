@@ -38,11 +38,11 @@ bot.command('start', ctx => {
     nft[ctx.chat.id] = 0
     collection[ctx.chat.id] = 0
     priceLimits[ctx.chat.id] = 0
-    filters[ctx.chat.id] = new Filter(0, 0, 0, 0) // all, prezzo, nft, collectio
+    filters[ctx.chat.id] = new Filter(0) // all, prezzo, nft, collectio
 })
 
 bot.command('menu', ctx => {
-    if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0, 0, 0, 0) // all, prezzo, nft, collectio
+    if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0) // all, prezzo, nft, collectio
     botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
 })
 
@@ -80,7 +80,7 @@ bot.command('priceLimit', ctx => {
 })
 
 bot.hears('Filter', (ctx) => {
-    if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0)
     botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
 });
 
@@ -88,7 +88,7 @@ bot.hears('Stop', (ctx) => {
     nft[ctx.chat.id] = 0
     collection[ctx.chat.id] = 0
     priceLimits[ctx.chat.id] = 0
-    filters[ctx.chat.id] = new Filter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    filters[ctx.chat.id] = new Filter(0)
     botUtils.doStop(ctx, db, bot);
 });
 
@@ -120,10 +120,10 @@ bot.on('callback_query', (ctx) => {
             ctx.deleteMessage()
             botUtils.doStop(ctx, db, bot);
             priceLimits[ctx.chat.id] = 0
-            filters[ctx.chat.id] = new Filter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+            filters[ctx.chat.id] = new Filter(0)
             break
         default:
-            if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+            if (filters[ctx.chat.id] == undefined) filters[ctx.chat.id] = new Filter(0)
             if (filters[ctx.chat.id][`${ctx.callbackQuery.data}`]) filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 0
             else filters[ctx.chat.id][`${ctx.callbackQuery.data}`] = 1
             botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])

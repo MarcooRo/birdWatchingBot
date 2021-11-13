@@ -57,7 +57,7 @@ services:
       - MYSQL_PASSWORD=moepass
       - MYSQL_DATABASE=progettoHackaton
     volumes:
-      - db2:/var/lib/mysql
+      - db1:/var/lib/mysql
     container_name: myapp2
 
   mysql1-0-0:
@@ -70,7 +70,7 @@ services:
       - MYSQL_PASSWORD=moepass
       - MYSQL_DATABASE=progettoHackaton
     volumes:
-      - db1:/var/lib/mysql
+      - db2:/var/lib/mysql
     container_name: myapp1
 
   phpmyadmin1:
@@ -90,7 +90,7 @@ services:
   phpmyadmin2:
     image: phpmyadmin/phpmyadmin:4.7
     depends_on:
-      - mysql2-0-0
+      - mysql1-0-0
     networks:
       - backend
     ports:
