@@ -13,12 +13,14 @@ exports.buildMessage = function buildMessage(remark) {
         ["price", remarkSplit[4]] // 10000000000
     ]);
     console.log(remarkObj)
+    
+    var nftType = remarkNft.split('-');
+    
     var rmrkJson = Object.fromEntries(remarkObj);
-    var remarkNft = rmrkJson.nft; // 5105000-0aff6865bed3a66b-VALHELLO-POTION_HEAL-0000000000000001
+    var remarkNft =  nftType[3] + ' (n° '+ nftType[4] +')'; // POTION_HEAL (n° 0000000000000001)
     let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
 
-    var nftType = remarkNft.split('-');
-    var collection = nftType[1] + "-" + nftType[2]
+    var collection = nftType[2] + ' ('+ nftType[1] +')'; // VALHELLO (0aff6865bed3a66b)
     var remarkPrice = (remarkSplit[4] / 100000000000) / 0.95
 
     var imgDump = linkIpfs + remarkNft + '.jpg'; // TODO!!!!!!
