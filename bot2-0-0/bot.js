@@ -31,8 +31,6 @@ const presentation = `Welcome to birdWatchingBot!
 The bot captures all of Kanaria's Birds and Items in real time.
 Create your own filter and don't miss a single opportunity!
 
-Come and visit us on Discord, you will find two channels, one with all sales and one with all purchases.
-
 (This is a beta version, we are working on fixing small bugs, some images will not be able to load immediately, we are working on it, speed is our first goal)`;
     
 bot.help(ctx => {
