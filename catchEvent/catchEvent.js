@@ -8,16 +8,15 @@ const getRemark = async function getRemark(api, hederNumber) {
     const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
     const signedBlock = await api.rpc.chain.getBlock(blockHash);
     signedBlock.block.extrinsics.forEach((ex, index) => {  
-        console.log(ex.method.meta)
         if (ex.method.meta.name.toString() == "remark") {
-            var remarks = hexToString.hexToString(ex.toString());
+            var remarks = hexToString.hexToString(ex.args.toString());
             console.log(remarks)
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
-                //manage2_0_0.manage2_0_0(remarks)
+                manage2_0_0.manage2_0_0(remarks)
             }
             if (remarks.includes("1.0.0") && remarks.includes("LIST")) {
-                console.log(ex)
-                //manage1_0_0.manage1_0_0(remarks)
+                console.log("invio 100")
+                manage1_0_0.manage1_0_0(remarks)
             }
         }
     });

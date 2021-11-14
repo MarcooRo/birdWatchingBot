@@ -53,15 +53,17 @@ function getMetadataAndImage(url2, chatId, caption) {
 exports.sendPhoto = (chatId, message, caption) => {
     remarkId = message.reamrkId
     var xhr = new XMLHttpRequest();
-    let url = `https://kanaria.rmrk.app/api/rmrk2/nft/${remarkId}`
+    let url = `https://kanaria.rmrk.app/api/rmrk1/nft/${remarkId}`
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             if(xhr.status == 200){
                 let img = JSON.parse(xhr.responseText).image
+                console.log(img)
                 if(img != '' && img != undefined){  
                     console.log("uccello")
                     sendNormalPhoto(chatId, img, caption)
                 } else {
+                    console.log('oggetto')
                     let url2 = JSON.parse(xhr.responseText).metadata
                     let temp = url2.substring(6, url2.lenght)
                     //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
