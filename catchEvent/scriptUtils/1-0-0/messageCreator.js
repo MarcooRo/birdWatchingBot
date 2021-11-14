@@ -12,6 +12,7 @@ exports.buildMessage = function buildMessage(remark) {
         ["nft", remarkSplit[3]], // 5105000-0aff6865bed3a66b-VALHELLO-POTION_HEAL-0000000000000001
         ["price", remarkSplit[4]] // 10000000000
     ]);
+    console.log(remarkObj)
     var rmrkJson = Object.fromEntries(remarkObj);
     var remarkNft = rmrkJson.nft; // 5105000-0aff6865bed3a66b-VALHELLO-POTION_HEAL-0000000000000001
     let linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 

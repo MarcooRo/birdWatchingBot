@@ -5,7 +5,7 @@ const filterUtils = require('./scriptUtils/1-0-0/filter.js')
 let pool = require('./scriptUtils/1-0-0/Db.js')
 
 
-exports.manag1_0_0 = function manage1_0_0() {
+exports.manage1_0_0 = function manage1_0_0(remarks) {
 let message = messageCreator.buildMessage(remarks)
     if(message.price != 0) {
         let messageFilter = filterUtils.prepareFilterMesage(remarks)
@@ -16,10 +16,10 @@ let message = messageCreator.buildMessage(remarks)
                 for(let k in result) {
                     //filterMessage, filterUser ,nft, collection, priceLimit
                     if(filterUtils.checkFilterMessage_User(messageFilter, result[k].filter, result[k].nftObject, result[k].nftCollection, result[k].priceLimit))
-                        sendMessage.sendPhoto(result[k].chatId.toString(), message, message.print())
+                        sendMessage.testSend(result[k].chatId.toString(), message.print())
                 }
             })
-            connection.release()
+            //connection.release()
         })
     }
 }

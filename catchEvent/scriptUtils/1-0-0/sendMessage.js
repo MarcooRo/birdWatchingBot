@@ -1,4 +1,4 @@
-const TOKEN = "1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY";
+const TOKEN = "2117447283:AAFy_hqYFvfxO5jTctpvS1_aB9Arv2xGP24";
 //1991386673:AAHd1SiiQAzRVDpM0liFyJYmWs4G3Bg5YMM
 const axios = require('axios')
 const  XMLHttpRequest = require ('xhr2');
@@ -7,7 +7,7 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
 
 
 exports.testSend =function sendMessage(chatId, text) {
-    axios.post(`https://api.telegram.org/bot1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY/sendMessage`, {
+    axios.post(`https://api.telegram.org/bot2117447283:AAFy_hqYFvfxO5jTctpvS1_aB9Arv2xGP24/sendMessage`, {
         chat_id: chatId,
         text: text,
         parse_mode: "HTML"
@@ -16,7 +16,7 @@ exports.testSend =function sendMessage(chatId, text) {
     })
 }
  function sendMessage(chatId, text) {
-    axios.post(`https://api.telegram.org/bot1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY/sendMessage`, {
+    axios.post(`https://api.telegram.org/bot2117447283:AAFy_hqYFvfxO5jTctpvS1_aB9Arv2xGP24/sendMessage`, {
         chat_id: chatId,
         text: text,
         parse_mode: "HTML"
@@ -58,9 +58,6 @@ exports.sendPhoto = (chatId, message, caption) => {
         if (xhr.readyState == 4) {
             if(xhr.status == 200){
                 let img = JSON.parse(xhr.responseText).image
-                //let imgTag = `<a href="${img}">!</a>`;
-                //caption = [caption.slice(0, 10), imgTag, caption.slice(10)].join(''); 
-                //console.log(caption)
                 if(img != '' && img != undefined){  
                     console.log("uccello")
                     sendNormalPhoto(chatId, img, caption)

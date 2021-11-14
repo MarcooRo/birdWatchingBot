@@ -1,4 +1,4 @@
-const TOKEN = "1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY";
+const TOKEN = "2133146268:AAEMZDpDy6mihaGugxUTuDwtFZ6PgMAtWww";
 //1991386673:AAHd1SiiQAzRVDpM0liFyJYmWs4G3Bg5YMM
 const axios = require('axios')
 const  XMLHttpRequest = require ('xhr2');
@@ -7,7 +7,7 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
 
 
 exports.testSend =function sendMessage(chatId, text) {
-    axios.post(`https://api.telegram.org/bot1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY/sendMessage`, {
+    axios.post(`https://api.telegram.org/bot2133146268:AAEMZDpDy6mihaGugxUTuDwtFZ6PgMAtWww/sendMessage`, {
         chat_id: chatId,
         text: text,
         parse_mode: "HTML"
@@ -16,7 +16,7 @@ exports.testSend =function sendMessage(chatId, text) {
     })
 }
  function sendMessage(chatId, text) {
-    axios.post(`https://api.telegram.org/bot1991386673:AAF_qUILSZJ4icbQwGb4GJn9-jOJ8NaU7lY/sendMessage`, {
+    axios.post(`https://api.telegram.org/bot2133146268:AAEMZDpDy6mihaGugxUTuDwtFZ6PgMAtWww/sendMessage`, {
         chat_id: chatId,
         text: text,
         parse_mode: "HTML"

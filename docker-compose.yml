@@ -64,6 +64,7 @@ services:
     image: mysql:5.7
     networks:
       - backend
+      - frontend
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_USER=moeuser
@@ -79,6 +80,7 @@ services:
       - mysql2-0-0
     networks:
       - backend
+      - frontend
     ports:
       - "8002:80"
     environment:

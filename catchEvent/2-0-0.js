@@ -5,7 +5,7 @@ const filterUtils = require('./scriptUtils/2-0-0/filter.js')
 let pool = require('./scriptUtils/2-0-0/Db.js')
 
 
-exports.manage2_0_0 = function manage2_0_0() {
+exports.manage2_0_0 = function manage2_0_0(remarks) {
 let message = messageCreator.buildMessage(remarks)
     if(message.price != 0) {
         let messageFilter = filterUtils.prepareFilterMesage(remarks)
