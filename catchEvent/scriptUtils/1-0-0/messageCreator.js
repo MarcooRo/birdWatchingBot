@@ -18,16 +18,16 @@ exports.buildMessage = function buildMessage(remark) {
     var imgDump = linkIpfs + remarkNft + '.jpg'; // TODO!!!!!!
     var thumb = imgDump.split('/'); // TODO!!!!!!
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1]; // TODO!!!!!!
-    console.log(imgDump)
 
     const message = {
         imgSRC: imgDump,
+        reamrkId: remarkNft,
         nftName: nftName,
         collection: collection,
         price: remarkPrice,
         link: linkCatalogoComp,
         print: function() {
-            var toPrint = `<b>YES</b> <a href="${this.imgSRC}">!</a>   \n\A <b>` + this.nftName + "</b> has been listed\n\
+            var toPrint = `<b>YES</b> \n\A <b>` + this.nftName + "</b> has been listed\n\
 \n<b>Collection: " + this.collection + "</b>\n\
 \n<b>Price: " + this.price + " KSM</b>\n" +
                 `\n<a href="${this.link}">Take a look -></a>\n`;
