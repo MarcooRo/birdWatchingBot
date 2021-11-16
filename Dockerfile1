@@ -1,5 +1,6 @@
 FROM node:alpine
 COPY ./catchEvent /usr/app/catchEvent
 WORKDIR /usr/app/catchEvent
+RUN npm i -g forever
 RUN npm i
-CMD [ "node","catchEvent.js"]
+CMD [ "forever","catchEvent.js"]

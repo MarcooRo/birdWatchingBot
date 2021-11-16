@@ -38,7 +38,7 @@ bot.command('start', ctx => {
     nft[ctx.chat.id] = 0
     collection[ctx.chat.id] = 0
     priceLimits[ctx.chat.id] = 0
-    filters[ctx.chat.id] = new Filter(0) // all, prezzo, nft, collectio
+    filters[ctx.chat.id] = new Filter(0) 
 })
 
 bot.command('menu', ctx => {
@@ -97,15 +97,15 @@ bot.on('callback_query', (ctx) => {
     switch (cmd) {
         case 'price':
             //ctx.deleteMessage()
-            bot.telegram.sendMessage(ctx.chat.id, "Insert a NFT ID ", { parse_mode: "Markdown" })
+            bot.telegram.sendMessage(ctx.chat.id, "Insert your price limit for your filter in this way /priceLimit 0.03 or /priceLimit 5", { parse_mode: "Markdown" })
             break;
         case 'nft':
             //ctx.deleteMessage()
-            bot.telegram.sendMessage(ctx.chat.id, "Insert a collection ID!", { parse_mode: "Markdown" })
+            bot.telegram.sendMessage(ctx.chat.id, "Insert a nft ID! /nft NftId", { parse_mode: "Markdown" })
             break;
         case 'collection':
             //ctx.deleteMessage()
-            bot.telegram.sendMessage(ctx.chat.id, "Insert your price limit for your filter in this way /priceLimit 0.03 or /priceLimit 5", { parse_mode: "Markdown" })
+            bot.telegram.sendMessage(ctx.chat.id, "Insert a collection ID! /collection NftCollectionId", { parse_mode: "Markdown" })
             break;
         case 'Indietro':
             ctx.deleteMessage();
