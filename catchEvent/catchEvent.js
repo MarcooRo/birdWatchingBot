@@ -4,7 +4,7 @@ const hexToString = require('@polkadot/util')
 const manage2_0_0 = require('./2-0-0.js')
 const manage1_0_0 = require('./1-0-0.js')
 const channel = require('./discordBot.js')
-const discordMessage = require('./scriptUtils/discordUtils/messageCreator.js')
+const manageDiscord = require('./manageDiscord.js')
 
 const getRemark = async function getRemark(api, hederNumber) {
     const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
@@ -14,7 +14,7 @@ const getRemark = async function getRemark(api, hederNumber) {
         if (ex.method.meta.name.toString() == "remark") {
             var remarks = hexToString.hexToString(ex.args.toString());
             console.log(remarks)
-            if(channel.isAlive() == 1)channel.getChannels().List.send(discordMessage.buildMessage(remarks).print)
+            manageDiscord.manageDiscord(remarks, channel)
             if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
                 manage2_0_0.manage2_0_0(remarks)
             }
