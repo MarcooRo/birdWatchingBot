@@ -7,6 +7,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 let filters= {}
 let priceLimits = {}
 
+// Filter initialization,
 function Filter(allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace){
     this.allList = allList
     this.allBird = allBird
@@ -31,8 +32,9 @@ const presentation = `Welcome to birdWatchingBot!
 The bot captures all of Kanaria's Birds and Items in real time.
 Create your own filter and don't miss a single opportunity!
 
-(This is a beta version, we are working on fixing small bugs, some images will not be able to load immediately, we are working on it, speed is our first goal)`;
-    
+(This is a beta version, we are working on fixing small bugs)`;
+
+// BOT commands
 bot.help(ctx => {
     bot.telegram.sendMessage(ctx.from.id, helpMessage, {
         parse_mode: "Markdown"
