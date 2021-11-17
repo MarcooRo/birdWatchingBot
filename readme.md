@@ -1,29 +1,38 @@
 <h1>Kanaria & Singular BOT</h1>
-<h2>Multi bot tools per osservare in tempo reale i movimenti nei market di Kanaria e Singular</h2>
+<p>Multi bot tools per osservare in tempo reale i movimenti nei market di Kanaria e Singular</p>
 
-<p>I BOT leggono gli standards remerk 2.0.0 per Kanaria e 1.0.0 per Singular, interactions con il LIST and BUY<br>
-Su Telegram è possibile creare feed personalizzati in base alle prorpie esigenze e ricevere gli eventi live.</p>
+<h2>Che cosa Fa</h2>
+<p>The BOTs takes live events from the Kasuma blockchain, filtering remark::2.0.0 for Kanaria and for the moment Singular at remerk::1.0.0. We track LIST and BUY. Each BOT has its own menu to create a filter and customize your feeds.<br>
+</p>
   
-<p>Per avere un feed ordinato abbiamo pensato di dividere i canali. Per tanto potete trovare le versioni funzionantei a questi indirizzi:</p>
+<p>We have improved the experience by dividing the output into separate channels. In this way, it's possible to personalize your feed and keep it more organized. We developed this BOTs for Telegram and Discord.
+Here you can find the live BOTs
+</p>
   <ul>
-    <li>Telegram Kanaria LIST (personalizzabile):</li>
-    <li>Telegram Singular LIST (personalizzabile):</li>
+    <li>Telegram Kanaria LIST:</li>
+    <li>Telegram Singular LIST:</li>
     <li>Discord Kanara All LIST:</li>
     <li>Discord Kanaria All BUY:</li>
   </ul>
+  
+<h2>Installazione</h2>
+<p>Occorre inizializzare si la root principale `npm i` che la root del bot sempre con `npm i`</p>
 
-
-<h3>Come funziona</h3>
+<h2>Come funziona</h2>
 <p>Il tools si divide in diversi script.<br>
 
   <b>catchEvents.js</b><br>
-  Questo script ha il compito di osservare i blocchi sulla rete Kusama. successivamene vengono bandati a due funzioni che verificano la presenza di RMRK 2.0.0 o 1.0.0. Queste funzioni smistano i Remerk al seconod script, il generatore di messaggio.
+  Ha il compito di osservare i blocchi sulla rete Kusama e intercettare i Remerk, e filtrare le versioni.
   
-  <b>Filter.js</b>
-  Questo script analizza il remark e ne crea un messaggio testuale.
-  Questa parte è altamente castomizzabile, e si può modificare a piacimento si usando il remark che interfacciandosi con un dump.
+  <b>scriptUtils</b>
+  In questa cartella viene analizzato il Remark e generato il messaggio.
   
-  <b>Bot.js</b>
-  Lato BOT abbiamo creato un sistema che possa fare i much tra il remerk arrivato e il filtro ipostato dell'utente.
-  Questo prevede la creazione di un DB per immagazzinare il filtri degli utenti.
-  Quando il much tra la tipologia di remark (es: 2.0.0 + LIST + Kanaria Brids) e il fitlro dell'utenti il bot invia il feed. 
+  <b>Bot1-0-0 & Bot2-0-0</b>
+  E dove si gestisce l'invio del messaggio ai bot.
+  
+  <h2>Possibilità</h2>
+  <p>Abbiamo diviso gli script in modo che i bot siano altamente personalizzabili, vi invito a visitare la pagina di <a href="https://github.com/rmrk-team/rmrk-spec" target="_blank">Remerk Spec</a> dove trovare tutti gli eventi che si possono intercettare dal blocco, come il MINT e gli altri. Buon divertimento!</p>
+  
+ <h2>Importante</h2>
+ <p>Al momento solo Kanaria utilizza il protocollo 2.0.0, quando ci sarà l'integrazione in Singular questo bot andrà aggiornato per permettere il corretto invio del messaggio.<br>
+  Per fortuna sarà una cosa semplice!</p>
