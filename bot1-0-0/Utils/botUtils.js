@@ -1,3 +1,4 @@
+// set up menu bot
 const stop = '\u{1F6D1}'
 const checked = '\u{1F7E2}'
 const start = '\u{23E9}'
@@ -6,7 +7,7 @@ const back = '\u{1F519}'
 const dollar = '\u{1F4B5}'
 
 exports.sendKeyboardsMenu = function sendKeyboardsMenu(ctx, bot) {
-    bot.telegram.sendMessage(ctx.chat.id, 'Welcome on Bird Watching Bot', {
+    bot.telegram.sendMessage(ctx.chat.id, 'Welcome on Singular Watching Bot', {
         reply_markup: {
             "resize_keyboard": true,
             "one_time_keyboard": true,
