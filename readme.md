@@ -15,11 +15,12 @@ Here you can find the live BOTs
   </ul>
   
 <h2>Installation</h2>
-<p>Note: NodeJS 14+ is required and also NPM<br>
+<p>Note: NodeJS 14+ is required and also NPM<br><br>
 <code>
   git clone https://github.com/MarcooRo/birdWatchingBot.git
 </code>
- <br>Both the root and the folder must be initialized <code>npm i</code></p>
+ <br><br>
+  Both the root and the folder must be initialized <code>npm i</code></p>
 
 <h2>Usage</h2>
 <p>The tools is divided into several part:<br>
