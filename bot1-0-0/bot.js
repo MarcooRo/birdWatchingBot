@@ -31,7 +31,7 @@ bot.help(ctx => {
         parse_mode: "Markdown"
     })
 })
-bot.command('start', ctx => {
+bot.command('start', ctx => { // click start
     botUtils.sendKeyboardsMenu(ctx, bot)
     bot.telegram.sendMessage(ctx.chat.id, presentation, { parse_mode: "Markdown" })
     bot.telegram.sendMessage(ctx.chat.id, helpMessage, { parse_mode: "Markdown" })
@@ -46,7 +46,7 @@ bot.command('menu', ctx => {
     botUtils.sendFilterMenu(ctx, bot, filters[ctx.chat.id])
 })
 
-bot.command('nft', ctx => { // to cehck
+bot.command('nft', ctx => { // click on NFT
     bot.telegram.getUpdates(0).then(res => {
         let resp = ctx.message.text
         resp = resp.split(" ")
@@ -57,7 +57,7 @@ bot.command('nft', ctx => { // to cehck
     })
 })
 
-bot.command('collection', ctx => { // to cehck
+bot.command('collection', ctx => { // click on Collection
     bot.telegram.getUpdates(0).then(res => {
         let resp = ctx.message.text
         resp = resp.split(" ")
@@ -68,7 +68,7 @@ bot.command('collection', ctx => { // to cehck
     })
 })
 
-bot.command('priceLimit', ctx => {
+bot.command('priceLimit', ctx => { // click on Price
     bot.telegram.getUpdates(0).then(res => {
         let resp = ctx.message.text
         resp = resp.split(" ")
@@ -92,7 +92,7 @@ bot.hears('Stop', (ctx) => {
     botUtils.doStop(ctx, db, bot);
 });
 
-bot.on('callback_query', (ctx) => {
+bot.on('callback_query', (ctx) => { // Callback Query
     let cmd = ctx.callbackQuery.data
     switch (cmd) {
         case 'price':
@@ -101,11 +101,11 @@ bot.on('callback_query', (ctx) => {
             break;
         case 'nft':
             //ctx.deleteMessage()
-            bot.telegram.sendMessage(ctx.chat.id, "Insert a nft ID! /nft NftId", { parse_mode: "Markdown" })
+            bot.telegram.sendMessage(ctx.chat.id, "Insert a nft ID /nft NftId", { parse_mode: "Markdown" })
             break;
         case 'collection':
             //ctx.deleteMessage()
-            bot.telegram.sendMessage(ctx.chat.id, "Insert a collection ID! /collection NftCollectionId", { parse_mode: "Markdown" })
+            bot.telegram.sendMessage(ctx.chat.id, "Insert a collection ID /collection NftCollectionId", { parse_mode: "Markdown" })
             break;
         case 'Indietro':
             ctx.deleteMessage();
