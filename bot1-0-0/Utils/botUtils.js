@@ -32,10 +32,10 @@ exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter) {
             inline_keyboard: [
                 [
                     { text: (filter.allList ? `All ${checked}` : 'All'), callback_data: 'allList' },
-                    { text: `Set single NFT ${dollar}`, callback_data: 'nft' }
+                    { text: `Set single NFT`, callback_data: 'nft' }
                 ],
                 [
-                    { text: `Set Collection ${dollar}`, callback_data: 'collection' },
+                    { text: `Set Collection`, callback_data: 'collection' },
                     { text: `Set Price Limit ${dollar}`, callback_data: 'price' }
                 ],
                 [
