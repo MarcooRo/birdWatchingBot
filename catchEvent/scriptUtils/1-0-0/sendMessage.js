@@ -59,7 +59,7 @@ exports.sendPhoto = (chatId, message, caption) => {
         if (xhr.readyState == 4) {
             if(xhr.status == 200){
                 let img = JSON.parse(xhr.responseText)[0].metadata
-		if( img != null && img!=""){
+		if( img != undefined && img!=""){
                 let temp = img.substring(6, img.lenght)
                 //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
                 getMetadataAndImage('https://rmrk.mypinata.cloud'+temp, chatId, caption)

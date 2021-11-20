@@ -36,6 +36,9 @@ exports.buildMessage = function buildMessage(remark) {
     ]);
     var nftTypJson = Object.fromEntries(nftTypeObj);
     var remarkPrice = (remarkSplit[4]/1000000000000)/0.95
+    remarkPrice = Number(remarkPrice)
+    remarkPrice = remarkPrice.toFixed(2)
+    remarkPrice = Number(remarkPrice)
     var imgDump = 'https://kanaria-img.rmrk.link/1635945800349/jpeg/'+rmrkJson.nft+'.jpg';
 
 

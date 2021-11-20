@@ -13,6 +13,9 @@ exports.buildMessage = function buildMessage(remark) {
     var nftName =  nftType[3] + ' (n° '+ nftType[4] +')'; // POTION_HEAL (n° 0000000000000001)
     var collection = nftType[2] + ' ('+ nftType[1] +')'; // VALHELLO (0aff6865bed3a66b)
     var remarkPrice = (remarkSplit[4] / 100000000000) / 0.95
+     remarkPrice = Number(remarkPrice)
+    remarkPrice = remarkPrice.toFixed(2)
+    remarkPrice = Number(remarkPrice)
     var linkCatalogoComp = linkCatalogo + remarkNft; // link to the page 
 
     var imgDump = linkIpfs + remarkNft + '.jpg'; // TODO!!!!!!

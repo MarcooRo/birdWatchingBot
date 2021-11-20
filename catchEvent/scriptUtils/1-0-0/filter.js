@@ -26,16 +26,17 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
 
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser ,nft, collection, priceLimit) {
 
+    var NFT = filterMessage.nft.toString()
+    var COLLECTION = filterMessage.collection.toString()
     if (priceLimit != 0) {
-        if (filterMessage.price > priceLimit) return false
+        if (filterMessage.price <= priceLimit) return true
     }
     if (filterUser[0] == 1) {
         return true // all 
     }
     if(nft != 0 || collection != 0){
-        if(filterMessage.nft != nft) return false
-        if(filterMessage.collection != collection) return false
+        if(NFT.includes(nft)) return true
+        if(COLLECTION.includes(collection)) return true
     }
-    return true
-
+    return false
 }
