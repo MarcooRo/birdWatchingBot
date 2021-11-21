@@ -77,31 +77,31 @@ exports.buildMessage = function buildMessage(remark) {
                     break;
                 case kanBack:
                     var nome = "Backpack";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case kanBg:
                     var nome = "Backgournd";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case kanFrnt:
                     var nome = "Foreground";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case kanHead:
                     var nome = "Headwear";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case kanHand:
                     var nome = "Handheld";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case kanChest:
                     var nome = "Necklace";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 case Evnts:
                     var nome = "Events Items";
-                    var text = "N°" + this.id;
+                    var text = "N°: " + this.id;
                     break;
                 default:
                     var nome = "Something";
@@ -109,8 +109,7 @@ exports.buildMessage = function buildMessage(remark) {
             }
             var toPrint = `<b>OMG</b> <a href="${this.imgSRC}">!</a>   \n\An <b>` + nome + "</b> has been listed\n\
 \n<b>" + text + "</b>\n\
-\n<b>Price: " + this.price + " KSM</b>\n"
-+ `\n<a href="${this.link}">Take a look -></a>\n`;
+<b>Price: " + this.price + " KSM</b>\n";
 
             return toPrint;
         }

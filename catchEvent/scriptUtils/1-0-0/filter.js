@@ -29,7 +29,6 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     var NFT = filterMessage.nft.toString()
     var COLLECTION = filterMessage.collection.toString()
 
-    console.log(NFT + "  ----   " + COLLECTION)
     if (priceLimit != 0) {
         if (filterMessage.price <= priceLimit) return true
     }
