@@ -30,7 +30,7 @@ exports.buildMessage = function buildMessage(remark) {
         price: remarkPrice,
         link: linkCatalogoComp,
         print: function() {
-            var toPrint = `<b>YES</b> \n\A <b>` + this.nftName + "</b> has been listed\n\
+            var toPrint = `<b>OH!</b> \n\A <b>` + this.nftName + "</b> has been listed\n\
 \n<b>Collection: " + this.collection + "</b>\n\
 \n<b>Price: " + this.price + " KSM</b>\n" +
                 `\n<a href="${this.link}">Take a look -></a>\n`;
