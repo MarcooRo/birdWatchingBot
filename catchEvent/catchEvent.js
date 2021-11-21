@@ -15,12 +15,12 @@ const getRemark = async function getRemark(api, hederNumber) {
             var remarks = hexToString.hexToString(ex.args.toString());
             console.log(remarks)
             manageDiscord.manageDiscord(remarks, channel)
-            if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
-                manage2_0_0.manage2_0_0(remarks)
-            }
-            if (remarks.includes("1.0.0") && remarks.includes("LIST")) {
-                manage1_0_0.manage1_0_0(remarks)
-            }
+            // if (remarks.includes("2.0.0") && remarks.includes("LIST")) {
+            //     manage2_0_0.manage2_0_0(remarks)
+            // }
+            // if (remarks.includes("1.0.0") && remarks.includes("LIST")) {
+            //     manage1_0_0.manage1_0_0(remarks)
+            // }
         }
     });
 }
