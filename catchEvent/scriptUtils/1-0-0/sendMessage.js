@@ -41,9 +41,13 @@ function getMetadataAndImage(url2, chatId, caption) {
     xhr2.onreadystatechange = function() {
         if (xhr2.readyState == 4) {
             img = JSON.parse(xhr2.responseText).image
+	    if( img != undefined && img!=""){
             let temp = img.substring(6, img.lenght)
             let objectPhoto = `https://gateway.pinata.cloud`+temp
             sendNormalPhoto(chatId,objectPhoto, caption);
+	    }else{
+		    sendMessage(chatId,caption);
+	    }
         }
     }
     xhr2.open('GET', url2, true);

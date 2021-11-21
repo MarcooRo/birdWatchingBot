@@ -34,8 +34,10 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     if (filterUser[0] == 1) {
         return true // all 
     }
-    if(nft != 0 || collection != 0){
+    if(nft != 0 ){
         if(NFT.includes(nft)) return true
+    }
+    if(collection != 0){
         if(COLLECTION.includes(collection)) return true
     }
     return false

@@ -114,7 +114,7 @@ bot.on('callback_query', (ctx) => { // Callback Query
             ctx.deleteMessage()
             let result = "";
             for (key in filters[ctx.chat.id]) result += (filters[ctx.chat.id][key]);
-            db.addUser(bot, ctx.chat.id, result, collection[ctx.chat.id],nft[ctx.chat.id], priceLimits[ctx.chat.id])
+            db.addUser(bot, ctx.chat.id, result, nft[ctx.chat.id],collection[ctx.chat.id], priceLimits[ctx.chat.id])
             break
         case 'Stop':
             ctx.deleteMessage()
