@@ -76,3 +76,4 @@ exports.sendPhoto = (chatId, message, caption) => {
     xhr.open('GET', url, true);
     xhr.send(null);
 }
+//RMRK::LIST::1.0.0::10195711-0a8ce195286c168f19-DONKEY-DONKEY_GANG_039-0000000000000039::4900000000000

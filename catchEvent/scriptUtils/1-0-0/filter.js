@@ -8,7 +8,7 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     var remarkSplit = remark.split('::');
     let id = remarkSplit[3]
     console.log(id)
-    Filter.id = id // singol NFT - 5105000-0aff6865bed3a66b-VALHELLO-POTION_HEAL-0000000000000001
+    Filter.nft = id // singol NFT - 5105000-0aff6865bed3a66b-VALHELLO-POTION_HEAL-0000000000000001
 
     var idSplit = id.split('-')
     let collection = idSplit[1] + "-" + idSplit[2]
@@ -28,6 +28,8 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
 
     var NFT = filterMessage.nft.toString()
     var COLLECTION = filterMessage.collection.toString()
+
+    console.log(NFT + "  ----   " + COLLECTION)
     if (priceLimit != 0) {
         if (filterMessage.price <= priceLimit) return true
     }
