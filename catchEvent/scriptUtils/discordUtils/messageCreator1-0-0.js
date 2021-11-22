@@ -21,9 +21,21 @@
      var imgDump = linkIpfs + remarkNft + '.jpg'; // Check
      var thumb = imgDump.split('/'); // Check
      thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1]; // Check
+  
+     var remrkEvent = remarkSplit[1]; // LIST or BUY
+     switch (remrkEvent) {
+       case 'LIST':
+         var remrkEventMessage = "listed";
+         break;
+       case 'BUY':
+         var remrkEventMessage = "bought";
+         break;
+       default:
+        var remrkEventMessage = "seen";
+     }
  
  
-     var message = 'OH!\n NFT has been listed on Singular \n' + nftName + ' \n\
+     var message = 'OH!\n NFT has been '+remrkEventMessage+' on Singular \n' + nftName + ' \n\
 Collection: ' + collection + ' \n\
 \n Price: ' + remarkPrice + ' \n\
 \n Take a look ->' + linkCatalogoComp;
