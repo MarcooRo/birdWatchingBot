@@ -1,4 +1,4 @@
-const messageCreator = require('./scriptUtils/2-0-0/messageCreator.js');
+const messageCreator = require('./scriptUtils/1-0-0/messageCreator.js');
 const sendMessage = require('./scriptUtils/2-0-0/sendMessage.js');
 const filterUtils = require('./scriptUtils/2-0-0/filter.js')
 const discordTest = require ('./manageDiscord.js')
