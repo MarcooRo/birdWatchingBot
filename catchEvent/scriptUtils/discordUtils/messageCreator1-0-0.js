@@ -23,10 +23,10 @@
      thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1]; // Check
  
  
-     var message = 'OH!\n\ ' + nftName + 'has been listed \n\
- Collection: ' + collection + ' \n\
- Price: ' + remarkPrice + ' \n\
- Take a look ->' + linkCatalogoComp;
+     var message = 'OH!\n NFT has been listed on Singular \n' + nftName + ' \n\
+Collection: ' + collection + ' \n\
+\n Price: ' + remarkPrice + ' \n\
+\n Take a look ->' + linkCatalogoComp;
  
      const embed = new MessageEmbed()
          .setColor('#0099ff')
