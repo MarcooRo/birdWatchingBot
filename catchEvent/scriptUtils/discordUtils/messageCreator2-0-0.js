@@ -1,4 +1,4 @@
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 /***************************
  * FILTER UTILITY
@@ -37,9 +37,20 @@ exports.buildMessage = function buildMessage(remark) {
         ["numberId", nftType[4]] // 00004594, 00000066, 00000017
     ]);
     var nftTypJson = Object.fromEntries(nftTypeObj);
-    var remarkPrice = (remarkSplit[4]/1000000000000)/0.95
-    var imgDump = 'https://kanaria-img.rmrk.link/1635945800349/jpeg/'+rmrkJson.nft+'.jpg';
+    var remarkPrice = (remarkSplit[4] / 1000000000000) / 0.95
+    var imgDump = 'https://kanaria-img.rmrk.link/1635945800349/jpeg/' + rmrkJson.nft + '.jpg';
 
+    var remrkEvent = remarkSplit[1]; // LIST or BUY
+    switch (remrkEvent) {
+        case 'LIST':
+            var remrkEventMessage = "listed";
+            break;
+        case 'BUY':
+            var remrkEventMessage = "bought";
+            break;
+        default:
+            var remrkEventMessage = "seen";
+    }
 
     var thumb = imgDump.split('/');
     thumb = thumb[thumb.length - 2] + "/" + thumb[thumb.length - 1];
@@ -97,21 +108,21 @@ exports.buildMessage = function buildMessage(remark) {
             break;
     }
 
-var message = `OMG  \n\A ` + nome + " has been listed\n\
+    var message = `OMG  \n\A ` + nome + " has been " + remrkEventMessage + "\n\
 \n" + text + "\n\
-\nPrice: " + remarkPrice + " KSM\n"
-+ `\nLink del catalogo ->${linkCatalogoComp}
+\nPrice: " + remarkPrice + " KSM\n" +
+        `\nLink del catalogo ->${linkCatalogoComp}
 \n Link immagine ->${imgDump}`;
 
     const embed = new MessageEmbed()
-    .setColor('#0099ff')
-    .setTitle('KANARIA RMRK 2.0.0')
-    .setURL(`${imgDump}`)
-    .setAuthor('BirdWatchingBot')
-    .setDescription(`${message}`)
-    .setThumbnail(`${imgDump}`)
-    .setImage(`${imgDump}`)
-    .setTimestamp()
-    .setFooter('Charging of photo can take some time because the photo may cannot exhist at the moment of event');
+        .setColor('#0099ff')
+        .setTitle('KANARIA RMRK 2.0.0')
+        .setURL(`${imgDump}`)
+        .setAuthor('BirdWatchingBot')
+        .setDescription(`${message}`)
+        .setThumbnail(`${imgDump}`)
+        .setImage(`${imgDump}`)
+        .setTimestamp()
+        .setFooter('Charging of photo can take some time because the photo may cannot exhist at the moment of event');
     return embed
 }
