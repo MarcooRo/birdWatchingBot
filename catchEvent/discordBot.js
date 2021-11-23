@@ -45,7 +45,7 @@ bot.on("message", function(message) {
                 start = 1
                 channels.List1.send('Bot started')
             }else{
-                channels.List1.send('Bot int running')
+                channels.List1.send('Bot in running')
             }
             break
         case '!test':

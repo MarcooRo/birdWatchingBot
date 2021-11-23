@@ -98,14 +98,14 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     if (priceLimit != 0) {
         if (filterMessage.price > priceLimit) return false
     }
-    if (filterUser[0] == 1) {
+    if (filterUser[0] == 1) {   
         return true // all 
     }
     if (filterUser[1] == 1) {
         return  (filterMessage.isBird == 1)
     } // only Kanaria Bird
 
-    //tipi di oggetti
+    //tipi di oggetti e rar
     for (var i = 1; i < filterUser.length; i++) {
         if (filterUser[i] == 1) {
             if (stringFilterMessage[i] == 0) return false
