@@ -26,7 +26,7 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
 
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser ,nft, collection, priceLimit) {
 
-    var NFT = filterMessage.nft.toString()
+    var NFT = filterMessage.nft.toLowerCase().toString()
     var COLLECTION = filterMessage.collection.toLowerCase().toString()
 
     if (filterUser[0] == 1) {
@@ -38,7 +38,7 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     }
 
     if(nft != 0 ){
-        if(!NFT.includes(nft)) return false
+        if(!NFT.includes(nft).toLowerCase()) return false
     }
     if(collection != 0){
         if(!COLLECTION.includes(collection.toLowerCase())) return false
