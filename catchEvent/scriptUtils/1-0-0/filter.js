@@ -38,7 +38,7 @@ exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage
     }
 
     if(nft != 0 ){
-        if(!NFT.includes(nft).toLowerCase()) return false
+        if(!NFT.includes(nft.toLowerCase())) return false
     }
     if(collection != 0){
         if(!COLLECTION.includes(collection.toLowerCase())) return false
