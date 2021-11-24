@@ -1,4 +1,4 @@
-//2-0-0
+//1-0-0
 const messageCreator = require('./scriptUtils/1-0-0/messageCreator.js');
 const sendMessage = require('./scriptUtils/1-0-0/sendMessage.js');
 const filterUtils = require('./scriptUtils/1-0-0/filter.js')
@@ -7,7 +7,6 @@ let pool = require('./scriptUtils/1-0-0/Db.js')
 
 exports.manage1_0_0 = function manage1_0_0(remarks) {
 let message = messageCreator.buildMessage(remarks)
-
     if(message.price != 0) {
         let messageFilter = filterUtils.prepareFilterMesage(remarks)
         pool.pool.getConnection(function(err, connection) {
