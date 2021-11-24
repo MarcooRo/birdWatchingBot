@@ -1,5 +1,6 @@
 FROM node:alpine
 COPY ./bot1-0-0 /usr/app/bot1-0-0
 WORKDIR /usr/app/bot1-0-0
+RUN npm i -g forever
 RUN npm install
-CMD [ "npm", "run", "devserver"]
+CMD [ "forever", "bot.js"]

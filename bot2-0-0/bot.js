@@ -84,7 +84,6 @@ bot.on('callback_query', (ctx) => {
     let cmd = ctx.callbackQuery.data
     switch(cmd) {
         case 'price':
-            //ctx.deleteMessage()
             bot.telegram.sendMessage(ctx.chat.id, "Insert your price limit for your filter in this way /priceLimit 0.03 or /priceLimit 5", {parse_mode: "Markdown"})
             break;
         case 'Indietro':

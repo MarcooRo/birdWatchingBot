@@ -35,11 +35,11 @@ exports.sendFilterMenu = function sendFilterMenu(ctx, bot, filter) {
                 ],
                 [
                     { text: (filter.SuperFunder ? `Super Funder ${checked}` : 'Super Funder'), callback_data: 'SuperFunder' },
-                    { text: (filter.Funder ? `Funder ${checked}` : 'Funder'), callback_data: 'Funder' }
+                    { text: (filter.Funder ? `Bird Funder ${checked}` : 'Funder'), callback_data: 'Funder' }
                 ],
                 [
-                    { text: (filter.Rare ? `Rare ${checked}` : 'Rare'), callback_data: 'Rare' },
-                    { text: (filter.Limited ? `Limited ${checked}` : 'Limited'), callback_data: 'Limited' }
+                    { text: (filter.Rare ? `Bird Rare ${checked}` : 'Rare'), callback_data: 'Rare' },
+                    { text: (filter.Limited ? `Bird Limited ${checked}` : 'Limited'), callback_data: 'Limited' }
                 ],
                 [
                     { text: (filter.BackPack ? `BackPack ${checked}` : 'BackPack'), callback_data: 'BackPack' },

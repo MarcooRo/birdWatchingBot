@@ -1,5 +1,6 @@
 FROM node:alpine
 COPY ./bot /usr/app/bot
 WORKDIR /usr/app/bot
+RUN npm i -g forever
 RUN npm install
-CMD [ "forever", "discordBot.js"]
+CMD [ "node", "discordBot.js"]

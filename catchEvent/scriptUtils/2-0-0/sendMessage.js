@@ -1,5 +1,4 @@
 const TOKEN = "2133146268:AAEMZDpDy6mihaGugxUTuDwtFZ6PgMAtWww";
-//1991386673:AAHd1SiiQAzRVDpM0liFyJYmWs4G3Bg5YMM
 const axios = require('axios')
 const  XMLHttpRequest = require ('xhr2');
 const linkCatalogo = "https://kanaria.rmrk.app/catalogue/";
@@ -43,8 +42,8 @@ function getMetadataAndImage(url2, chatId, caption, message) {
             img = JSON.parse(xhr2.responseText).image
             let temp = img.substring(6, img.lenght)
             let objectPhoto = `https://gateway.pinata.cloud`+temp
-            caption += `Rarity: `+JSON.parse(xhr2.responseText).properties.rarity.value+`\n` // rare, epic, commun, ecc..
-            caption += `Number of copy: `+JSON.parse(xhr2.responseText).properties.total_count.value // how many same items there are
+            caption += `Rarity: `+JSON.parse(xhr2.responseText).properties.rarity.value+`\n`
+            caption += `Number of copy: `+JSON.parse(xhr2.responseText).properties.total_count.value
             caption += `\n\n<a href="`+message.link+`">Take a Look --> </a>`
             sendNormalPhoto(chatId,objectPhoto, caption);
         }
@@ -64,12 +63,11 @@ exports.sendPhoto = (chatId, message, caption) => {
                 let img = JSON.parse(xhr.responseText).image
                 
                 if(img != '' && img != undefined){
-                    console.log("uccello")
+                    caption += `\n\n<a href="`+message.link+`">Take a Look --> </a>`
                     sendNormalPhoto(chatId, img, caption)
                 } else {
                     let url2 = JSON.parse(xhr.responseText).metadata
                     let temp = url2.substring(6, url2.lenght)
-                    //https://rmrk.mypinata.cloud/ipfs/bafkreiffrshcj4kjeh4vd2icgtcj4blrzarf64fjwj5x2qwwkk2xtya7u4
                     getMetadataAndImage('https://rmrk.mypinata.cloud'+temp, chatId, caption, message)
                 }
 

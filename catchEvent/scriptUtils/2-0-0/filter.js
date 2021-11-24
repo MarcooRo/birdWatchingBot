@@ -34,8 +34,6 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
                 "isBird": 0,
                 "price": 0
             }
-            // toDo: add price
-            // toDo: add switch per cercare info slot in EVNTS
 
         if (remark.includes(kanbirdSuperFounder)) Filter.SuperFunder = 1
         if (remark.includes(kanbirdFounder)) Filter.Funder = 1

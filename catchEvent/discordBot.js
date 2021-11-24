@@ -3,7 +3,6 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const messageCreator = require('./scriptUtils/discordUtils/messageCreator2-0-0.js');
 const token = process.env.BOT_DISCORD_TOKEN
 bot.login("OTA3NDE0MDc2MjgyNTIzNzAw.YYm1Ng.RAkoZko32XCOAKwi9P2hEH7Bfqs")
-//const botStart = require('./catchEvent.js')
 let channels;
 let start = 0
 
