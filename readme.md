@@ -8,8 +8,8 @@
 Here you can find the live BOTs
 </p>
   <ul>
-    <li>Telegram Kanaria LIST:</li>
-    <li>Telegram Singular LIST:</li>
+  <li>Telegram Kanaria LIST: <a href:'@birdWatchingRMRKBot'>@birdWatchingRMRKBot</a></li>
+    <li>Telegram Singular LIST: <a href:'@watchingSingularBot'>@watchingSingularBot</a></li>
     <li>Discord Kanara All LIST:</li>
     <li>Discord Kanaria All BUY:</li>
   </ul>
