@@ -1,1 +1,0 @@
-# rsync -avPR --no-relative --chown=root:root --perms ./birdWatchingBot  root@161.97.119.14:/birdWatchingBo

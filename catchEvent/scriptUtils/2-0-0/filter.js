@@ -86,10 +86,7 @@ exports.prepareFilterMesage = function prepareFilterMesage(remark) {
     }
     //allList,allBird,SuperFunder,Funder,Rare,Limited,BackPack,Background,Foreground,Headwear,Handheld,Necklace
 exports.checkFilterMessage_User = function checkFilterMessage_User(filterMessage, filterUser, priceLimit) {
-    let stringFilterMessage = ""
-        console.log("filter del messaggio")
-        console.log(filterMessage)
-        console.log("filter Utente"+filterUser)
+    let stringFilterMessage = '';
     for (key in filterMessage) {
         stringFilterMessage += (filterMessage[key]);
     }
