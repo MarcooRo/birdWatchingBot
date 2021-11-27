@@ -27,11 +27,11 @@ Each container is running with <code>forever.js</code> to make sure to perform a
 
 <h4>List of commands</h4>
 <p>
-1. docker-compose build // create images from docker-compose.yml
-2. docker-compose up -d mysql1-0-0 mysql2-0-0 phpmyadmin1 phpmyadmin2 
-3. import SQL databases via control panel phpmyadmin
-4. docker-compose up -d bot1-0-0 bot 2-0-0  // activate telegram bots and interfaces
-5. docker-compose up nodejs // RUN del watcher events
+1. <code>docker-compose build</code> // create images from docker-compose.yml<br>
+2. <code>docker-compose up -d mysql1-0-0 mysql2-0-0 phpmyadmin1 phpmyadmin2</code><br>
+3. import SQL databases via control panel phpmyadmin<br>
+4. <code>docker-compose up -d bot1-0-0 bot 2-0-0</code>  // activate telegram bots and interfaces<br>
+5. <code>docker-compose up nodejs</code> // RUN del watcher events<br>
 </p>
 
 <p>The tools is divided into several part:<br>
