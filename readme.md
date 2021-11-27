@@ -14,23 +14,34 @@ Here you can find the live BOTs
     <li>Discord Kanaria All BUY:</li>
   </ul>
   
-<h2>Installation</h2>
+<h2>Installation & Usage</h2>
 <p>Note: NodeJS 14+ is required and also NPM<br><br>
 <code>
   git clone https://github.com/MarcooRo/birdWatchingBot.git
 </code>
- <br><br>
-  Both the root and the folder must be initialized <code>npm i</code></p>
+<br><br>
+Both the root and the folder must be initialized <code>npm i</code></p>
+<br><br>
+<p>The project uses docker to separate all the components that make up the project, the infrastructure is composed of containers: <code>bot1-0-0</code>, <code>bot2-0-0</code> for the user interface on telegram. <code>mysql1</code>, <code>mysql2</code> for user management and set filters. Two database monitoring services: <code>phphmyadmin1</code>, <code>phpmyadmin2</code>.
+Each container is running with <code>forever.js</code> to make sure to perform an auto rebuild of the script in case of malfunction</p> 
 
-<h2>Usage</h2>
+<h4>List of commands</h4>
+<p>
+1. docker-compose build // create images from docker-compose.yml
+2. docker-compose up -d mysql1-0-0 mysql2-0-0 phpmyadmin1 phpmyadmin2 
+3. import SQL databases via control panel phpmyadmin
+4. docker-compose up -d bot1-0-0 bot 2-0-0  // activate telegram bots and interfaces
+5. docker-compose up nodejs // RUN del watcher events
+</p>
+
 <p>The tools is divided into several part:<br>
   <ul>
     <li><b>catchEvents.js</b><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
     <li><b>scriptUtils folder</b><br>In this folder the Remark is analyzed and the message is generated.</li>  
-    <li><b>Bot1-0-0 & Bot2-0-0 folder</b><br>Is where you manage the bot and send messages.</li>
   </ul>
+</p>
   
- <h2>Possibilità</h2>
+ <h2>Possibility</h2>
   <p>We have split the scripts so that the bots are highly customizable, we invite you to visit the page of <a href="https://github.com/rmrk-team/rmrk-spec" target="_blank">Remerk Spec</a> where to find all the events that can be intercepted in the block, such as MINT and the others. Have fun!</p>
   
  <h2>Note</h2>
