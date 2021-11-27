@@ -6,6 +6,7 @@ const manage1_0_0 = require('./1-0-0.js')
 const channel = require('./discordBot.js')
 const manageDiscord = require('./manageDiscord.js')
 
+// watch if blocks contains system.remark and manage logic for 1.0.0 2.0.0 for telegram and discord server
 const getRemark = async function getRemark(api, hederNumber) {
     const blockHash = await api.rpc.chain.getBlockHash(hederNumber);
     const signedBlock = await api.rpc.chain.getBlock(blockHash);
@@ -24,7 +25,7 @@ const getRemark = async function getRemark(api, hederNumber) {
         }
     });
 }
-
+// start function to explore all last block number 
 function botStart() {
     (async() => {
         console.log("SCAN STARTED")
