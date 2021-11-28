@@ -37,6 +37,7 @@ Each container is running with <code>forever.js</code> to make sure to perform a
   <ul>
     <li><b>catchEvents.js</b><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
     <li><b>scriptUtils folder</b><br>In this folder the Remark is analyzed and the message is generated.</li>  
+    <li><b>discordBot.js, discordUtils and manageDiscord.js</b><br>They manage the creation and sending of the message to the discord bots. Discord message are. Discord messages are sent in embed. They are always divided into remerk 1.0.0 and 2.0.0. a channel for the list and one for the buy.
   </ul>
 </p>
   
