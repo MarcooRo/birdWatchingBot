@@ -19,18 +19,18 @@ Here you can find the live BOTs
   git clone https://github.com/MarcooRo/birdWatchingBot.git
 </code>
 <br><br>
-Both the root and the folder must be initialized <code>npm i</code></p>
-<br><br>
+Both the root and the folder must be initialized <code>npm i</code>
+</p>
 <p>The project uses docker to separate all the components that make up the project, the infrastructure is composed of containers: <code>bot1-0-0</code>, <code>bot2-0-0</code> for the user interface on telegram. <code>mysql1</code>, <code>mysql2</code> for user management and set filters. Two database monitoring services: <code>phphmyadmin1</code>, <code>phpmyadmin2</code>.
 Each container is running with <code>forever.js</code> to make sure to perform an auto rebuild of the script in case of malfunction</p> 
 
 <h4>List of commands</h4>
 <p>
-1. <code>docker-compose build</code> // create images from docker-compose.yml<br>
+1. <code>docker-compose build</code> Create images from docker-compose.yml<br>
 2. <code>docker-compose up -d mysql1-0-0 mysql2-0-0 phpmyadmin1 phpmyadmin2</code><br>
-3. import SQL databases via control panel phpmyadmin<br>
-4. <code>docker-compose up -d bot1-0-0 bot 2-0-0</code>  // activate telegram bots and interfaces<br>
-5. <code>docker-compose up nodejs</code> // RUN del watcher events<br>
+3. Import SQL databases via control panel phpmyadmin<br>
+4. <code>docker-compose up -d bot1-0-0 bot 2-0-0</code> Activate telegram bots and interfaces<br>
+5. <code>docker-compose up nodejs</code> RUN del watcher events<br>
 </p>
 
 <p>The tools is divided into several part:<br>
