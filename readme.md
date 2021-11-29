@@ -8,8 +8,8 @@
 Here you can find the live BOTs
 </p>
   <ul>
-  <li>Telegram Kanaria LIST: <a href:'https://telegram.me/birdWatchingRMRKBot'>@birdWatchingRMRKBot</a></li>
-    <li>Telegram Singular LIST: <a href:'https://telegram.me/watchingSingularBot'>@watchingSingularBot</a></li>
+  <li>Telegram Kanaria LIST: <a href='https://telegram.me/birdWatchingRMRKBot'>@birdWatchingRMRKBot</a></li>
+    <li>Telegram Singular LIST: <a href='https://telegram.me/watchingSingularBot'>@watchingSingularBot</a></li>
     <li>Discord Kanara & Singular with channel for All LIST & BUY: <a href="https://discord.gg/Sxb8cXJD">Discord link</a></li>
   </ul>
   
@@ -35,9 +35,9 @@ Each container is running with <code>forever.js</code> to make sure to perform a
 
 <p>The tools is divided into several part:<br>
   <ul>
-    <li><b>catchEvents.js</b><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
-    <li><b>scriptUtils folder</b><br>In this folder the Remark is analyzed and the message is generated.</li>  
-    <li><b>discordBot.js, discordUtils and manageDiscord.js</b><br>They manage the creation and sending of the message to the discord bots. Discord message are. Discord messages are sent in embed. They are always divided into remerk 1.0.0 and 2.0.0. a channel for the list and one for the buy.
+    <li><code>catchEvents.js</code><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
+    <li><code>scriptUtils folder</code><br>In this folder the Remark is analyzed and the message is generated.</li>  
+    <li><code>discordBot.js, discordUtils & manageDiscord.js</code><br>They manage the creation and sending of the message to the discord bots. Discord message are. Discord messages are sent in embed. They are always divided into remerk 1.0.0 and 2.0.0. a channel for the list and one for the buy.
   </ul>
 </p>
   
