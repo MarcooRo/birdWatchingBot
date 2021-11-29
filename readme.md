@@ -14,7 +14,7 @@ Here you can find the live BOTs
   </ul>
   
 <h2>Installation & Usage</h2>
-<p>Note: NodeJS 14+ is required and also NPM<br><br>
+<p>Note: NodeJS 16+ is required and also NPM<br><br>
 <code>
   git clone https://github.com/MarcooRo/birdWatchingBot.git
 </code>
