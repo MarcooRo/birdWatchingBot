@@ -37,7 +37,9 @@ Each container is running with <code>forever.js</code> to make sure to perform a
   <ul>
     <li><code>catchEvents.js</code><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
     <li><code>scriptUtils folder</code><br>In this folder the Remark is analyzed and the message is generated.</li>  
-    <li><code>discordBot.js, discordUtils & manageDiscord.js</code><br>They manage the creation and sending of the message to the discord bots. Discord message are. Discord messages are sent in embed. They are always divided into remerk 1.0.0 and 2.0.0. a channel for the list and one for the buy.
+    <li><code>discordBot.js, discordUtils & manageDiscord.js</code><br>They manage the creation and sending of the message to the discord bots. Discord message are. Discord messages are sent in embed. They are always divided into remerk 1.0.0 and 2.0.0. a channel for the list and one for the buy.</li> 
+    <li><code>dumpbuild folder</code><br>
+      We have built a script that destructures the dump provided by the official remerk documentation, here, this creates subfolders categorized, at the moment by type of object and all bird, in the folder thare is JSON file with the fields that you want to keep from the original metadata. In the script you can select which fields to keep. At the moment we hold: thumb, slot and metadata. This is just an example, we use the SOLT to determine what type of object is in the remark. We did this to create a much lighter file that is easy to pars.
   </ul>
 </p>
   
