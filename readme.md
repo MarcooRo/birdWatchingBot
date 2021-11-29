@@ -33,6 +33,8 @@ Each container is running with <code>forever.js</code> to make sure to perform a
 5. <code>docker-compose up nodejs</code> RUN del watcher events<br>
 </p>
 
+<p>You will need to add your own tokens for Telegrame and Discord chats</p>
+
 <p>The tools is divided into several part:<br>
   <ul>
     <li><code>catchEvents.js</code><br>Observe the blocks on the Kusama network and intercept the Remerks, and filter the versions.</li>  
